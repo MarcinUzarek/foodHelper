@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device=width, initial-scale=1.0">
+    <title>Recipes</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm_theme_black.css">
+</head>
+<body>
+<header>
+    <form action="#" method="post" th:action="@{/meals}">
+        <fieldset>
+            <legend>Preferences</legend>
+            <label>Choose a diet:
+                <select name="diet">
+                    <option value="">-</option>
+                    <option value="omnivore">Omnivore</option>
+                    <option value="gluten-free">Gluten Free</option>
+                    <option value="ketogenic">Ketogenic</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="lacto-vegetarian">Lacto-Vegetarian</option>
+                    <option value="ovo-vegetarian">Ovo-Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="pescetarian">Pescetarian</option>
+                    <option value="paleo">Paleo</option>
+                    <option value="primal">Primal</option>
+                    <option value="fodmap">Low FODMAP</option>
+                    <option value="whole30">Whole30</option>
+                </select>
+            </label>
+            <label>Target kcal:
+                <input type="number" name="targetCalories" value="">
+            </label>
+        </fieldset>
+        <p>
+            <button type="submit">Generate</button>
+        </p>
+    </form>
+</header>
+<main>
+    <h3>Your plan for this day:</h3>
+    <hr>
+    <table th:border="1">
+
+        <tbody>
+        <tr th:each="meal : ${mealPlan.meals}">
+            <td th:text="${meal.title}"></td>
+            <td th:text="${meal.readyInMinutes}"></td>
+            <td th:text="${meal.servings}"></td>
+            <td>
+                <a th:href="${meal.sourceUrl}" th:text="link" target="_blank"></a>
+            </td>
+            <td th:text="${mealPlan.nutrients.calories}"></td>
+            <td th:text="${mealPlan.nutrients.carbohydrates}"></td>
+            <td th:text="${mealPlan.nutrients.fat}"></td>
+            <td th:text="${mealPlan.nutrients.protein}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

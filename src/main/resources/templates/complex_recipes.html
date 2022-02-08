@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device=width, initial-scale=1.0">
+    <title>Recipes</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm_theme_black.css">
+    <style>
+        button {
+            all: unset;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <form action="#" method="post" th:action="@{/recipe/complexSearch}">
+        <fieldset>
+            <legend>Preferences</legend>
+
+            <label>Choose a cuisine:
+                <select name="cuisine">
+                    <option value="">-</option>
+                    <option value="african">African</option>
+                    <option value="american">American</option>
+                    <option value="british">British</option>
+                    <option value="caribbean">Caribbean</option>
+                    <option value="chinese">Chinese</option>
+                    <option value="eastern_european">Eastern European</option>
+                    <option value="european">European</option>
+                    <option value="french">French</option>
+                    <option value="german">German</option>
+                    <option value="greek">Greek</option>
+                    <option value="indian">Indian</option>
+                    <option value="irish">Irish</option>
+                    <option value="italian">Italian</option>
+                    <option value="japanese">Japanese</option>
+                    <option value="jewish">Jewish</option>
+                    <option value="korean">Korean</option>
+                    <option value="mediterranean">Mediterranean</option>
+                    <option value="mexican">Mexican</option>
+                    <option value="middle_eastern">Middle Eastern</option>
+                    <option value="nordic">Nordic</option>
+                    <option value="southern">Southern</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="thai">Thai</option>
+                    <option value="vietnamese">Vietnamese</option>
+                </select>
+            </label>
+
+            <label>Choose a diet:
+                <select name="diet">
+                    <option value="">-</option>
+                    <option value="omnivore">Omnivore</option>
+                    <option value="gluten-free">Gluten Free</option>
+                    <option value="ketogenic">Ketogenic</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="lacto-vegetarian">Lacto-Vegetarian</option>
+                    <option value="ovo-vegetarian">Ovo-Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="pescetarian">Pescetarian</option>
+                    <option value="paleo">Paleo</option>
+                    <option value="primal">Primal</option>
+                    <option value="fodmap">Low FODMAP</option>
+                    <option value="whole30">Whole30</option>
+                </select>
+            </label>
+
+            <label>Choose a type:
+                <select name="type">
+                    <option value="">-</option>
+                    <option value="main%20course">Main Course</option>
+                    <option value="side%20dish">Side Dish</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="appetizer">Appetizer</option>
+                    <option value="salad">Salad</option>
+                    <option value="bread">Bread</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="soup">Soup</option>
+                    <option value="beverage">Beverage</option>
+                    <option value="sauce">Sauce</option>
+                    <option value="marinade">Marinade</option>
+                    <option value="fingerfood">Fingerfood</option>
+                    <option value="snack">Snack</option>
+                    <option value="drink">Drink</option>
+                </select>
+            </label>
+
+            <label>Choose an approximate preparation time in minutes:
+            <input type="number" name="maxReadyTime" value="150">
+            </label>
+        </fieldset>
+        <p>
+            <button type="submit">Find</button>
+        </p>
+    </form>
+</header>
+<main>
+    <h3>List of matching meals</h3>
+    <hr>
+    <table th:border="1">
+
+        <tbody>
+        <tr th:each="meal : ${meals.results}">
+            <td>
+                <form th:action="@{/recipe/searchById/{id}(id=${meal.id})}">
+                    <input type="submit" value="Get Recipe"/>
+                </form>
+            </td>
+            <td>
+                    <a th:href="${meal.image}" th:text="${meal.title}" target="_blank"></a>
+            </td>
+            <td>
+                <img th:src="${meal.image}" alt="Preview unavailable">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</main>
+</body>
+</html>

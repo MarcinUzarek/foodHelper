@@ -3,13 +3,10 @@ package com.example.foodhelper.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,13 +23,14 @@ public class User {
     private String name;
 
     @Column(nullable = false, unique = true, length = 60)
-    private String username;
+    private String email;
 
     @Column(nullable = false, length = 80)
     private String password;
 
+
     @Column
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TODO: Change Eager to Lazy, modify user repo queries
     @JoinTable(
             name = "user_intolerances",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -40,6 +38,14 @@ public class User {
     )
     private Set<Intolerance> intolerances;
 
-    private String role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TODO: Change Eager to Lazy, modify user repo queries
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    private boolean isActive;
 
 }

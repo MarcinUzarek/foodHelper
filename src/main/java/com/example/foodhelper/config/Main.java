@@ -21,43 +21,43 @@ public class Main {
     private UserRepository userRepository;
 
 
-    @GetMapping("/abc")
-    private void method() {
-
-
-        Set<Intolerance> intolerances = new HashSet<>();
-        intolerances.add(new Intolerance("Miod"));
-        intolerances.add(new Intolerance("mleko"));
-        intolerances.add(new Intolerance("woda"));
-        intolerances.add(new Intolerance("sok"));
-
-
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("ADMIN"));
-        roles.add(new Role("USER"));
-
-
-        User user = new User("email", "password", "Marcin", intolerances, roles, true);
-        userRepository.save(user);
-    }
-
-    @GetMapping("/abcd")
-    private void method2() {
-
-
-        Set<Intolerance> intolerances = new HashSet<>();
-        intolerances.add(new Intolerance("Miod"));
-        intolerances.add(new Intolerance("wolowina"));
-        intolerances.add(new Intolerance("kurczak"));
-        intolerances.add(new Intolerance("chleb"));
-
-
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("ADMIN"));
-        roles.add(new Role("USER"));
-
-
-        User user = new User("email2", "password", "Marcin", intolerances, roles, false);
-        userRepository.save(user);
-    }
+//    @GetMapping("/abc")
+//    private void method() {
+//
+//
+//        Set<Intolerance> intolerances = new HashSet<>();
+//        intolerances.add(new Intolerance("Miod"));
+//        intolerances.add(new Intolerance("mleko"));
+//        intolerances.add(new Intolerance("woda"));
+//        intolerances.add(new Intolerance("sok"));
+//
+//
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(new Role("ADMIN"));
+//        roles.add(new Role("USER"));
+//
+//
+//        User user = new User("email", "password", "Marcin");
+//        userRepository.save(user);
+//    }
+//
+//    @GetMapping("/abcd")
+//    private void method2() {
+//
+//
+//        Set<Intolerance> intolerances = new HashSet<>();
+//        intolerances.add(new Intolerance("Miod"));
+//        intolerances.add(new Intolerance("wolowina"));
+//        intolerances.add(new Intolerance("kurczak"));
+//        intolerances.add(new Intolerance("chleb"));
+//
+//
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(new Role("ADMIN"));
+//        roles.add(new Role("USER"));
+//
+//
+//        User user = new User("email2", "password", "Marcin");
+//        userRepository.save(user);
+//    }
 }

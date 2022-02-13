@@ -46,6 +46,7 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    private boolean isActive;
+    @Column(name = "is_enabled")
+    private boolean isEnabled = false;
 
 }

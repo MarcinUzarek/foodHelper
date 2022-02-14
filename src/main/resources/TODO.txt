@@ -1,0 +1,11 @@
+
+//done: User can check his account with his info
+//done: User can add his allergies or intolerances in his panel
+//TODO: User can delete his allergies or intolerances in his panel
+//TODO: If logged on Moderator/Admin, u can add someone new role
+//TODO: Admin can delete any account
+//TODO: add option to change password
+//TODO: add possibility to store favourite meals
+//TODO: handle situation where user is trying to add same product to set
+//TODO:
+//TODO: ADD SOME HTML/CSS to make it look at least tolerably

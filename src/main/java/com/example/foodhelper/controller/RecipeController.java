@@ -2,7 +2,6 @@ package com.example.foodhelper.controller;
 
 import com.example.foodhelper.service.RecipeService;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
-import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ class RecipeController {
         ComplexSearchDTO results = new ComplexSearchDTO();
         model.addAttribute("meals", results);
 
-        return "complex_recipes";
+        return "complex-recipes";
     }
 
     @PostMapping("/complexSearch")
@@ -38,7 +37,7 @@ class RecipeController {
                 type, maxReadyTime);
         model.addAttribute("meals", results);
 
-        return "complex_recipes";
+        return "complex-recipes";
     }
 
     @GetMapping(path = "/searchById/{id}")

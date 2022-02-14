@@ -20,7 +20,7 @@ public class MealPlannerController {
     String getMealPlan(Model model) {
         MealPlannerDTO mealPlan = new MealPlannerDTO();
         model.addAttribute("mealPlan", mealPlan);
-        return "meal_planner";
+        return "meal-planner";
     }
 
     @PostMapping
@@ -30,6 +30,6 @@ public class MealPlannerController {
         var mealPlan = recipeService.getMealPlan(targetCalories, diet);
         model.addAttribute("mealPlan", mealPlan);
 
-        return "meal_planner";
+        return "meal-planner";
     }
 }

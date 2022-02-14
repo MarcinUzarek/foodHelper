@@ -3,6 +3,7 @@ package com.example.foodhelper.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
@@ -28,7 +30,6 @@ public class User {
     @Column(nullable = false, length = 80)
     private String password;
 
-
     @Column
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TODO: Change Eager to Lazy, modify user repo queries
     @JoinTable(
@@ -36,7 +37,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Intolerance> intolerances;
+    private Set<Intolerance> intolerances = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TODO: Change Eager to Lazy, modify user repo queries
     @JoinTable(

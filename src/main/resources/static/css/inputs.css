@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+select {
+    box-shadow: none;
+    background: #ebf1f7;
+    flex: 1;
+    padding: 0 .5em;
+    color: black;
+    cursor:pointer;
+    font-size: 1.3em;
+}
+
+.select {
+    position: relative;
+    display: flex;
+    margin-bottom: 30px;
+    width: 30vw;
+    height: 5vh;
+    line-height: 3;
+    background: #5c6664;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 15px;
+    background: #5c6664;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.3s all ease;
+}
+.select:hover::after {
+    color: #fac52c;
+}
+
+fieldset {
+    margin: 2em 0;
+    padding: 1em 2em;
+    border: solid 1px #ccc;
+    border-radius: 20px;
+    min-width: 200px;
+}
+
+legend {
+    font-size: 1.25em;
+    padding: 0 0.25em;
+    color: #999;
+}
+
+label {
+    display: block;
+    margin-top: 0.5em;
+}
+
+input {
+    background: #ebf1f7;
+    width: 30vh;
+    height: 5vh;
+    overflow: hidden;
+    font-size: 1.3em;
+    padding: 0 15px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.button {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #fac52c, #FF7E31);
+    border-radius: 16px;
+    font-size: 1.2em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    height: 5vh;
+    line-height: 5vh;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 20%;
+    z-index: 9;
+    border: 0;
+    transition: box-shadow .2s;
+}
+
+.button:hover {
+    box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+}
+

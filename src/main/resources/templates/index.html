@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MMC School</title>
+    <script src="https://kit.fontawesome.com/693c25552b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="../static/css/inputs.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+<header class="header">
+    <div class="hero-bg"></div>
+    <div class="logo">
+        <h2>App<span class="foodie-span">Foodie</span></h2>
+    </div>
+    <div class="hero-text">
+        <h1>App<span class="foodie-span">Foodie</span></h1>
+        <p>To make your life in kitchen much easier</p>
+    </div>
+
+</header>
+<nav>
+        <div class="nav-items">
+            <a href="#">home</a>
+            <a href="#about-me">about me</a>
+            <a href="#find-recipe">Find Recipe</a>
+            <a href="#meal-plan">meal plan</a>
+            <a href="#contacts">Contact</a>
+        </div>
+</nav>
+
+<main>
+    <section class="about-me wrapper" id="about-me">
+        <h2 class="section-title">about me</h2>
+        <p class="about-me-info">Hi! I'm Marcin, young man who is passionate with Java
+            and technologies. I'm making my first steps in backend world. This page was created to
+            practice and consolidate gained knowledge. I'm also hopeful that it can help
+            You with Your diet.</p>
+        <p class="about-me-info">After registering on the page and verifying your email
+            you will be able to find cool recipes from all around the world including
+            Your preferences like cousinie, diet, allergies and few more. You will also be able
+            to generate meal plan for whole day with chosen calories. Have fun using this app
+            and feel free to contact with me!</p>
+    </section>
+
+    <section class="products" id="find-recipe">
+        <h2 class="section-title">find recipe</h2>
+
+        <div class="products-box">
+            <div class="product first-product">
+                <div class="hero-bg"></div>
+                <div class="hero-text">
+                    <h3>find personalized meal by filling the form</h3>
+                </div>
+            </div>
+        </div>
+
+        <form class="wrapper" action="#" method="post" th:action="@{/recipe/complexSearch}">
+            <fieldset>
+                <legend>Preferences</legend>
+
+                <h3>cuisine:</h3>
+                <label class="select">
+                    <select name="cuisine">
+                        <option value="">-</option>
+                        <option value="african">African</option>
+                        <option value="american">American</option>
+                        <option value="british">British</option>
+                        <option value="caribbean">Caribbean</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="eastern_european">Eastern European</option>
+                        <option value="european">European</option>
+                        <option value="french">French</option>
+                        <option value="german">German</option>
+                        <option value="greek">Greek</option>
+                        <option value="indian">Indian</option>
+                        <option value="irish">Irish</option>
+                        <option value="italian">Italian</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="jewish">Jewish</option>
+                        <option value="korean">Korean</option>
+                        <option value="mediterranean">Mediterranean</option>
+                        <option value="mexican">Mexican</option>
+                        <option value="middle_eastern">Middle Eastern</option>
+                        <option value="nordic">Nordic</option>
+                        <option value="southern">Southern</option>
+                        <option value="spanish">Spanish</option>
+                        <option value="thai">Thai</option>
+                        <option value="vietnamese">Vietnamese</option>
+                    </select>
+                    <span class="custom-arrow"></span>
+                </label>
+
+                <h3>diet:</h3>
+                <label class="select">
+                    <select name="diet">
+                        <option value="">-</option>
+                        <option value="omnivore">Omnivore</option>
+                        <option value="gluten-free">Gluten Free</option>
+                        <option value="ketogenic">Ketogenic</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="lacto-vegetarian">Lacto-Vegetarian</option>
+                        <option value="ovo-vegetarian">Ovo-Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="pescetarian">Pescetarian</option>
+                        <option value="paleo">Paleo</option>
+                        <option value="primal">Primal</option>
+                        <option value="fodmap">Low FODMAP</option>
+                        <option value="whole30">Whole30</option>
+                    </select>
+                    <span class="custom-arrow"></span>
+                </label>
+
+                <h3>type:</h3>
+                <label class="select">
+                    <select name="type">
+                        <option value="">-</option>
+                        <option value="main%20course">Main Course</option>
+                        <option value="side%20dish">Side Dish</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="appetizer">Appetizer</option>
+                        <option value="salad">Salad</option>
+                        <option value="bread">Bread</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="soup">Soup</option>
+                        <option value="beverage">Beverage</option>
+                        <option value="sauce">Sauce</option>
+                        <option value="marinade">Marinade</option>
+                        <option value="fingerfood">Fingerfood</option>
+                        <option value="snack">Snack</option>
+                        <option value="drink">Drink</option>
+                    </select>
+                    <span class="custom-arrow"></span>
+                </label>
+
+                <h3>Approximate preparation time in minutes:</h3>
+                <label class="number">
+                    <input type="number" name="maxReadyTime" value="150">
+                </label>
+            </fieldset>
+            <p>
+                <button class="button" type="submit">Find</button>
+            </p>
+        </form>
+    </section>
+
+    <section class="products" id="meal-plan">
+        <h2 class="section-title">Meal plan</h2>
+
+        <div class="products-box">
+            <div class="product second-product">
+                <div class="hero-bg"></div>
+                <div class="hero-text">
+                    <h3>Generate meal plan</h3>
+                </div>
+            </div>
+        </div>
+
+        <form class="wrapper" action="#" method="post" th:action="@{/meals}">
+            <fieldset>
+                <legend>Preferences</legend>
+                <h3>Choose a diet:</h3>
+                <label class="select">
+                    <select name="diet">
+                        <option value="">-</option>
+                        <option value="omnivore">Omnivore</option>
+                        <option value="gluten-free">Gluten Free</option>
+                        <option value="ketogenic">Ketogenic</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="lacto-vegetarian">Lacto-Vegetarian</option>
+                        <option value="ovo-vegetarian">Ovo-Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="pescetarian">Pescetarian</option>
+                        <option value="paleo">Paleo</option>
+                        <option value="primal">Primal</option>
+                        <option value="fodmap">Low FODMAP</option>
+                        <option value="whole30">Whole30</option>
+                    </select>
+                    <span class="custom-arrow"></span>
+                </label>
+                <h3>Choose target kcal:</h3>
+                <label>
+                    <input type="number" name="targetCalories" value="2000">
+                </label>
+            </fieldset>
+            <p>
+                <button class="button" type="submit">Generate</button>
+            </p>
+        </form>
+
+    </section>
+
+    <section class="contact wrapper" id="contacts">
+        <h2>contact</h2>
+        <p><i class="fas fa-phone"></i>+48 501 718 252</p>
+        <p><i class="fas fa-at"></i>uzarek@gmail.com</p>
+
+    </section>
+</main>
+
+<footer>
+    <p> 2022 | Marcin Uzarek |
+        <a href="https://github.com/MarcinUzarek?tab=repositories" target="_blank"><i
+                class="fa-brands fa-github-square"></i></a>
+        <a href="https://www.facebook.com/marcin.uzarek.12" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+    </p>
+</footer>
+</body>
+
+</html>

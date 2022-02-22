@@ -1,0 +1,182 @@
+:root {
+    --orange: #cc9f1a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hero-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.hero-text h1 {
+    margin-bottom: 5px;
+    font-size: 45px;
+    text-shadow: 3px 3px 5px black;
+    color: white;
+}
+
+.hero-text p {
+    font-size: 25px;
+    text-shadow: 0 0 5px black;
+}
+
+.foodie-span {
+    text-transform: uppercase;
+    color: var(--orange);
+}
+
+.logo {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 2vh 1vw;
+    justify-content: flex-start;
+    text-shadow: 3px 3px 5px black;
+    border: 3px solid white;
+    color: white;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    height: 6vh;
+    line-height: 6vh;
+    background-color: #ddd;
+    text-align: center;
+    z-index: 10;
+}
+
+.nav-items a {
+    padding: 0 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #333333;
+    transition: 0.3s;
+    letter-spacing: 2px;
+    word-spacing: 3px;
+}
+
+.nav-items a:hover {
+    color: #fac52c;
+    text-shadow: 0 0 5px black;
+}
+
+.header {
+    position: relative;
+    background-image: url("../img/pancakes.jpg");
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.section-title {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 30px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+main {
+    margin: 50px 0;
+}
+
+.about-me-info {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.products {
+    margin: 60px auto;
+}
+
+.product h3 {
+    font-size: 20px;
+    transition: transform 0.3s;
+    text-shadow: 0 0 5px black;
+
+}
+
+.products h3 {
+    text-transform: uppercase;
+}
+
+.product {
+    display: inline-block;
+    position: relative;
+    height: 45vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    background-attachment: fixed;
+}
+
+.product:hover h3 {
+    transform: scale(1.7);
+}
+
+
+.products-box {
+    font-size: 0;
+}
+
+.first-product {
+    background-image: url("../img/findmeal.jpg");
+}
+
+.second-product {
+    background-image: url("../img/test2.jpg");
+}
+
+.contact {
+    text-align: center;
+}
+
+.contact h3 {
+    margin: 20px 0 5px;
+    text-transform: uppercase;
+}
+
+.contact h2 {
+    margin: 20px 0 25px;
+    text-transform: uppercase;
+}
+
+footer {
+    padding: 30px 10px;
+    text-align: center;
+    background-color: #ddd;
+}
+
+footer p a {
+    color: #000;
+}
+
+section {
+    scroll-margin-top: 60px;
+}

@@ -8,7 +8,7 @@
 
 select {
     box-shadow: none;
-    background: #ebf1f7;
+    background: white;
     flex: 1;
     padding: 0 .5em;
     color: black;
@@ -22,10 +22,10 @@ select {
     margin-bottom: 30px;
     width: 30vw;
     height: 5vh;
-    line-height: 3;
-    background: #5c6664;
+    line-height: 5vh;
+    background: white;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 15px;
     border: 1px solid black;
 }
 
@@ -35,7 +35,8 @@ select {
     top: 0;
     right: 0;
     padding: 0 15px;
-    background: #5c6664;
+    background: black;
+    color: white;
     cursor:pointer;
     pointer-events:none;
     transition:.3s all ease;
@@ -48,7 +49,7 @@ fieldset {
     margin: 2em 0;
     padding: 1em 2em;
     border: solid 1px #ccc;
-    border-radius: 20px;
+    border-radius: 15px;
     min-width: 200px;
 }
 
@@ -70,7 +71,7 @@ input {
     overflow: hidden;
     font-size: 1.3em;
     padding: 0 15px;
-    border-radius: 20px;
+    border-radius: 15px;
     border: 1px solid black;
 }
 

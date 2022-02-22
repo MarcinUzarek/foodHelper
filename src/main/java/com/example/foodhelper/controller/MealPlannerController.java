@@ -1,7 +1,7 @@
 package com.example.foodhelper.controller;
 
 import com.example.foodhelper.service.RecipeService;
-import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlannerDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,9 @@ public class MealPlannerController {
 
     @GetMapping
     String getMealPlan(Model model) {
-        MealPlannerDTO mealPlan = new MealPlannerDTO();
+        MealPlanDTO mealPlan = new MealPlanDTO();
         model.addAttribute("mealPlan", mealPlan);
-        return "meal-planner";
+        return "meal-plan";
     }
 
     @PostMapping
@@ -30,6 +30,6 @@ public class MealPlannerController {
         var mealPlan = recipeService.getMealPlan(targetCalories, diet);
         model.addAttribute("mealPlan", mealPlan);
 
-        return "meal-planner";
+        return "meal-plan";
     }
 }

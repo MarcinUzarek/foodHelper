@@ -2,7 +2,7 @@ package com.example.foodhelper.rest_controller;
 
 import com.example.foodhelper.service.RecipeService;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
-import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlannerDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
 import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +30,7 @@ public class RecipeRestController {
     }
 
     @GetMapping("/mealPlanner")
-    public MealPlannerDTO getMealPlan() {
+    public MealPlanDTO getMealPlan() {
         return recipeService.getMealPlan(3000, "vegetarian");
     }
 }

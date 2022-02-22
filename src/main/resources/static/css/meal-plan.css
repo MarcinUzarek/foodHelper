@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+section .plan-banner {
+    margin: 30px 0;
+    font-size: 2em;
+}
+
+section .nutrients-banner {
+    font-size: 1.7em;
+    margin-bottom: 20px;
+}
+
+section h1,h2 {
+    text-align: center;
+}
+
+.nutrients {
+    margin-bottom: 10vh;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.25em;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.box {
+    width: 28vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    margin-bottom: 10vh;
+}
+
+.title {
+    text-align: center;
+    padding: 20px 40px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.prep-time {
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.btn {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #fac52c, #FF7E31);
+    border-radius: 16px;
+    font-size: 1.2em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: white;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 25px;
+    margin-bottom: 30px;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    transition: box-shadow .2s;
+}
+
+.btn:hover {
+    box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+}

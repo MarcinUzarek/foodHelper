@@ -6,4 +6,5 @@ import lombok.Getter;
 public class RecipeDTO {
 
     private String spoonacularSourceUrl;
+    private String image;
 }

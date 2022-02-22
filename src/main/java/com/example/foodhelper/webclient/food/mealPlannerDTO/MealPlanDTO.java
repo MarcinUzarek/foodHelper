@@ -5,8 +5,8 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class MealPlannerDTO {
+public class MealPlanDTO {
 
-    private List<MealPlannerMealDTO> meals;
-    private MealPlannerNutrientsDTO nutrients;
+    private List<MealInfoDTO> meals;
+    private MealNutrientsDTO nutrients;
 }

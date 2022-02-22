@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MMC School</title>
+    <script src="https://kit.fontawesome.com/693c25552b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/meal-plan.css"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div class="hero-bg"></div>
+    <div class="logo">
+        <h2>App<span class="foodie-span">Foodie</span></h2>
+    </div>
+    <div class="hero-text">
+        <h1>App<span class="foodie-span">Foodie</span></h1>
+        <p>To make your life in kitchen much easier</p>
+    </div>
+</header>
+<nav>
+    <div class="nav-items">
+        <a href="/">Back to menu</a>
+        <a href="#plan">plan</a>
+        <a href="#contacts">Contact</a>
+    </div>
+</nav>
+
+<main>
+
+    <section id="plan">
+        <h1 class="plan-banner">Your plan for the day</h1>
+        <h2 class="nutrients-banner">Nutrients:</h2>
+        <div class="nutrients">
+            <span th:text="'Kcal: ' +  ${mealPlan.nutrients.calories}"></span>
+            <span th:text="'Carbohydrates: ' + ${mealPlan.nutrients.carbohydrates}"></span>
+            <span th:text="'Fat: ' + ${mealPlan.nutrients.fat}"></span>
+            <span th:text="'Protein: ' + ${mealPlan.nutrients.protein}"></span>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="box">
+                <h3 class="title" th:text="${mealPlan.getMeals().get(0).title}"></h3>
+                <img th:src="${mealPlan.getMeals().get(0).image}" alt="Preview unavailable">
+                <p class="prep-time"
+                   th:text="'Preparation time : ' + ${mealPlan.getMeals().get(0).readyInMinutes} + ' minutes.'"></p>
+                <a class="btn" th:href="${mealPlan.getMeals().get(0).sourceUrl}" target="_blank">Get Recipe</a>
+            </div>
+
+            <div class="box">
+                <h3 class="title" th:text="${mealPlan.getMeals().get(1).title}"></h3>
+                <img th:src="${mealPlan.getMeals().get(1).image}" alt="Preview unavailable">
+                <p class="prep-time"
+                   th:text="'Preparation time : ' + ${mealPlan.getMeals().get(1).readyInMinutes} + ' minutes.'"></p>
+                <a class="btn" th:href="${mealPlan.getMeals().get(1).sourceUrl}" target="_blank">Get Recipe</a>
+            </div>
+
+            <div class="box">
+                <h3 class="title" th:text="${mealPlan.getMeals().get(2).title}"></h3>
+                <img th:src="${mealPlan.getMeals().get(2).image}" alt="Preview unavailable">
+                <p class="prep-time"
+                   th:text="'Preparation time : ' + ${mealPlan.getMeals().get(2).readyInMinutes} + ' minutes.'"></p>
+                <a class="btn" th:href="${mealPlan.getMeals().get(2).sourceUrl}" target="_blank">Get Recipe</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact wrapper" id="contacts">
+        <h2>contact</h2>
+        <p><i class="fas fa-phone"></i>+48 501 718 252</p>
+        <p><i class="fas fa-at"></i>uzarek@gmail.com</p>
+
+    </section>
+</main>
+
+<footer>
+    <p> 2022 | Marcin Uzarek |
+        <a href="https://github.com/MarcinUzarek?tab=repositories" target="_blank"><i
+                class="fa-brands fa-github-square"></i></a>
+        <a href="https://www.facebook.com/marcin.uzarek.12" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+    </p>
+</footer>
+</body>
+
+</html>

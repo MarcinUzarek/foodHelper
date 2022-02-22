@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import static java.lang.Integer.parseInt;
 
 @Controller
-@RequestMapping("/recipe")
+@RequestMapping("/")
 class RecipeController {
 
     private final RecipeService recipeService;
@@ -18,15 +18,15 @@ class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/complexSearch")
+    @GetMapping("complexSearch")
     String getComplexRecipe(Model model) {
         ComplexSearchDTO results = new ComplexSearchDTO();
         model.addAttribute("meals", results);
 
-        return "complex-recipes";
+        return "meal-list";
     }
 
-    @PostMapping("/complexSearch")
+    @PostMapping("complexSearch")
     String fillPreferences(Model model,
                            @RequestParam(required = false) String cuisine,
                            @RequestParam(required = false) String diet,
@@ -37,10 +37,10 @@ class RecipeController {
                 type, maxReadyTime);
         model.addAttribute("meals", results);
 
-        return "complex-recipes";
+        return "meal-list";
     }
 
-    @GetMapping(path = "/searchById/{id}")
+    @GetMapping(path = "searchById/{id}")
     String findById(@PathVariable Integer id) {
         var recipe = recipeService.recipeById(id);
         var recipeLink = recipe.getSpoonacularSourceUrl();

@@ -2,7 +2,8 @@ package com.example.foodhelper.service;
 
 import com.example.foodhelper.webclient.food.RecipeClient;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
-import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlannerDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealInfoDTO;
 import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +26,14 @@ public class RecipeService {
     }
 
 
-    public MealPlannerDTO getMealPlan(int targetKcal, String diet) {
-       return recipeClient.getMealPlan(targetKcal, diet);
+    public MealPlanDTO getMealPlan(int targetKcal, String diet) {
 
+        var mealPlan = recipeClient.getMealPlan(targetKcal, diet);
+
+        for (MealInfoDTO meal : mealPlan.getMeals()) {
+           meal.setImage(recipeById(meal.getId()).getImage());
+        }
+        return mealPlan;
     }
 }
 

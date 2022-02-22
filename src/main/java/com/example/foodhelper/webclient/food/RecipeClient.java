@@ -1,7 +1,7 @@
 package com.example.foodhelper.webclient.food;
 
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
-import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlannerDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
 import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class RecipeClient {
     private static final String API_RECIPE_URL = "https://api.spoonacular.com/recipes/";
     private static final String API_URL = "https://api.spoonacular.com/";
     private static final String API_COMPLEX_URL = "complexSearch";
-    private static final String API_KEY = "f83ed2f4e702410b92c236f0c24de2de";
+    private static final String API_KEY = "4a16bdbaf362495f91cebed8dec54f5b";
 
     public ComplexSearchDTO recipeComplexSearch(String cuisine, String diet, String intolerances,
                                                 String dishType, int maxReadyTime) {
@@ -29,11 +29,11 @@ public class RecipeClient {
                 RecipeDTO.class);
     }
 
-    public MealPlannerDTO getMealPlan(int targetKcal, String diet) {
+    public MealPlanDTO getMealPlan(int targetKcal, String diet) {
 
         return restTemplate.getForObject(API_URL + "mealplanner/generate?apiKey=" + API_KEY +
                 "&timeFrame=day&targetCalories={targetKcal}&diet={diet}",
-                MealPlannerDTO.class, targetKcal, diet);
+                MealPlanDTO.class, targetKcal, diet);
     }
 
 

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping
+@RequestMapping("/")
 public class AuthenticationController {
 
     private final UserService userService;
@@ -20,24 +20,24 @@ public class AuthenticationController {
         this.tokenService = tokenService;
     }
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String logInForm() {
         return "login";
     }
 
-    @GetMapping("/register")
+    @GetMapping("register")
     public String SignUpForm(Model model) {
         model.addAttribute("registration", new User());
         return "sign-up";
     }
 
-    @PostMapping("/register")
+    @PostMapping("register")
     public String signUp(User user) {
         userService.createUser(user);
         return "sign-up";
     }
 
-    @GetMapping("/token")
+    @GetMapping("token")
     public String verifyToken(@RequestParam String value) {
 
         var token = tokenService.findToken(value);
@@ -46,7 +46,7 @@ public class AuthenticationController {
         return "hello";
     }
 
-    @GetMapping("/menu")
+    @GetMapping("menu")
     public String menu() {
         return "menu";
     }

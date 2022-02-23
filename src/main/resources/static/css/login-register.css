@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.header {
+    height: 100vh;
+}
+
+.login-box {
+    position: absolute;
+    width: 35vw;
+    height: 70vh;
+    top: 15vh;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.21);
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    border-radius: 15px;
+}
+
+.welcome {
+    position: absolute;
+    color: #e7dfdf;
+    right: 0;
+    left: 0;
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 15%;
+    margin-right: auto;
+    margin-left: auto;
+    text-shadow: 0 0 5px rgb(0, 0, 0);
+}
+
+.login-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-input {
+    display: block;
+    margin: 20px;
+    padding: 5px 10px;
+    width: 25vw;
+    background-color: initial;
+    color: #e7dfdf;
+    border: 2px solid #333;
+    font-size: 1.5em;
+}
+
+.btn {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #fac52c, #FF7E31);
+    border-radius: 16px;
+    font-size: 1.2em;
+    color: white;
+    width: 50%;
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    display: block;
+
+    transition: box-shadow .2s;
+}
+
+.btn:hover {
+    box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+}
+
+.pass-reset {
+    margin-top: 15px;
+
+}
+
+.pass-reset a {
+    text-decoration: none;
+    color: #e7dfdf;
+    text-shadow: 0 0 10px black;
+    transition: 0.2s;
+}
+
+.pass-reset a:hover {
+    text-shadow: 0 0 10px rgba(253, 76, 0, 0.57);
+}
+
+hr {
+    margin-top: 10px;
+    width: 60%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-text-fill-color: #e7dfdf; !important;
+    transition: background-color 5000s ease-in-out 2s;
+}
+
+
+

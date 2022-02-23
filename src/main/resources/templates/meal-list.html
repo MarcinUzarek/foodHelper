@@ -7,6 +7,7 @@
     <title>MMC School</title>
     <script src="https://kit.fontawesome.com/693c25552b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/meal-plan.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +15,6 @@
 </head>
 
 <body>
-
-
 <header class="header">
     <div class="hero-bg"></div>
     <div class="logo">
@@ -27,32 +26,34 @@
     </div>
 
 </header>
+<nav>
+    <div class="nav-items">
+        <a href="/">Back to menu</a>
+        <a href="#meals">Meals</a>
+        <a href="#contacts">Contact</a>
+    </div>
+</nav>
 
 <main>
-
-    <h3>List of matching meals</h3>
-    <hr>
-    <table th:border="1">
-
-        <tbody>
-        <tr th:each="meal : ${meals.results}">
-            <td>
-                <form th:action="@{/recipe/searchById/{id}(id=${meal.id})}">
-                    <input type="submit" value="Get Recipe"/>
-                </form>
-            </td>
-            <td>
-                <a th:href="${meal.image}" th:text="${meal.title}" target="_blank"></a>
-            </td>
-            <td>
+    <section id="meals">
+        <h1 class="h1-list">List of matching meals:</h1>
+        <div class="container list">
+            <div class="box-for-list" th:each="meal : ${meals.results}">
+                <h3 class="title" th:text="${meal.title}"></h3>
                 <img th:src="${meal.image}" alt="Preview unavailable">
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+                <a class="btn btn-for-list" th:href="@{/searchById/{id}(id=${meal.id})}" target="_blank">Get Recipe</a>
+            </div>
+        </div>
+    </section>
 
 </main>
+
+<section class="contact wrapper" id="contacts">
+    <h2>contact</h2>
+    <p><i class="fas fa-phone"></i>+48 501 718 252</p>
+    <p><i class="fas fa-at"></i>uzarek@gmail.com</p>
+
+</section>
 
 <footer>
     <p> 2022 | Marcin Uzarek |

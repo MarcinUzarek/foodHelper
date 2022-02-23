@@ -6,21 +6,27 @@
 }
 
 section .plan-banner {
-    margin: 30px 0;
+    margin: 25px 0;
     font-size: 2em;
 }
 
 section .nutrients-banner {
     font-size: 1.7em;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 section h1,h2 {
     text-align: center;
 }
 
+.h1-list {
+    text-align: center;
+    font-size: 3.5em;
+    margin: 8vh 0 13vh;
+}
+
 .nutrients {
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
     display: flex;
     justify-content: space-evenly;
     font-size: 1.25em;
@@ -31,11 +37,23 @@ section h1,h2 {
     justify-content: space-evenly;
 }
 
-.box {
+.box-for-plan {
     width: 28vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     margin-bottom: 10vh;
+}
+
+.box-for-list {
+    width: 20vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    margin-bottom: 5vh;
+}
+
+.list {
+    flex-wrap: wrap;
+
 }
 
 .title {
@@ -47,7 +65,7 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    width: 80%;
 }
 
 .prep-time {
@@ -71,6 +89,13 @@ img {
     text-align: center;
     display: block;
     transition: box-shadow .2s;
+}
+
+.btn-for-list {
+    font-size: 1em;
+    width: 30%;
+    margin-top: 30px;
+    padding: 10px 20px;
 }
 
 .btn:hover {

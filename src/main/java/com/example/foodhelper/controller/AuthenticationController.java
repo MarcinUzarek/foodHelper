@@ -28,13 +28,13 @@ public class AuthenticationController {
     @GetMapping("register")
     public String SignUpForm(Model model) {
         model.addAttribute("registration", new User());
-        return "sign-up";
+        return "register";
     }
 
     @PostMapping("register")
     public String signUp(User user) {
         userService.createUser(user);
-        return "sign-up";
+        return "register";
     }
 
     @GetMapping("token")

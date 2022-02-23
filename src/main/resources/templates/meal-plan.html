@@ -48,7 +48,7 @@
 
     <section>
         <div class="container">
-            <div class="box">
+            <div class="box-for-plan">
                 <h3 class="title" th:text="${mealPlan.getMeals().get(0).title}"></h3>
                 <img th:src="${mealPlan.getMeals().get(0).image}" alt="Preview unavailable">
                 <p class="prep-time"
@@ -56,7 +56,7 @@
                 <a class="btn" th:href="${mealPlan.getMeals().get(0).sourceUrl}" target="_blank">Get Recipe</a>
             </div>
 
-            <div class="box">
+            <div class="box-for-plan">
                 <h3 class="title" th:text="${mealPlan.getMeals().get(1).title}"></h3>
                 <img th:src="${mealPlan.getMeals().get(1).image}" alt="Preview unavailable">
                 <p class="prep-time"
@@ -64,7 +64,7 @@
                 <a class="btn" th:href="${mealPlan.getMeals().get(1).sourceUrl}" target="_blank">Get Recipe</a>
             </div>
 
-            <div class="box">
+            <div class="box-for-plan">
                 <h3 class="title" th:text="${mealPlan.getMeals().get(2).title}"></h3>
                 <img th:src="${mealPlan.getMeals().get(2).image}" alt="Preview unavailable">
                 <p class="prep-time"

@@ -88,7 +88,7 @@ nav {
 .header {
     position: relative;
     background-image: url("../img/pancakes.jpg");
-    height: 60vh;
+    height: 58vh;
     background-size: cover;
     background-position: center;
 }
@@ -175,6 +175,28 @@ footer {
 
 footer p a {
     color: #000;
+}
+
+.fa-brands {
+   margin: 0 5px;
+    transition: 0.3s;
+}
+
+
+.fa-brands:hover {
+    transform: scale(2.0);
+}
+
+.fa-facebook {
+    color: #1278f3;
+}
+
+.fa-github-square {
+    color: #0d2636;
+}
+
+.fa-youtube {
+    color: #f00;
 }
 
 section {

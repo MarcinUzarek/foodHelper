@@ -6,19 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import static java.lang.Integer.parseInt;
-
 @Controller
 @RequestMapping("/")
-class RecipeController {
+class MealListController {
 
     private final RecipeService recipeService;
 
-    RecipeController(RecipeService recipeService) {
+    MealListController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("complexSearch")
+    @GetMapping("meal-list")
     String getComplexRecipe(Model model) {
         ComplexSearchDTO results = new ComplexSearchDTO();
         model.addAttribute("meals", results);
@@ -26,7 +24,7 @@ class RecipeController {
         return "meal-list";
     }
 
-    @PostMapping("complexSearch")
+    @PostMapping("meal-list")
     String fillPreferences(Model model,
                            @RequestParam(required = false) String cuisine,
                            @RequestParam(required = false) String diet,
@@ -37,6 +35,9 @@ class RecipeController {
                 type, maxReadyTime);
         model.addAttribute("meals", results);
 
+        if (results.getResults().isEmpty()) {
+            return "meal-list-empty";
+        }
         return "meal-list";
     }
 

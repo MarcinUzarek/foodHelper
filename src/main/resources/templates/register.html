@@ -27,17 +27,14 @@
             <h2 class="welcome">Welcome!</h2>
         </div>
         <div class="login-form">
-            <form th:action="@{/login}" method="post">
+            <form th:action="@{/register}" method="post">
+                <input class="login-input" type="text" name="name" placeholder="name">
                 <input class="login-input" type="text" name="email" placeholder="e-mail">
                 <input class="login-input" type="password" name="password" placeholder="password">
-                <input class="btn" type="submit" value="Login">
+                <input class="btn" type="submit" value="Sign up">
             </form>
             <div class="pass-reset">
-                <a  href="#">Forgot password?</a>
-            </div>
-            <hr>
-            <div class="pass-reset">
-                <a  th:href="@{/register}">Not user yet? Create account!</a>
+                <a th:href="@{/login}">Already user? Log in here</a>
             </div>
         </div>
     </div>

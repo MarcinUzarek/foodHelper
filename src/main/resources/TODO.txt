@@ -7,5 +7,6 @@
 //TODO: add option to change password
 //TODO: add possibility to store favourite meals
 //TODO: handle situation where user is trying to add same product to set
+//TODO: forgot password?
 //TODO:
 //TODO: ADD SOME HTML/CSS to make it look at least tolerably

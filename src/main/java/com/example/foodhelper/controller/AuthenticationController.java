@@ -37,9 +37,8 @@ public class AuthenticationController {
         return "register";
     }
 
-    @GetMapping("token")
+    @PostMapping("token")
     public String verifyToken(@RequestParam String value) {
-
         var token = tokenService.findToken(value);
         User user = token.getUser();
         userService.ActivateUser(user);

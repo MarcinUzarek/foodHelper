@@ -24,21 +24,17 @@
     </div>
     <div class="login-box">
         <div>
-            <h2 class="welcome">Welcome!</h2>
+            <h2 class="forgot-pass-head">Enter your email to get message with reset link</h2>
         </div>
         <div class="login-form">
-            <form th:action="@{/login}" method="post">
+            <form th:action="@{/new-pass-link}" method="post">
                 <input class="login-input" type="text" name="email" placeholder="e-mail">
-                <input class="login-input" type="password" name="password" placeholder="password">
-                <input class="btn" type="submit" value="Login">
+                <input class="btn" type="submit" value="Send reset link">
             </form>
             <div class="pass-reset">
-                <a  th:href="@{/forgot-password}">Forgot password?</a>
+                <a  th:href="@{/login}">Go back to login page</a>
             </div>
-            <hr>
-            <div class="pass-reset">
-                <a  th:href="@{/register}">Not user yet? Create account!</a>
-            </div>
+
         </div>
     </div>
 
@@ -63,3 +59,4 @@
 </body>
 
 </html>
+

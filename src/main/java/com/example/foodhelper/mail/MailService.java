@@ -1,4 +1,4 @@
-package com.example.foodhelper.service;
+package com.example.foodhelper.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,15 +18,14 @@ public class MailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendMail(String to,
-                         String subject,
+    public void sendMail(String to, String subject,
                          String text,
-                         boolean isHtmlContent) throws MessagingException {
+                         String HtmlContent) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
         mimeMessageHelper.setTo(to);
         mimeMessageHelper.setSubject(subject);
-        mimeMessageHelper.setText(text, isHtmlContent);
+        mimeMessageHelper.setText(text, HtmlContent);
         javaMailSender.send(mimeMessage);
     }
 }

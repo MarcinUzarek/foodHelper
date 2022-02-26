@@ -103,10 +103,14 @@ body {
     left: 0;
     right: 0;
     margin: 20% auto 0;
-    width: 70%;
+    width: 50%;
     text-wrap: normal;
     color: #e7dfdf;
+}
 
+.change-pass-success {
+    color: #e7dfdf;
+    text-align: center;
 }
 
 hr {

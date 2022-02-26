@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Thanks for registering, your account is active now!</h2>
-<nav> <a th:href="@{/login}">Log in here!</a></nav>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MMC School</title>
+    <script src="https://kit.fontawesome.com/693c25552b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/login-register.css"/>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+<header class="header">
+    <div class="hero-bg"></div>
+    <div class="logo">
+        <h2>App<span class="foodie-span">Foodie</span></h2>
+    </div>
+    <div class="login-box">
+        <div class="login-form">
+            <h2 class="change-pass-success">Thanks for signing up! Your account is active now</h2>
+            <div class="pass-reset">
+                <a  th:href="@{/login}">Go back to login page</a>
+            </div>
+
+        </div>
+    </div>
+
+</header>
+
+<main>
+    <section class="contact wrapper" id="contacts">
+        <h2>contact</h2>
+        <p><i class="fas fa-phone"></i>+48 501 718 252</p>
+        <p><i class="fas fa-at"></i>uzarek@gmail.com</p>
+
+    </section>
+</main>
+<footer>
+    <p> 2022 | Marcin Uzarek |
+        <a href="https://github.com/MarcinUzarek?tab=repositories" target="_blank"><i
+                class="fa-brands fa-github-square"></i></a>
+        <a href="https://www.facebook.com/marcin.uzarek.12" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+    </p>
+</footer>
 </body>
+
 </html>
+

@@ -1,7 +1,8 @@
 package com.example.foodhelper.controller;
 
+import com.example.foodhelper.mail.MailFacade;
+import com.example.foodhelper.model.Token;
 import com.example.foodhelper.model.User;
-import com.example.foodhelper.repository.UserRepository;
 import com.example.foodhelper.service.TokenService;
 import com.example.foodhelper.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final UserService userService;
-    private final TokenService tokenService;
 
-    public AuthenticationController(UserService userService, TokenService tokenService, UserRepository userRepository) {
+    public AuthenticationController(UserService userService) {
         this.userService = userService;
-        this.tokenService = tokenService;
     }
 
     @GetMapping("login")
@@ -39,11 +38,10 @@ public class AuthenticationController {
 
     @PostMapping("token")
     public String verifyToken(@RequestParam String value) {
-        var token = tokenService.findToken(value);
-        User user = token.getUser();
-        userService.ActivateUser(user);
+        userService.activateUserWithToken(value);
         return "hello";
     }
+
 
     @GetMapping("menu")
     public String menu() {

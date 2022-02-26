@@ -1,11 +1,8 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.model.Role;
-import com.example.foodhelper.model.User;
 import com.example.foodhelper.repository.RoleRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class RoleService {
@@ -19,15 +16,15 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public Role userRole() {
+    public Role setUserRole() {
         return addRole(USER);
     }
 
-    public Role adminRole() {
+    public Role setAdminRole() {
         return addRole(ADMIN);
     }
 
-    public Role moderatorRole() {
+    public Role setModeratorRole() {
         return addRole(MODERATOR);
     }
 

@@ -23,14 +23,8 @@
         <h2>App<span class="foodie-span">Foodie</span></h2>
     </div>
     <div class="login-box">
-        <div>
-            <h2 class="forgot-pass-head">Enter your email to get message with reset link</h2>
-        </div>
         <div class="login-form">
-            <form th:action="@{/forgot-password}" method="post">
-                <input class="login-input" type="text" name="email" placeholder="e-mail">
-                <input class="btn" type="submit" value="Send reset link">
-            </form>
+            <h2 class="change-pass-success">Your password has been changed successfully!</h2>
             <div class="pass-reset">
                 <a  th:href="@{/login}">Go back to login page</a>
             </div>

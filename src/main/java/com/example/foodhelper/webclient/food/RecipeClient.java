@@ -15,7 +15,7 @@ public class RecipeClient {
     private static final String API_RECIPE_URL = "https://api.spoonacular.com/recipes/";
     private static final String API_URL = "https://api.spoonacular.com/";
     private static final String API_COMPLEX_URL = "complexSearch";
-    private static final String API_KEY = "4a16bdbaf362495f91cebed8dec54f5b";
+    private static final String API_KEY = "b704f2d913414eda8c6e67cf34f7001a";
 
     public ComplexSearchDTO recipeComplexSearch(String cuisine, String diet, String intolerances,
                                                 String dishType, int maxReadyTime) {

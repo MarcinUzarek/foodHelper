@@ -8,7 +8,6 @@
     padding: 0;
     scroll-behavior: smooth;
     font-family: 'Roboto', sans-serif;
-
 }
 
 .wrapper {
@@ -88,7 +87,7 @@ nav {
 .header {
     position: relative;
     background-image: url("../img/pancakes.jpg");
-    height: 58vh;
+    min-height: 58vh;
     background-size: cover;
     background-position: center;
 }

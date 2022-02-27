@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Roboto', sans-serif;
+}
+
+.back-to-menu {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    text-decoration: none;
+    color: #e7dfdf;
+    text-shadow: 0 0 10px black;
+    transition: 0.2s;
+}
+
+.back-to-menu:hover {
+    text-shadow: 0 0 10px rgba(253, 76, 0, 0.57);
+}
+
+.my-acc {
+    margin-top: 10%;
+    font-size: 3em;
+    text-shadow: 0 0 10px black;
+}
+
+.user-info {
+    padding-top: 30%;
+    width: 100%;
+    color: #e7dfdf;
+    height: 100%;
+    font-size: 1.2em;
+    text-shadow: 0 0 10px black;
+
+}
+
+.info-box {
+    width: 35vw;
+    min-height: 70vh;
+    top: 15vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding-bottom: 5vh;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.21);
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    border-radius: 15px;
+}
+
+.info {
+    margin-top: 15px;
+    margin-right: 10%;
+    margin-left: 10%;
+    text-shadow: 0 0 10px black;
+}
+
+.product-input {
+    display: inline;
+    width: 40%;
+    margin-top: 15px;
+    margin-right: 10%;
+    margin-left: 10%;
+    font-size: 1.3em;
+    border: 2px solid #818181;
+    box-shadow: 0 0 10px rgba(0, 0, 0);
+}
+
+.u-list {
+    list-style-position: inside;
+    margin: 5px 20%;
+    text-shadow: 0 0 10px black;
+}
+
+.item-link {
+    text-decoration: none;
+    color: #e7dfdf;
+    text-shadow: 0 0 10px black;
+    transition: 0.2s;
+    cursor: url("../img/bin.png"), pointer;
+}
+
+.item-link:hover {
+    color: #d51717;
+}
+
+.add-product {
+    display: inline;
+    width: 30%;
+    margin-bottom: 10vh;
+}
+
+.add-product:hover {
+    cursor: pointer;
+}
+
+
+
+
+
+

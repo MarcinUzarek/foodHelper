@@ -4,6 +4,7 @@ import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.repository.IntoleranceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -15,13 +16,25 @@ public class IntoleranceService {
         this.intoleranceRepository = intoleranceRepository;
     }
 
-    public Intolerance getProduct(String product) {
-        var intolerance = intoleranceRepository.findByProduct(product);
+    public Optional<Intolerance> getIntoleranceByName(String product) {
+        return intoleranceRepository.findByProduct(product);
+    }
 
-        if (intolerance.equals(Optional.empty())) {
-            return intoleranceRepository
-                    .save(new Intolerance(product));
-        }
-        return intolerance.orElseThrow();
+    public Intolerance saveIntolerance(String product) {
+        product = mapProductToProductLetterSensitive(product);
+        Intolerance intolerance = new Intolerance(product);
+        return intoleranceRepository.save(intolerance);
+    }
+
+    public Intolerance findById(Long id) {
+       return intoleranceRepository.findById(id)
+               .orElseThrow(() ->new IllegalArgumentException("No Intolerance with such id"));
+    }
+
+    private String mapProductToProductLetterSensitive(String product) {
+
+        product = product.toLowerCase();
+        String cap = product.substring(0, 1).toUpperCase() + product.substring(1);
+        return cap;
     }
 }

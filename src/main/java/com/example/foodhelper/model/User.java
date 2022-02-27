@@ -1,9 +1,6 @@
 package com.example.foodhelper.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -30,8 +27,7 @@ public class User {
     @Column(nullable = false, length = 80)
     private String password;
 
-    @Column
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TODO: Change Eager to Lazy, modify user repo queries
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_intolerances",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -39,7 +35,7 @@ public class User {
     )
     private Set<Intolerance> intolerances = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TODO: Change Eager to Lazy, modify user repo queries
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -50,4 +46,8 @@ public class User {
     @Column(name = "is_enabled")
     private boolean isEnabled = false;
 
+
+    public void addIntolerance(Intolerance intolerance) {
+        intolerances.add(intolerance);
+    }
 }

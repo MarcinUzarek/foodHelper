@@ -10,7 +10,7 @@ body {
 }
 
 .header {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .login-box {
@@ -47,7 +47,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 .login-input {

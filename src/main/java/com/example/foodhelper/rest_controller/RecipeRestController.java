@@ -18,19 +18,19 @@ public class RecipeRestController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/complexSearch")
-    public ComplexSearchDTO complexSearch() {
-         return recipeService.complexSearch(
-                 "italian", "vegetarian", "sugar,salt", "dinner", 50);
-    }
-
-    @GetMapping("/recipeById")
-    public RecipeDTO recipeById() {
-        return recipeService.recipeById(1697791);
-    }
-
-    @GetMapping("/mealPlanner")
-    public MealPlanDTO getMealPlan() {
-        return recipeService.getMealPlan(3000, "vegetarian");
-    }
+//    @GetMapping("/complexSearch")
+//    public ComplexSearchDTO complexSearch() {
+//         return recipeService.complexSearch(
+//                 "italian", "vegetarian", "sugar,salt", "dinner", 50);
+//    }
+//
+//    @GetMapping("/recipeById")
+//    public RecipeDTO recipeById() {
+//        return recipeService.recipeById(1697791);
+//    }
+//
+//    @GetMapping("/mealPlanner")
+//    public MealPlanDTO getMealPlan() {
+//        return recipeService.getMealPlan(3000, "vegetarian");
+//    }
 }

@@ -2,6 +2,7 @@ package com.example.foodhelper.controller;
 
 import com.example.foodhelper.service.RecipeService;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.PlanPreferencesDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +25,8 @@ public class MealPlannerController {
     }
 
     @PostMapping
-    String generateMealPlan(Model model,
-                            @RequestParam String diet,
-                            @RequestParam Integer targetCalories) {
-        var mealPlan = recipeService.getMealPlan(targetCalories, diet);
+    String generateMealPlan(Model model, PlanPreferencesDTO preferencesDto) {
+        var mealPlan = recipeService.getMealPlan(preferencesDto);
         model.addAttribute("mealPlan", mealPlan);
 
         return "meal-plan";

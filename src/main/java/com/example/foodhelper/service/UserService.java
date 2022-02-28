@@ -5,7 +5,10 @@ import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.Token;
 import com.example.foodhelper.model.User;
+import com.example.foodhelper.model.dto.UserRegisterDTO;
+import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +24,10 @@ public class UserService {
     private final MailFacade mailFacade;
     private final AuthenticationFacade authenticationFacade;
     private final IntoleranceService intoleranceService;
+    private final ModelMapper modelMapper;
 
 
-    public UserService(UserRepository userRepository, TokenService tokenService, RoleService roleService, PasswordEncoder passwordEncoder, MailFacade mailFacade, AuthenticationFacade authenticationFacade, IntoleranceService intoleranceService) {
+    public UserService(UserRepository userRepository, TokenService tokenService, RoleService roleService, PasswordEncoder passwordEncoder, MailFacade mailFacade, AuthenticationFacade authenticationFacade, IntoleranceService intoleranceService, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.roleService = roleService;
@@ -31,6 +35,7 @@ public class UserService {
         this.mailFacade = mailFacade;
         this.authenticationFacade = authenticationFacade;
         this.intoleranceService = intoleranceService;
+        this.modelMapper = modelMapper;
     }
 
     public User getLoggedUser() {
@@ -38,7 +43,15 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No user with such Id"));
     }
 
-    public void createUser(User user) {
+    public UserShowDTO getLoggedUserAsDto() {
+        var id = authenticationFacade.getPrincipal().getUser().getId();
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No user with such Id"));
+        return userToShowDto(user);
+    }
+
+    public void createUser(UserRegisterDTO userDto) {
+        var user = registerDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(roleService.setUserRole());
         userRepository.save(user);
@@ -51,7 +64,10 @@ public class UserService {
         ActivateUser(user);
     }
 
-    public void changePasswordWithToken(String password, Token token) {
+    public void changePasswordWithToken(String password, String passwordRepeat, Token token) {
+        if (!password.equals(passwordRepeat)) {
+            throw new IllegalArgumentException("Hasla nie sa takie same");
+        }
         var user = token.getUser();
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
@@ -59,10 +75,8 @@ public class UserService {
 
 
     public void addIntolerance(String product) {
-        Intolerance intolerance;
-
+        Intolerance intolerance = getIntolerance(product);
         var user = getLoggedUser();
-        intolerance = getIntolerance(product);
 
         if (!user.getIntolerances().contains(intolerance)) {
             user.addIntolerance(intolerance);
@@ -93,5 +107,13 @@ public class UserService {
     private void ActivateUser(User user) {
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    private User registerDtoToUser(UserRegisterDTO userDto) {
+        return modelMapper.map(userDto, User.class);
+    }
+
+    private UserShowDTO userToShowDto(User user) {
+        return modelMapper.map(user, UserShowDTO.class);
     }
 }

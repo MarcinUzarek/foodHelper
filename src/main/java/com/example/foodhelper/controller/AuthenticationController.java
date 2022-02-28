@@ -1,9 +1,7 @@
 package com.example.foodhelper.controller;
 
-import com.example.foodhelper.mail.MailFacade;
-import com.example.foodhelper.model.Token;
 import com.example.foodhelper.model.User;
-import com.example.foodhelper.service.TokenService;
+import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +24,13 @@ public class AuthenticationController {
 
     @GetMapping("register")
     public String SignUpForm(Model model) {
-        model.addAttribute("registration", new User());
+        model.addAttribute("registration", new UserRegisterDTO());
         return "register";
     }
 
     @PostMapping("register")
-    public String signUp(User user) {
-        userService.createUser(user);
+    public String signUp(UserRegisterDTO userDto) {
+        userService.createUser(userDto);
         return "register";
     }
 

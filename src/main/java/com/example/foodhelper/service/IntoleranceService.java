@@ -2,18 +2,20 @@ package com.example.foodhelper.service;
 
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.repository.IntoleranceRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Locale;
 import java.util.Optional;
 
 @Service
 public class IntoleranceService {
 
     private final IntoleranceRepository intoleranceRepository;
+    private final ModelMapper modelMapper;
 
-    public IntoleranceService(IntoleranceRepository intoleranceRepository) {
+    public IntoleranceService(IntoleranceRepository intoleranceRepository, ModelMapper modelMapper) {
         this.intoleranceRepository = intoleranceRepository;
+        this.modelMapper = modelMapper;
     }
 
     public Optional<Intolerance> getIntoleranceByName(String product) {
@@ -37,4 +39,5 @@ public class IntoleranceService {
         String cap = product.substring(0, 1).toUpperCase() + product.substring(1);
         return cap;
     }
+
 }

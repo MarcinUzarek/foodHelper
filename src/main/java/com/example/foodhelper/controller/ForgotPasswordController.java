@@ -40,11 +40,9 @@ public class ForgotPasswordController {
     @PostMapping("/change-password")
     public String changePassword(@RequestParam String password,
                                  @RequestParam String passwordRepeat, HttpSession session) {
-        if (!password.equals(passwordRepeat)) {
-            throw new IllegalArgumentException("Hasla nie sa takie same");
-        }
+
         var token = (Token) session.getAttribute("token");
-       userService.changePasswordWithToken(password, token);
+       userService.changePasswordWithToken(password, passwordRepeat, token);
         return "Pass-changed-success";
     }
 }

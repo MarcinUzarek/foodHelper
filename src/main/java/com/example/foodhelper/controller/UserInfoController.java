@@ -25,13 +25,12 @@ public class UserInfoController {
     @GetMapping("my-account")
     public String getInfo(Model model) {
 
-        var user = userService.getLoggedUser();
-        model.addAttribute("userinfo", user);
+        var userShowDto = userService.getLoggedUserAsDto();
+        model.addAttribute("userinfo", userShowDto);
         return "user-profile";
     }
 
     @PostMapping("/add-intolerance")
-    @Transactional
     public String addIntolerance(@RequestParam String product) {
 
         userService.addIntolerance(product);

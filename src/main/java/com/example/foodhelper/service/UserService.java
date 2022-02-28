@@ -44,9 +44,7 @@ public class UserService {
     }
 
     public UserShowDTO getLoggedUserAsDto() {
-        var id = authenticationFacade.getPrincipal().getUser().getId();
-        var user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No user with such Id"));
+        var user = getLoggedUser();
         return userToShowDto(user);
     }
 

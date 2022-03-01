@@ -29,15 +29,15 @@
 
 </header>
 <nav>
-        <div class="nav-items">
-            <a href="#">home</a>
-            <a href="#about-me">about me</a>
-            <a href="#find-recipe">Find Recipe</a>
-            <a href="#meal-plan">meal plan</a>
-            <a href="#contacts">Contact</a>
-            <a th:href="@{/my-account}">My Account</a>
-            <a th:href="@{/logout}">Logout</a>
-        </div>
+    <div class="nav-items">
+        <a href="#">home</a>
+        <a href="#about-me">about me</a>
+        <a href="#find-recipe">Find Recipe</a>
+        <a href="#meal-plan">meal plan</a>
+        <a href="#contacts">Contact</a>
+        <a th:href="@{/my-account}">My Account</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
 </nav>
 
 <main>
@@ -145,9 +145,22 @@
                 </label>
 
                 <h3>Approximate preparation time in minutes:</h3>
-                <label class="number">
-                    <input type="number" name="maxReadyTime" value="150">
+                <label>
+                    <input class="number" type="number" name="maxReadyTime" value="150">
                 </label>
+
+                <h3>Include your intolerances?</h3>
+                <label class="radio">
+                    <input class="radio-input" type="radio" name="shouldIncludeIntolerances" value="yes">
+                    <div class="radio-radio"></div>
+                    <p class="radio-text">YES</p>
+                </label>
+                <label class="radio">
+                    <input class="radio-input" type="radio" name="shouldIncludeIntolerances" value="no" checked>
+                    <div class="radio-radio"></div>
+                    <p class="radio-text">NO</p>
+                </label>
+
             </fieldset>
             <p>
                 <button class="button" type="submit">Find</button>
@@ -191,7 +204,7 @@
                 </label>
                 <h3>Choose target kcal:</h3>
                 <label>
-                    <input type="number" name="targetCalories" value="2000">
+                    <input class="number" type="number" name="targetCalories" value="2000">
                 </label>
             </fieldset>
             <p>

@@ -13,4 +13,5 @@ public class PreferencesDTO {
    private String diet;
    private String type;
    private Integer maxReadyTime;
+   private String shouldIncludeIntolerances;
 }

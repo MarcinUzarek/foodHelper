@@ -68,6 +68,17 @@
     box-shadow: 0 0 10px rgba(0, 0, 0);
 }
 
+.product-input option {
+    border: 1px solid #fff;
+    background-color: #1f1f1f;
+    color: #e7dfdf;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+option[value=""][disabled] {
+    display: none;
+}
+
 .u-list {
     list-style-position: inside;
     margin: 5px 20%;

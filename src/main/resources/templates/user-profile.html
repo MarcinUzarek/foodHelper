@@ -39,7 +39,21 @@
                 </li>
             </ul>
             <form method="post" th:action="@{/add-intolerance}">
-                <input class="login-input product-input" type="text" name="product" placeholder="Add new intolerance">
+                <select class="login-input product-input" type="" name="product" placeholder="Add new intolerance">
+                    <option value="" disabled selected>Add intolerance</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Egg">Egg</option>
+                    <option value="Gluten">Gluten</option>
+                    <option value="Grain">Grain</option>
+                    <option value="Peanut">Peanut</option>
+                    <option value="Seafood">Seafood</option>
+                    <option value="Sesame">Sesame</option>
+                    <option value="Shellfish">Shellfish</option>
+                    <option value="Soy">Soy</option>
+                    <option value="Sulfite">Sulfite</option>
+                    <option value="Tree Nut">Tree Nut</option>
+                    <option value="Wheat">Wheat</option>
+                </select>
                 <input class="btn add-product" type="submit" value="Add!">
             </form>
         </div>

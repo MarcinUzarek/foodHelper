@@ -1,32 +1,41 @@
 package com.example.foodhelper.controller;
 
 import com.example.foodhelper.service.RecipeService;
-import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
 import com.example.foodhelper.webclient.food.complex_search_dto.PreferencesDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.PlanPreferencesDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-class MealListController {
+public class MenuController {
 
     private final RecipeService recipeService;
 
-    MealListController(RecipeService recipeService) {
+    public MenuController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("meal-list")
-    String getComplexRecipe(Model model) {
-        ComplexSearchDTO results = new ComplexSearchDTO();
-        model.addAttribute("meals", results);
+    @PostMapping("/meals")
+    String generateMealPlan(Model model, PlanPreferencesDTO preferencesDto) {
+        var mealPlan = recipeService.getMealPlan(preferencesDto);
+        model.addAttribute("mealPlan", mealPlan);
 
-        return "meal-list";
+        return "meal-plan";
     }
 
     @PostMapping("meal-list")
-    String fillPreferences(Model model, PreferencesDTO preferencesDto) {
+    String fillPreferences(PreferencesDTO preferencesDto,
+                           BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "index";
+        }
+
         var results = recipeService.complexSearch(
                 preferencesDto);
         model.addAttribute("meals", results);
@@ -44,5 +53,4 @@ class MealListController {
 
         return "redirect:" + recipeLink;
     }
-
 }

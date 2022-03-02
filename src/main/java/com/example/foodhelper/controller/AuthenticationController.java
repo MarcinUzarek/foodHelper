@@ -5,7 +5,10 @@ import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -29,7 +32,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("register")
-    public String signUp(UserRegisterDTO userDto) {
+    public String signUp(@Valid @ModelAttribute("registration") UserRegisterDTO userDto,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
         userService.createUser(userDto);
         return "register";
     }
@@ -40,9 +47,4 @@ public class AuthenticationController {
         return "hello";
     }
 
-
-    @GetMapping("menu")
-    public String menu() {
-        return "menu";
-    }
 }

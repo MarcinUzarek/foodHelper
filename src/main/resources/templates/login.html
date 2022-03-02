@@ -27,6 +27,9 @@
             <h2 class="welcome">Welcome!</h2>
         </div>
         <div class="login-form">
+            <div th:if="${param.error}" th:class="invalid-input">
+                Wrong username or password.
+            </div>
             <form th:action="@{/login}" method="post">
                 <input class="login-input" type="text" name="email" placeholder="e-mail">
                 <input class="login-input" type="password" name="password" placeholder="password">

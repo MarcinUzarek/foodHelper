@@ -117,6 +117,33 @@ hr {
     width: 60%;
 }
 
+.border-error {
+    /*border: 2px solid #520404;*/
+    /*box-shadow: 0 0 10px #ff0000;*/
+    border: 2px solid red;
+}
+
+.border-error-shadow {
+    border: 2px solid #520404;
+    box-shadow: 0 0 10px #ff0000;
+}
+
+.invalid-input {
+    color: #e51010;
+    text-shadow: 0 0 5px black;
+}
+
+.login-failed {
+    display: block;
+    margin: 20px;
+    padding: 5px 10px;
+    width: 25vw;
+    background-color: initial;
+    color: #e7dfdf;
+    border: 2px solid red;
+    font-size: 1.5em;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

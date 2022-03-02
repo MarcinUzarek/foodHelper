@@ -32,12 +32,12 @@ public class ForgotPasswordController {
         return "forgot-pass";
     }
 
-    @PostMapping("/new-pass")
+    @PostMapping("new-pass")
     public String NewPasswordForm() {
         return "new-pass";
     }
 
-    @PostMapping("/change-password")
+    @PostMapping("change-password")
     public String changePassword(@RequestParam String password,
                                  @RequestParam String passwordRepeat, HttpSession session) {
 

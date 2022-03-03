@@ -180,7 +180,7 @@
             </div>
         </div>
 
-        <form class="wrapper" th:action="@{/meals}" method="post">
+        <form class="wrapper" th:action="@{/meals}" th:object="${planPreferencesDTO}" method="post">
             <fieldset>
                 <legend>Preferences</legend>
                 <h3>Choose a diet:</h3>
@@ -205,6 +205,8 @@
                 <h3>Choose target kcal:</h3>
                 <label>
                     <input class="number" type="number" name="targetCalories" value="2000">
+                    <div th:if="${#fields.hasErrors('targetCalories')}" th:errors="*{targetCalories}" th:class="invalid-input"></div>
+
                 </label>
             </fieldset>
             <p>

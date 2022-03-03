@@ -6,10 +6,9 @@ import com.example.foodhelper.webclient.food.mealPlannerDTO.PlanPreferencesDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -21,20 +20,15 @@ public class MenuController {
         this.recipeService = recipeService;
     }
 
-    @PostMapping("/meals")
-    String generateMealPlan(Model model, PlanPreferencesDTO preferencesDto) {
-        var mealPlan = recipeService.getMealPlan(preferencesDto);
-        model.addAttribute("mealPlan", mealPlan);
-
-        return "meal-plan";
+    @GetMapping()
+    String getMenuPage(Model model) {
+        model.addAttribute("planPreferencesDTO", new PlanPreferencesDTO());
+        return "index";
     }
 
+
     @PostMapping("meal-list")
-    String fillPreferences(PreferencesDTO preferencesDto,
-                           BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "index";
-        }
+    String fillPreferences(PreferencesDTO preferencesDto, Model model) {
 
         var results = recipeService.complexSearch(
                 preferencesDto);
@@ -44,6 +38,19 @@ public class MenuController {
             return "meal-list-empty";
         }
         return "meal-list";
+    }
+
+    @PostMapping("/meals")
+    String generateMealPlan(@Valid @ModelAttribute("planPreferencesDTO") PlanPreferencesDTO preferencesDto,
+                            BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "index";
+        }
+        var mealPlan = recipeService.getMealPlan(preferencesDto);
+        model.addAttribute("mealPlan", mealPlan);
+
+        return "meal-plan";
     }
 
     @GetMapping(path = "searchById/{id}")

@@ -3,6 +3,7 @@ package com.example.foodhelper.controller;
 import com.example.foodhelper.service.RecipeService;
 import com.example.foodhelper.webclient.food.complex_search_dto.PreferencesDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.PlanPreferencesDTO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
+//@PreAuthorize("hasAuthority('USER')")
 public class MenuController {
 
     private final RecipeService recipeService;
@@ -22,13 +24,19 @@ public class MenuController {
 
     @GetMapping()
     String getMenuPage(Model model) {
+        model.addAttribute("preferencesDTO", new PreferencesDTO());
         model.addAttribute("planPreferencesDTO", new PlanPreferencesDTO());
         return "index";
     }
 
 
     @PostMapping("meal-list")
-    String fillPreferences(PreferencesDTO preferencesDto, Model model) {
+    String fillPreferences(@Valid @ModelAttribute("preferencesDTO") PreferencesDTO preferencesDto,
+                           BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "index";
+        }
 
         var results = recipeService.complexSearch(
                 preferencesDto);

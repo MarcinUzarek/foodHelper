@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Roboto', sans-serif;
+}
+
+.welcome {
+    font-size: 2.4em;
+}
+
+.account-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #e7dfdf;
+    text-shadow: 0 0 10px black;
+    margin: 6%;
+    padding: 2% 3%;
+    border: 1px solid #853504;
+    box-shadow: 0 0 7px #f8a74a;
+
+}
+
+.data p {
+    padding: 1% 0;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.enable-account{
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #fac52c, #FF7E31);
+    border: 2px solid #a86713;
+    border-radius: 10px;
+    font-size: 1.2em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    padding: 1% 7%;
+    transition: box-shadow .2s;
+}
+
+.enable-account:hover {
+    box-shadow: rgb(255, 191, 29) 0 0 10px;
+}
+
+.role-management {
+    border-radius: 10px;
+    font-size: 1.3em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    padding: 1% 4%;
+    transition: box-shadow .2s;
+}
+
+.promote {
+    border: 2px solid #19640a;
+    background-image: linear-gradient(-180deg, #50d71b, #468307);
+}
+
+.promote:hover {
+    box-shadow: rgb(121, 239, 53) 0 0 10px;
+}
+
+.demote {
+    border: 2px solid #720606;
+    background-image: linear-gradient(-180deg, #ff0000, #7c0505);
+}
+
+.demote:hover {
+    box-shadow: rgb(255, 0, 0) 0 0 10px;
+}
+
+.one-button {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.4em;
+}
+
+.two-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.space {
+    height: 20vh;
+    width: 100%;
+}
+
+
+
+
+
+

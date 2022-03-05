@@ -72,7 +72,7 @@
     border: 1px solid #fff;
     background-color: #1f1f1f;
     color: #e7dfdf;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
 }
 
 option[value=""][disabled] {

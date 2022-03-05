@@ -12,4 +12,5 @@ public class PlanPreferencesDTO {
     private String diet;
     @Min(value = 1, message = "Target Kcal should be higher")
     private Integer targetCalories;
+
 }

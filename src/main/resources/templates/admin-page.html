@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AppFOODIE</title>
+    <script src="https://kit.fontawesome.com/693c25552b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/login-register.css"/>
+    <link rel="stylesheet" href="/css/user-profile.css"/>
+    <link rel="stylesheet" href="/css/admin-profile.css"/>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="hero-bg"></div>
+    <div class="logo">
+        <h2>App<span class="foodie-span">Foodie</span></h2>
+    </div>
+    <div class="info-box">
+        <div>
+            <a class="back-to-menu" th:href="@{/}">back to menu</a>
+        </div>
+        <div>
+            <h2 class="welcome my-acc">Manage accounts</h2>
+        </div>
+        <div class="space">gg</div>
+        <div class="account-box" th:each="account : ${accounts}">
+            <div class="data">
+                <p th:text="'Name: &nbsp; ' + ${account.name}"></p>
+                <p th:text="'Email: &nbsp; ' + ${account.email}"></p>
+                <p th:text="'Creation Date: &nbsp; ' + ${account.creationTime}"></p>
+                <p th:text="'Is Account Active: &nbsp; ' + ${account.isEnabled}">
+                <div class="two-buttons">
+                    <a class="enable-account change" th:href="@{/change-active/{email}(email=${account.email})}">change</a>
+                    <a class="enable-account demote" th:href="@{/delete-account/{email}(email=${account.email})}">delete account</a>
+                </div>
+                </p>
+                <p th:text="'Roles: &nbsp; ' + ${account.rolesString}">
+                <div class="two-buttons">
+                    <a class="role-management promote" th:href="@{/promote/{email}(email=${account.email})}">promote</a>
+                    <a class="role-management demote" th:href="@{/demote/{email}(email=${account.email})}">demote</a>
+                </div>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</header>
+
+<main>
+    <section class="contact wrapper" id="contacts">
+        <h2>contact</h2>
+        <p><i class="fas fa-phone"></i>+48 501 718 252</p>
+        <p><i class="fas fa-at"></i>uzarek.marcin01@gmail.com</p>
+
+    </section>
+</main>
+<footer>
+    <p> 2022 | Marcin Uzarek |
+        <a href="https://github.com/MarcinUzarek?tab=repositories" target="_blank"><i
+                class="fa-brands fa-github-square"></i></a>
+        <a href="https://www.facebook.com/marcin.uzarek.12" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+    </p>
+</footer>
+</body>
+
+</html>

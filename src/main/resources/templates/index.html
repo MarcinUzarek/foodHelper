@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -37,6 +37,7 @@
         <a href="#contacts">Contact</a>
         <a th:href="@{/my-account}">My Account</a>
         <a th:href="@{/logout}">Logout</a>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/accounts-management}">Manage Accounts</a>
     </div>
 </nav>
 
@@ -66,7 +67,7 @@
             </div>
         </div>
 
-        <form class="wrapper" th:action="@{/meal-list}" method="post">
+        <form class="wrapper" th:action="@{/meal-list}" th:object="${preferencesDTO}" method="post">
             <fieldset>
                 <legend>Preferences</legend>
 
@@ -147,6 +148,9 @@
                 <h3>Approximate preparation time in minutes:</h3>
                 <label>
                     <input class="number" type="number" name="maxReadyTime" value="150">
+                    <!--                    <div th:if="${#fields.hasAnyErrors()}">-->
+                    <!--                        <p th:each="err : ${#fields.allErrors()}" th:text="${err}">...</p>-->
+                    <!--                    </div>-->
                 </label>
 
                 <h3>Include your intolerances?</h3>
@@ -205,8 +209,9 @@
                 <h3>Choose target kcal:</h3>
                 <label>
                     <input class="number" type="number" name="targetCalories" value="2000">
-                    <div th:if="${#fields.hasErrors('targetCalories')}" th:errors="*{targetCalories}" th:class="invalid-input"></div>
-
+                    <!--                    <div th:if="${#fields.hasAnyErrors()}">-->
+                    <!--                        <p th:each="err : ${#fields.allErrors()}" th:text="${err}">...</p>-->
+                    <!--                    </div>-->
                 </label>
             </fieldset>
             <p>

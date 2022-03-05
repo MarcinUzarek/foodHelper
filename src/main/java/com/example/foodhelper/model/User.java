@@ -1,8 +1,10 @@
 package com.example.foodhelper.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +29,13 @@ public class User {
     @Column(nullable = false, length = 80)
     private String password;
 
+    @Column(name = "is_enabled")
+    private boolean isEnabled = false;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "creation_time")
+    private LocalDate CreationTime = LocalDate.now();
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_intolerances",
@@ -42,10 +51,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
-
-    @Column(name = "is_enabled")
-    private boolean isEnabled = false;
-
 
     public void addIntolerance(Intolerance intolerance) {
         intolerances.add(intolerance);

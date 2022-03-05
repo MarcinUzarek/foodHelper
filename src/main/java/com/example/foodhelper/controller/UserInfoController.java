@@ -5,6 +5,7 @@ import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.service.IntoleranceService;
 import com.example.foodhelper.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
+//@PreAuthorize("hasAuthority('USER')")
 public class UserInfoController {
 
     private final UserService userService;

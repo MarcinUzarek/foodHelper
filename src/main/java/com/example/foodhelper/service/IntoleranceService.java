@@ -11,11 +11,9 @@ import java.util.Optional;
 public class IntoleranceService {
 
     private final IntoleranceRepository intoleranceRepository;
-    private final ModelMapper modelMapper;
 
-    public IntoleranceService(IntoleranceRepository intoleranceRepository, ModelMapper modelMapper) {
+    public IntoleranceService(IntoleranceRepository intoleranceRepository) {
         this.intoleranceRepository = intoleranceRepository;
-        this.modelMapper = modelMapper;
     }
 
     public Optional<Intolerance> getIntoleranceByName(String product) {

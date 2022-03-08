@@ -41,7 +41,7 @@ public class MailFacade {
         }
     }
 
-    public Token sendLinkToResetPass(String email) {
+    public void sendLinkToResetPass(String email) {
         Token token = tokenRepository.findByUser_Email(email).orElseThrow(
                 () -> new IllegalArgumentException("No account with such email")
         );
@@ -51,6 +51,5 @@ public class MailFacade {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        return token;
     }
 }

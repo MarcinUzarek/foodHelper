@@ -19,8 +19,8 @@ public class MailHtmlTemplate {
 
         htmlContent = "<h2>Working great</h2>";
         htmlContent += "<h3>HI</h3>";
-        htmlContent += "<form action='" + link + "' method='post'>";
-        htmlContent += "<input type='hidden' name='value' value='" + token + "'>";
+        htmlContent += "<form action='" + link +"' method='get'>";
+        htmlContent += "<input type='hidden' name='token' value='" + token + "'>";
         htmlContent += "<button type='submit'>Change password</button>";
         htmlContent += "</form>";
         return htmlContent;

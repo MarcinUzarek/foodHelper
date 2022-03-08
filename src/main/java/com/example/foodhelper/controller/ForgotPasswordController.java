@@ -1,12 +1,11 @@
 package com.example.foodhelper.controller;
 
 import com.example.foodhelper.mail.MailFacade;
-import com.example.foodhelper.model.Token;
+import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
@@ -26,23 +25,22 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("forgot-password")
-    public String sendResetLink(@RequestParam String email, HttpSession session) {
-        var token = mailFacade.sendLinkToResetPass(email);
-        session.setAttribute("token", token);
+    public String sendResetLink(@RequestParam String email) {
+        mailFacade.sendLinkToResetPass(email);
         return "forgot-pass";
     }
 
-    @PostMapping("new-pass")
-    public String NewPasswordForm() {
+    @GetMapping("new-pass")
+    public String NewPasswordForm(@RequestParam String token, Model model) {
+        var data = new ResetPasswordDTO();
+        data.setToken(token);
+        model.addAttribute("resetPasswordDto", data);
         return "new-pass";
     }
 
     @PostMapping("change-password")
-    public String changePassword(@RequestParam String password,
-                                 @RequestParam String passwordRepeat, HttpSession session) {
-
-        var token = (Token) session.getAttribute("token");
-       userService.changePasswordWithToken(password, passwordRepeat, token);
+    public String changePassword(ResetPasswordDTO passwordDto) {
+        userService.changePassword(passwordDto);
         return "Pass-changed-success";
     }
 }

@@ -31,6 +31,7 @@
                 <input class="login-input" type="text" name="name" placeholder="name" th:errorclass="border-error-shadow">
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="invalid-input"></div>
                 <input class="login-input" type="text" name="email" placeholder="e-mail" th:errorclass="border-error">
+                <p th:text="${emailDuplicate}" th:class="invalid-input"></p>
                 <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="invalid-input"></div>
                 <input class="login-input" type="password" name="password" placeholder="password" th:errorclass="border-error">
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="invalid-input"></div>

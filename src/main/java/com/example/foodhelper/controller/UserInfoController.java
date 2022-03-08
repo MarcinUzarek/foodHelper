@@ -1,8 +1,10 @@
 package com.example.foodhelper.controller;
 
 import com.example.foodhelper.authenticated_user.AuthenticationFacade;
+import com.example.foodhelper.exception.ItemDuplicateException;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.User;
+import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.service.IntoleranceService;
 import com.example.foodhelper.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,7 +42,7 @@ public class UserInfoController {
     }
 
     @GetMapping("/remove-intolerance/{id}")
-    public String removeIntolerance(@PathVariable Long id){
+    public String removeIntolerance(@PathVariable Long id) {
 
         userService.removeIntolerance(id);
         return "redirect:/my-account";

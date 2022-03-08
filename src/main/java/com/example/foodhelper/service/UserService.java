@@ -1,10 +1,13 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.authenticated_user.AuthenticationFacade;
+import com.example.foodhelper.exception.EmailAlreadyExists;
+import com.example.foodhelper.exception.ItemDuplicateException;
 import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.Token;
 import com.example.foodhelper.model.User;
+import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.repository.UserRepository;
@@ -49,6 +52,9 @@ public class UserService {
     }
 
     public void createUser(UserRegisterDTO userDto) {
+        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+            throw new EmailAlreadyExists("User with this email already exists");
+        }
         var user = registerDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(roleService.setUserRole());
@@ -62,12 +68,10 @@ public class UserService {
         ActivateUser(user);
     }
 
-    public void changePasswordWithToken(String password, String passwordRepeat, Token token) {
-        if (!password.equals(passwordRepeat)) {
-            throw new IllegalArgumentException("Hasla nie sa takie same");
-        }
+    public void changePassword(ResetPasswordDTO passwordDto) {
+        var token = tokenService.findToken(passwordDto.getToken());
         var user = token.getUser();
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
         userRepository.save(user);
     }
 
@@ -80,7 +84,7 @@ public class UserService {
             user.addIntolerance(intolerance);
             userRepository.save(user);
         } else {
-            throw new IllegalArgumentException("You already have it on your List");
+            throw new ItemDuplicateException("You already have this item on your list");
         }
     }
 
@@ -90,6 +94,10 @@ public class UserService {
         var intolerances = user.getIntolerances();
         intolerances.remove(intolerance);
         userRepository.save(user);
+    }
+
+    public boolean checkIfUserExists(String email) {
+        return userRepository.existsByEmail(email);
     }
 
     private Intolerance getIntolerance(String product) {

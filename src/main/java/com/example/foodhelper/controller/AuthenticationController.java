@@ -1,5 +1,6 @@
 package com.example.foodhelper.controller;
 
+import com.example.foodhelper.exception.EmailAlreadyExists;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.service.UserService;
@@ -45,6 +46,13 @@ public class AuthenticationController {
     public String verifyToken(@RequestParam String value) {
         userService.activateUserWithToken(value);
         return "hello";
+    }
+
+    @ExceptionHandler(EmailAlreadyExists.class)
+    public String handleEmailDuplicateLocally(EmailAlreadyExists e, Model model) {
+        model.addAttribute("registration", new UserRegisterDTO());
+        model.addAttribute("emailDuplicate", e.getMessage());
+        return "/register";
     }
 
 }

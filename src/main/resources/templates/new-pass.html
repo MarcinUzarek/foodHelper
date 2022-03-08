@@ -27,9 +27,11 @@
             <h2 class="forgot-pass-head">Reset your password</h2>
         </div>
         <div class="login-form">
-            <form th:action="@{/change-password}" method="post">
+            <form th:action="@{/change-password}" method="post" th:object="${resetPasswordDto}">
                 <input class="login-input" type="password" name="password" placeholder="Enter new password">
-                <input class="login-input" type="password" name="passwordRepeat" placeholder="Confirm new password">
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="invalid-input"></div>
+                <input class="login-input" type="password" name="confirmPassword" placeholder="Confirm new password">
+                <input type="hidden" th:field="*{token}">
                 <input class="btn" type="submit" value="Change">
             </form>
         </div>

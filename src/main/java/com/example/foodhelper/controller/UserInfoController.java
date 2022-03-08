@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
-//@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')")
 public class UserInfoController {
 
     private final UserService userService;

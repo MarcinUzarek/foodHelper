@@ -10,8 +10,19 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ItemDuplicateException.class)
-    public String handleException() {
+    public String handleItemDuplicateException() {
         return "redirect:/my-account";
     }
+
+    @ExceptionHandler(DifferentPasswordsException.class)
+    public String handleDifferentPasswordException() {
+        return "redirect:/new-pass";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleGeneralException() {
+        return "error";
+    }
+
 
 }

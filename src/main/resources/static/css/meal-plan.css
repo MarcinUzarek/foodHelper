@@ -25,6 +25,12 @@ section h1,h2 {
     margin: 8vh 0 13vh;
 }
 
+.h2-list {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 8vh 0 13vh;
+}
+
 .nutrients {
     margin-bottom: 5vh;
     display: flex;

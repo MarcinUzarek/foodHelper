@@ -1,6 +1,7 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.authenticated_user.AuthenticationFacade;
+import com.example.foodhelper.exception.DifferentPasswordsException;
 import com.example.foodhelper.exception.EmailAlreadyExists;
 import com.example.foodhelper.exception.ItemDuplicateException;
 import com.example.foodhelper.mail.MailFacade;
@@ -69,6 +70,9 @@ public class UserService {
     }
 
     public void changePassword(ResetPasswordDTO passwordDto) {
+        if (!validatePasswordMatching(passwordDto)) {
+            throw new DifferentPasswordsException("Passwords are not the same");
+        }
         var token = tokenService.findToken(passwordDto.getToken());
         var user = token.getUser();
         user.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
@@ -77,6 +81,9 @@ public class UserService {
 
 
     public void addIntolerance(String product) {
+        if (product.equals("null")) {
+            return;
+        }
         Intolerance intolerance = getIntolerance(product);
         var user = getLoggedUser();
 
@@ -96,8 +103,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public boolean checkIfUserExists(String email) {
-        return userRepository.existsByEmail(email);
+    private boolean validatePasswordMatching(ResetPasswordDTO passwordDTO) {
+        return passwordDTO.getPassword().equals(passwordDTO.getConfirmPassword());
     }
 
     private Intolerance getIntolerance(String product) {

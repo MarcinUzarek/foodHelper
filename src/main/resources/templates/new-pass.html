@@ -13,10 +13,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
 </head>
+<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("txtPassword").value;
+        var confirmPassword = document.getElementById("txtConfirmPassword").value;
+        if (password !== confirmPassword) {
+            alert("Passwords do not match. Please make sure to type same values.");
+            return false;
+        }
+        return true;
+    }
+</script>
 
 <body>
-
-
 <header class="header">
     <div class="hero-bg"></div>
     <div class="logo">
@@ -28,11 +37,11 @@
         </div>
         <div class="login-form">
             <form th:action="@{/change-password}" method="post" th:object="${resetPasswordDto}">
-                <input class="login-input" type="password" name="password" placeholder="Enter new password">
+                <input class="login-input" type="password" name="password" id="txtPassword" placeholder="Enter new password">
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="invalid-input"></div>
-                <input class="login-input" type="password" name="confirmPassword" placeholder="Confirm new password">
+                <input class="login-input" type="password" name="confirmPassword" id="txtConfirmPassword" placeholder="Confirm new password">
                 <input type="hidden" th:field="*{token}">
-                <input class="btn" type="submit" value="Change">
+                <input class="btn" type="submit" value="Change" onclick="return Validate()">
             </form>
         </div>
     </div>

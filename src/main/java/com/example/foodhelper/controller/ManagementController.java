@@ -11,7 +11,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-//@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class ManagementController {
 
     private final AccountsAdministrationService accountsAdministrationService;

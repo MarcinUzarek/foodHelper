@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
-//@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')")
 public class MenuController {
 
     private final RecipeService recipeService;

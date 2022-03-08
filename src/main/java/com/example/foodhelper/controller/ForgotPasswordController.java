@@ -5,7 +5,10 @@ import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -39,7 +42,11 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("change-password")
-    public String changePassword(ResetPasswordDTO passwordDto) {
+    public String changePassword(@Valid @ModelAttribute("resetPasswordDto") ResetPasswordDTO passwordDto,
+                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "new-pass";
+        }
         userService.changePassword(passwordDto);
         return "Pass-changed-success";
     }

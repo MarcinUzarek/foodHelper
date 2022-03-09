@@ -19,10 +19,10 @@ public class GlobalExceptionHandler {
         return "redirect:/new-pass";
     }
 
-    @ExceptionHandler(Exception.class)
-    public String handleGeneralException() {
-        return "error";
-    }
+//    @ExceptionHandler(Exception.class)
+//    public String handleGeneralException() {
+//        return "error";
+//    }
 
 
 }

@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "roles")
-public class Role {
+public class Role implements Comparable<Role>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,8 @@ public class Role {
         this.name = name;
     }
 
-
+    @Override
+    public int compareTo(Role o) {
+        return this.name.compareTo(o.name);
+    }
 }

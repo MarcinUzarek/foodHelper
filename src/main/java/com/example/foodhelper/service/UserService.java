@@ -6,7 +6,6 @@ import com.example.foodhelper.exception.EmailAlreadyExists;
 import com.example.foodhelper.exception.ItemDuplicateException;
 import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.model.Intolerance;
-import com.example.foodhelper.model.Token;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
@@ -58,7 +57,7 @@ public class UserService {
         }
         var user = registerDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(roleService.setUserRole());
+        user.getRoles().add(roleService.addUserRole());
         userRepository.save(user);
         mailFacade.sendActivationEmail(user);
     }
@@ -127,6 +126,14 @@ public class UserService {
     }
 
     private UserShowDTO userToShowDto(User user) {
-        return modelMapper.map(user, UserShowDTO.class);
+
+        var userShowDTO = modelMapper.map(user, UserShowDTO.class);
+        var intolerances = intoleranceService
+                .intoleranceHashSetToTreeSet(userShowDTO.getIntolerances());
+        userShowDTO.setIntolerances(intolerances);
+
+        return userShowDTO;
     }
+
+
 }

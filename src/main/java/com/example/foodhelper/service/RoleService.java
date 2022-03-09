@@ -5,7 +5,8 @@ import com.example.foodhelper.model.RoleTypes;
 import com.example.foodhelper.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
-import static org.hibernate.cfg.AvailableSettings.USER;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Service
 public class RoleService {
@@ -16,15 +17,19 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public Role setUserRole() {
+    public Set<Role> sortRoles(Set<Role> roles) {
+        return new TreeSet<>(roles);
+    }
+
+    public Role addUserRole() {
         return addRole(String.valueOf(RoleTypes.USER));
     }
 
-    public Role setAdminRole() {
+    public Role addAdminRole() {
         return addRole(String.valueOf(RoleTypes.ADMIN));
     }
 
-    public Role setModeratorRole() {
+    public Role addModeratorRole() {
         return addRole(String.valueOf(RoleTypes.MODERATOR));
     }
 

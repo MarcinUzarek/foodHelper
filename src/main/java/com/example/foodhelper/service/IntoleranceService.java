@@ -5,7 +5,10 @@ import com.example.foodhelper.repository.IntoleranceRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Service
 public class IntoleranceService {
@@ -31,11 +34,17 @@ public class IntoleranceService {
                .orElseThrow(() ->new IllegalArgumentException("No Intolerance with such id"));
     }
 
+    public Set<Intolerance> intoleranceHashSetToTreeSet(Set<Intolerance> intolerance) {
+        return new TreeSet<>(intolerance);
+    }
+
     private String mapProductToProductLetterSensitive(String product) {
 
         product = product.toLowerCase();
         String cap = product.substring(0, 1).toUpperCase() + product.substring(1);
         return cap;
     }
+
+
 
 }

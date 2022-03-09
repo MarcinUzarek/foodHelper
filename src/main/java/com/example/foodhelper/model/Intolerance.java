@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Table(name = "intolerances")
-public class Intolerance {
+public class Intolerance implements Comparable<Intolerance>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +26,11 @@ public class Intolerance {
 
     public Intolerance(String product) {
         this.product = product;
+    }
+
+
+    @Override
+    public int compareTo(Intolerance o) {
+        return this.product.compareTo(o.product);
     }
 }

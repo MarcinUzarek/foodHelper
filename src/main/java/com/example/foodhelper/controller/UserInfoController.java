@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.TreeSet;
 
 @Controller
 @RequestMapping("/")
@@ -32,6 +33,7 @@ public class UserInfoController {
         var userShowDto = userService.getLoggedUserAsDto();
         model.addAttribute("userinfo", userShowDto);
         return "user-profile";
+
     }
 
     @PostMapping("/add-intolerance")

@@ -28,7 +28,7 @@ public class AccountsAdministrationService {
         var users = userRepository.findAll();
         var usersDTO = users.stream()
                 .map(this::mapUserToAccountsAdministrationDTO).toList();
-        setRolesStringForm(usersDTO);
+        setRolesToStringFormSorted(usersDTO);
 
         return usersDTO;
     }
@@ -42,8 +42,8 @@ public class AccountsAdministrationService {
     public void promoteAccount(String email) {
         var user = userRepository.findByEmail(email).orElseThrow();
         switch (user.getRoles().size()) {
-            case 1 -> user.getRoles().add(roleService.setModeratorRole());
-            case 2 -> user.getRoles().add(roleService.setAdminRole());
+            case 1 -> user.getRoles().add(roleService.addModeratorRole());
+            case 2 -> user.getRoles().add(roleService.addAdminRole());
         }
         userRepository.save(user);
     }
@@ -51,8 +51,8 @@ public class AccountsAdministrationService {
     public void demoteAccount(String email) {
         var user = userRepository.findByEmail(email).orElseThrow();
         switch (user.getRoles().size()) {
-            case 3 -> user.getRoles().remove(roleService.setAdminRole());
-            case 2 -> user.getRoles().remove(roleService.setModeratorRole());
+            case 3 -> user.getRoles().remove(roleService.addAdminRole());
+            case 2 -> user.getRoles().remove(roleService.addModeratorRole());
         }
         userRepository.save(user);
     }
@@ -74,14 +74,17 @@ public class AccountsAdministrationService {
         return modelMapper.map(user, AccountsAdministrationDTO.class);
     }
 
-    private void setRolesStringForm(List<AccountsAdministrationDTO> accountsAdministrationDTO) {
-
+    private void setRolesToStringFormSorted(List<AccountsAdministrationDTO> accountsAdministrationDTO) {
 
         accountsAdministrationDTO.forEach(account ->{
+            account.setRoles(roleService.sortRoles(account.getRoles()));
+
             StringBuffer stringBuffer = new StringBuffer("");
             account.getRoles().forEach(role -> stringBuffer.append(role.getName()).append(", "));
             stringBuffer.deleteCharAt(stringBuffer.length() - 1).deleteCharAt(stringBuffer.length() - 1);
             account.setRolesString(stringBuffer.toString());
         });
     }
+
+
 }

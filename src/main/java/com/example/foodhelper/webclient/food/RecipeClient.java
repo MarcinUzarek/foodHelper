@@ -1,5 +1,7 @@
 package com.example.foodhelper.webclient.food;
 
+import com.example.foodhelper.model.dto.PlanPreferencesDTO;
+import com.example.foodhelper.model.dto.PreferencesDTO;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
 import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
@@ -17,11 +19,14 @@ public class RecipeClient {
     private static final String API_COMPLEX_URL = "complexSearch";
     private static final String API_KEY = "b704f2d913414eda8c6e67cf34f7001a";
 
-    public ComplexSearchDTO recipeComplexSearch(String cuisine, String diet, String intolerances,
-                                                String dishType, int maxReadyTime) {
+    public ComplexSearchDTO recipeComplexSearch(PreferencesDTO preferencesDTO) {
         return restTemplate.getForObject(API_RECIPE_URL + API_COMPLEX_URL + "?apiKey=" + API_KEY +
                         "&cuisine={cuisine}&diet={dietType}&intolerances={intolerances}&type={dishType}&maxReadyTime={maxReadyTime}&number=99",
-                ComplexSearchDTO.class, cuisine, diet, intolerances, dishType, maxReadyTime);
+                ComplexSearchDTO.class, preferencesDTO.getCuisine(),
+                preferencesDTO.getDiet(),
+                preferencesDTO.getIntolerances(),
+                preferencesDTO.getType(),
+                preferencesDTO.getMaxReadyTime());
     }
 
     public RecipeDTO recipeById(Integer id) {
@@ -29,11 +34,13 @@ public class RecipeClient {
                 RecipeDTO.class);
     }
 
-    public MealPlanDTO getMealPlan(int targetKcal, String diet) {
+    public MealPlanDTO getMealPlan(PlanPreferencesDTO planPreferences) {
 
         return restTemplate.getForObject(API_URL + "mealplanner/generate?apiKey=" + API_KEY +
                 "&timeFrame=day&targetCalories={targetKcal}&diet={diet}",
-                MealPlanDTO.class, targetKcal, diet);
+                MealPlanDTO.class,
+                planPreferences.getTargetCalories(),
+                planPreferences.getDiet());
     }
 
 

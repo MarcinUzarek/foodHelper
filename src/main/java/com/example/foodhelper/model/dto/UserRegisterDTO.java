@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class UserRegisterDTO {
 
-    @Size(min = 2, max = 30, message = "Name should be from 2 to 30 long")
+    @Size(min = 2, max = 30, message = "Name should be from 2 to 30 characters long")
     private String name;
 
     @Email(regexp = "^(.+)@(.+)$", message = "Invalid email")

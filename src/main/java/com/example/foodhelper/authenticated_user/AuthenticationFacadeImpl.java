@@ -1,6 +1,7 @@
 package com.example.foodhelper.authenticated_user;
 
 
+import com.example.foodhelper.exception.UserNotLoggedException;
 import com.example.foodhelper.user_details.UserDetailsImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,11 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
     @Override
     public Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal().equals("anonymousUser")) {
+            throw new UserNotLoggedException("You have not logged into the system");
+        }
+        return authentication;
     }
 
     @Override
@@ -24,7 +29,8 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
     @Override
     public UserDetailsImpl getPrincipal() {
-        return (UserDetailsImpl) getAuthentication().getPrincipal();
+        var principal = getAuthentication().getPrincipal();
+        return (UserDetailsImpl) principal;
     }
 
     @Override

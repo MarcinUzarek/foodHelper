@@ -1,8 +1,8 @@
 package com.example.foodhelper.controller;
 
 import com.example.foodhelper.service.RecipeService;
-import com.example.foodhelper.webclient.food.complex_search_dto.PreferencesDTO;
-import com.example.foodhelper.webclient.food.mealPlannerDTO.PlanPreferencesDTO;
+import com.example.foodhelper.model.dto.PreferencesDTO;
+import com.example.foodhelper.model.dto.PlanPreferencesDTO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +28,6 @@ public class MenuController {
         model.addAttribute("planPreferencesDTO", new PlanPreferencesDTO());
         return "index";
     }
-
 
     @PostMapping("meal-list")
     String fillPreferences(@Valid @ModelAttribute("preferencesDTO") PreferencesDTO preferencesDto,

@@ -1,4 +1,4 @@
-package com.example.foodhelper.webclient.food.mealPlannerDTO;
+package com.example.foodhelper.model.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

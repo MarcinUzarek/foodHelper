@@ -4,6 +4,7 @@ import com.example.foodhelper.authenticated_user.AuthenticationFacade;
 import com.example.foodhelper.exception.DifferentPasswordsException;
 import com.example.foodhelper.exception.EmailAlreadyExists;
 import com.example.foodhelper.exception.ItemDuplicateException;
+import com.example.foodhelper.exception.UserNotLoggedException;
 import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.User;
@@ -42,7 +43,11 @@ public class UserService {
     }
 
     public User getLoggedUser() {
-        var id = authenticationFacade.getPrincipal().getUser().getId();
+        var principal = authenticationFacade.getPrincipal();
+        if (principal == null) {
+            throw new UserNotLoggedException("Test");
+        }
+        var id = principal.getUser().getId();
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No user with such Id"));
     }
 

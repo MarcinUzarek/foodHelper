@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -39,7 +39,7 @@
                 </li>
             </ul>
             <form method="post" th:action="@{/add-intolerance}">
-                <select class="login-input product-input" type="" name="product" placeholder="Add new intolerance">
+                <select class="login-input product-input" type="" name="product" >
                     <option value="null">Add intolerance</option>
                     <option value="Dairy">Dairy</option>
                     <option value="Egg">Egg</option>

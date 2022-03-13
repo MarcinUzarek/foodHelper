@@ -1,6 +1,7 @@
 package com.example.foodhelper.model;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,9 +9,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Table(name = "tokens")
 public class Token {
 
     @Id
@@ -22,7 +22,4 @@ public class Token {
     @OneToOne
     private User user;
 
-    public Token(String value) {
-        this.value = value;
-    }
 }

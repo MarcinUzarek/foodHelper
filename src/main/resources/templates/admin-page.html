@@ -39,14 +39,14 @@
                 <p th:text="'Creation Date: &nbsp; ' + ${account.creationTime}"></p>
                 <p th:text="'Is Account Active: &nbsp; ' + ${account.isEnabled}">
                 <div class="two-buttons">
-                    <a class="enable-account change" th:href="@{/change-active/{email}(email=${account.email})}">change</a>
-                    <a class="enable-account demote" th:href="@{/delete-account/{email}(email=${account.email})}">delete account</a>
+                    <a class="enable-account change" th:href="@{/change-active/{id}(id=${account.id})}">change</a>
+                    <a class="enable-account demote" th:href="@{/delete-account/{id}(id=${account.id})}">delete account</a>
                 </div>
                 </p>
                 <p th:text="'Roles: &nbsp; ' + ${account.rolesString}">
                 <div class="two-buttons">
-                    <a class="role-management promote" th:href="@{/promote/{email}(email=${account.email})}">promote</a>
-                    <a class="role-management demote" th:href="@{/demote/{email}(email=${account.email})}">demote</a>
+                    <a class="role-management promote" th:href="@{/promote/{id}(id=${account.id})}">promote</a>
+                    <a class="role-management demote" th:href="@{/demote/{id}(id=${account.id})}">demote</a>
                 </div>
                 </p>
             </div>

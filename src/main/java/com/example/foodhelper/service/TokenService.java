@@ -16,18 +16,22 @@ public class TokenService {
         this.tokenRepository = tokenRepository;
     }
 
-    public Token findToken(String value) {
-        return tokenRepository.findByValue(value)
-                .orElseThrow(() -> new IllegalArgumentException("no Token with this value were found"));
+    public Token findToken(String token) {
+        return tokenRepository.findByValue(token)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("no Token with this value were found"));
     }
 
-    public String setTokenForUser(User user) {
+    public void setTokenForUser(User user) {
         String tokenValue = generateToken();
         Token token = new Token();
         token.setValue(tokenValue);
         token.setUser(user);
         tokenRepository.save(token);
-        return tokenValue;
+    }
+
+    public Token findTokenByEmail(String email) {
+        return tokenRepository.findByUser_Email(email).orElseThrow();
     }
 
     private String generateToken() {

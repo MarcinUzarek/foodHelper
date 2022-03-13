@@ -8,6 +8,7 @@ import com.example.foodhelper.exception.UserNotLoggedException;
 import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.User;
+import com.example.foodhelper.model.dto.IntoleranceDTO;
 import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
@@ -15,6 +16,7 @@ import com.example.foodhelper.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -48,7 +50,8 @@ public class UserService {
             throw new UserNotLoggedException("Test");
         }
         var id = principal.getUser().getId();
-        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No user with such Id"));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No user with such Id"));
     }
 
     public UserShowDTO getLoggedUserAsDto() {
@@ -56,6 +59,7 @@ public class UserService {
         return userToShowDto(user);
     }
 
+    @Transactional
     public void createUser(UserRegisterDTO userDto) {
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
             throw new EmailAlreadyExists("User with this email already exists");
@@ -64,6 +68,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(roleService.addUserRole());
         userRepository.save(user);
+        tokenService.setTokenForUser(user);
         mailFacade.sendActivationEmail(user);
     }
 
@@ -84,11 +89,11 @@ public class UserService {
     }
 
 
-    public void addIntolerance(String product) {
-        if (product.equals("null")) {
-            return;
+    public Intolerance addIntolerance(IntoleranceDTO intoleranceDto) {
+        if (intoleranceDto.getProduct().equals("null")) {
+            throw new IllegalArgumentException("add own exception here");
         }
-        Intolerance intolerance = getIntolerance(product);
+        Intolerance intolerance = getIntolerance(intoleranceDto.getProduct());
         var user = getLoggedUser();
 
         if (!user.getIntolerances().contains(intolerance)) {
@@ -97,14 +102,16 @@ public class UserService {
         } else {
             throw new ItemDuplicateException("You already have this item on your list");
         }
+        return intolerance;
     }
 
-    public void removeIntolerance(Long id) {
+    public Intolerance removeIntoleranceById(Long id) {
         var user = getLoggedUser();
         var intolerance = intoleranceService.findById(id);
         var intolerances = user.getIntolerances();
         intolerances.remove(intolerance);
         userRepository.save(user);
+        return intolerance;
     }
 
     private boolean validatePasswordMatching(ResetPasswordDTO passwordDTO) {

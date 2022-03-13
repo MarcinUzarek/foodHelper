@@ -17,7 +17,7 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
     public Authentication getAuthentication() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal().equals("anonymousUser")) {
-            throw new UserNotLoggedException("You have not logged into the system");
+            throw new UserNotLoggedException("You have to log into the system");
         }
         return authentication;
     }

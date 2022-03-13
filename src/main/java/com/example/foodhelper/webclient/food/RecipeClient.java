@@ -26,7 +26,7 @@ public class RecipeClient {
                 preferencesDTO.getDiet(),
                 preferencesDTO.getIntolerances(),
                 preferencesDTO.getType(),
-                preferencesDTO.getMaxReadyTime());
+                preferencesDTO.getReadyTime());
     }
 
     public RecipeDTO recipeById(Integer id) {

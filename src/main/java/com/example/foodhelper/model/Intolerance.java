@@ -1,5 +1,6 @@
 package com.example.foodhelper.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Intolerance implements Comparable<Intolerance>{
     private String product;
 
     @ManyToMany(mappedBy = "intolerances")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     public Intolerance(String product) {

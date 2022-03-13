@@ -13,6 +13,6 @@ public class PreferencesDTO {
    private String type;
    @Min(value = 1, message = "Preparation time is too low")
    @Max(value = 99999, message = "Preparation time is too high")
-   private Integer maxReadyTime;
+   private Integer readyTime;
    private String intolerances;
 }

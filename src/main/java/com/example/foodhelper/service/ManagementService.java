@@ -6,6 +6,8 @@ import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.repository.TokenRepository;
 import com.example.foodhelper.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,13 +27,14 @@ public class ManagementService {
         this.modelMapper = modelMapper;
     }
 
+    public List<ManagementDTO> getAllAccountsPaged(Pageable pageable) {
+        var users = userRepository.findAll(pageable).getContent();
+        return mapListUsersToListManagementDto(users);
+    }
+
     public List<ManagementDTO> getAllAccounts() {
         var users = userRepository.findAll();
-        var usersDTO = users.stream()
-                .map(this::mapUserToManagementDTO).toList();
-        setRolesToStringFormSorted(usersDTO);
-
-        return usersDTO;
+        return mapListUsersToListManagementDto(users);
     }
 
     public void changeIsAccountActive(Long id) {
@@ -76,6 +79,13 @@ public class ManagementService {
     private User getUserOrThrow(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("No User with this id"));
+    }
+
+    private List<ManagementDTO> mapListUsersToListManagementDto(List<User> users) {
+        var usersDTO = users.stream()
+                .map(this::mapUserToManagementDTO).toList();
+        setRolesToStringFormSorted(usersDTO);
+        return usersDTO;
     }
 
     private void deleteAssociations(User user) {

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,8 @@ public class ManagementRestController {
         this.managementService = managementService;
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<ManagementDTO>> getUsers() {
+    @GetMapping()
+    public ResponseEntity<List<ManagementDTO>> getUsers(Pageable pageable) {
         var accounts = managementService.getAllAccounts();
         return ResponseEntity.ok(accounts);
     }
@@ -33,21 +34,21 @@ public class ManagementRestController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/{id}/promote")
-    public ResponseEntity<ManagementDTO> promoteUser(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ManagementDTO> deleteUser(@PathVariable Long id) {
+        var user = managementService.deleteAccount(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/{id}/roles")
+    public ResponseEntity<ManagementDTO> addRoleToUser(@PathVariable Long id) {
         var user = managementService.promoteAccount(id);
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/{id}/demote")
-    public ResponseEntity<ManagementDTO> demoteUser(@PathVariable Long id) {
+    @DeleteMapping("/{id}/roles")
+    public ResponseEntity<ManagementDTO> deleteUsersRole(@PathVariable Long id) {
         var user = managementService.demoteAccount(id);
-        return ResponseEntity.ok(user);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ManagementDTO> deleteUser(@PathVariable Long id) {
-        var user = managementService.deleteAccount(id);
         return ResponseEntity.ok(user);
     }
 

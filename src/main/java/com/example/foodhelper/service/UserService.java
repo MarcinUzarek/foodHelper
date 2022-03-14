@@ -1,6 +1,6 @@
 package com.example.foodhelper.service;
 
-import com.example.foodhelper.authenticated_user.AuthenticationFacade;
+import com.example.foodhelper.authentication_info.AuthenticationFacade;
 import com.example.foodhelper.exception.DifferentPasswordsException;
 import com.example.foodhelper.exception.EmailAlreadyExists;
 import com.example.foodhelper.exception.ItemDuplicateException;

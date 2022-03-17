@@ -3,11 +3,16 @@ package com.example.foodhelper.rest_controller;
 import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.service.ManagementService;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/management/users")
@@ -21,9 +26,25 @@ public class ManagementRestController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ManagementDTO>> getUsers(Pageable pageable) {
+    public ResponseEntity<CollectionModel<ManagementDTO>> getUsers(Pageable pageable) {
         var accounts = managementService.getAllAccountsPaged(pageable);
-        return ResponseEntity.ok(accounts);
+
+        accounts.forEach(account -> {
+            account.add(linkTo(methodOn(this.getClass())
+                    .getAccountById(account.getId())).withSelfRel());
+        });
+
+        return ResponseEntity.ok(CollectionModel.of(accounts));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ManagementDTO> getAccountById(@PathVariable Long id) {
+        var account = managementService.getAccountById(id);
+
+        account.add(linkTo(methodOn(this.getClass())
+                .getUsers(Pageable.unpaged())).withRel("all-accounts"));
+
+        return  ResponseEntity.ok(account);
     }
 
     @PutMapping("/{id}")

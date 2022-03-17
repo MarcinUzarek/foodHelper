@@ -17,10 +17,6 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public Set<Role> sortRoles(Set<Role> roles) {
-        return new TreeSet<>(roles);
-    }
-
     public Role addUserRole() {
         return addRole(String.valueOf(RoleTypes.USER));
     }

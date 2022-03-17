@@ -2,10 +2,8 @@ package com.example.foodhelper.service;
 
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.repository.IntoleranceRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
@@ -30,11 +28,11 @@ public class IntoleranceService {
     }
 
     public Intolerance findById(Long id) {
-       return intoleranceRepository.findById(id)
-               .orElseThrow(() ->new IllegalArgumentException("No Intolerance with such id"));
+        return intoleranceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No Intolerance with such id"));
     }
 
-    public Set<Intolerance> intoleranceHashSetToTreeSet(Set<Intolerance> intolerance) {
+    Set<Intolerance> intoleranceHashSetToTreeSet(Set<Intolerance> intolerance) {
         return new TreeSet<>(intolerance);
     }
 
@@ -44,7 +42,6 @@ public class IntoleranceService {
         String cap = product.substring(0, 1).toUpperCase() + product.substring(1);
         return cap;
     }
-
 
 
 }

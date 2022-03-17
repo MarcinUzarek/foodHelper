@@ -6,6 +6,7 @@ import com.example.foodhelper.exception.EmailAlreadyExists;
 import com.example.foodhelper.exception.ItemDuplicateException;
 import com.example.foodhelper.exception.UserNotLoggedException;
 import com.example.foodhelper.mail.MailFacade;
+import com.example.foodhelper.mapper.Mapper;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.IntoleranceDTO;
@@ -13,12 +14,12 @@ import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.repository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -30,10 +31,9 @@ public class UserService {
     private final MailFacade mailFacade;
     private final AuthenticationFacade authenticationFacade;
     private final IntoleranceService intoleranceService;
-    private final ModelMapper modelMapper;
+    private final Mapper mapper;
 
-
-    public UserService(UserRepository userRepository, TokenService tokenService, RoleService roleService, PasswordEncoder passwordEncoder, MailFacade mailFacade, AuthenticationFacade authenticationFacade, IntoleranceService intoleranceService, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, TokenService tokenService, RoleService roleService, PasswordEncoder passwordEncoder, MailFacade mailFacade, AuthenticationFacade authenticationFacade, IntoleranceService intoleranceService, Mapper mapper) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.roleService = roleService;
@@ -41,7 +41,7 @@ public class UserService {
         this.mailFacade = mailFacade;
         this.authenticationFacade = authenticationFacade;
         this.intoleranceService = intoleranceService;
-        this.modelMapper = modelMapper;
+        this.mapper = mapper;
     }
 
     public User getLoggedUser() {
@@ -64,7 +64,7 @@ public class UserService {
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
             throw new EmailAlreadyExists("User with this email already exists");
         }
-        var user = registerDtoToUser(userDto);
+        var user = mapper.mapRegisterDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(roleService.addUserRole());
         userRepository.save(user);
@@ -133,17 +133,13 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private User registerDtoToUser(UserRegisterDTO userDto) {
-        return modelMapper.map(userDto, User.class);
-    }
-
     private UserShowDTO userToShowDto(User user) {
 
-        var userShowDTO = modelMapper.map(user, UserShowDTO.class);
+        var userShowDTO = mapper.mapUserToUserShowDto(user);
         var intolerances = intoleranceService
                 .intoleranceHashSetToTreeSet(userShowDTO.getIntolerances());
-        userShowDTO.setIntolerances(intolerances);
 
+        userShowDTO.setIntolerances(intolerances);
         return userShowDTO;
     }
 

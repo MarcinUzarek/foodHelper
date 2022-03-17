@@ -1,16 +1,16 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.exception.UserNotFoundException;
+import com.example.foodhelper.mapper.Mapper;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.repository.TokenRepository;
 import com.example.foodhelper.repository.UserRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class ManagementService {
@@ -18,74 +18,73 @@ public class ManagementService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final RoleService roleService;
-    private final ModelMapper modelMapper;
+    private final Mapper mapper;
 
-    public ManagementService(UserRepository userRepository, TokenRepository tokenRepository, RoleService roleService, ModelMapper modelMapper) {
+    public ManagementService(UserRepository userRepository, TokenRepository tokenRepository, RoleService roleService, Mapper mapper) {
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
         this.roleService = roleService;
-        this.modelMapper = modelMapper;
+        this.mapper = mapper;
     }
 
     public List<ManagementDTO> getAllAccountsPaged(Pageable pageable) {
         var users = userRepository.findAll(pageable).getContent();
-        return mapListUsersToListManagementDto(users);
+        return mapper.mapListUsersToListManagementDto(users);
     }
 
     public List<ManagementDTO> getAllAccounts() {
         var users = userRepository.findAll();
-        return mapListUsersToListManagementDto(users);
+        return mapper.mapListUsersToListManagementDto(users);
     }
 
+    public ManagementDTO getAccountById(Long id) {
+        var user = getUser(id);
+        return mapper.mapUserToManagementDTO(user);
+    }
+
+
     public void changeIsAccountActive(Long id) {
-        var user = getUserOrThrow(id);
+        var user = getUser(id);
         user.setEnabled(!user.isEnabled());
         userRepository.save(user);
     }
 
     public ManagementDTO activateAccount(boolean activate, Long id) {
-        User user = getUserOrThrow(id);
+        User user = getUser(id);
         user.setEnabled(activate);
-        return mapUserToManagementDTO(user);
+        return mapper.mapUserToManagementDTO(user);
     }
 
     public ManagementDTO promoteAccount(Long id) {
-        var user = getUserOrThrow(id);
+        var user = getUser(id);
         switch (user.getRoles().size()) {
             case 1 -> user.getRoles().add(roleService.addModeratorRole());
             case 2 -> user.getRoles().add(roleService.addAdminRole());
         }
         userRepository.save(user);
-        return mapUserToManagementDTO(user);
+        return mapper.mapUserToManagementDTO(user);
     }
 
     public ManagementDTO demoteAccount(Long id) {
-        var user = getUserOrThrow(id);
+        var user = getUser(id);
         switch (user.getRoles().size()) {
             case 3 -> user.getRoles().remove(roleService.addAdminRole());
             case 2 -> user.getRoles().remove(roleService.addModeratorRole());
         }
         userRepository.save(user);
-        return mapUserToManagementDTO(user);
+        return mapper.mapUserToManagementDTO(user);
     }
 
     public ManagementDTO deleteAccount(Long id) {
-        var user = getUserOrThrow(id);
+        var user = getUser(id);
         deleteAssociations(user);
         userRepository.delete(user);
-        return mapUserToManagementDTO(user);
+        return mapper.mapUserToManagementDTO(user);
     }
 
-    private User getUserOrThrow(Long id) {
+    private User getUser(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("No User with this id"));
-    }
-
-    private List<ManagementDTO> mapListUsersToListManagementDto(List<User> users) {
-        var usersDTO = users.stream()
-                .map(this::mapUserToManagementDTO).toList();
-        setRolesToStringFormSorted(usersDTO);
-        return usersDTO;
     }
 
     private void deleteAssociations(User user) {
@@ -95,21 +94,6 @@ public class ManagementService {
         user.getRoles().clear();
     }
 
-    private ManagementDTO mapUserToManagementDTO(User user) {
-        return modelMapper.map(user, ManagementDTO.class);
-    }
-
-    private void setRolesToStringFormSorted(List<ManagementDTO> accountsAdministrationDTO) {
-
-        accountsAdministrationDTO.forEach(account -> {
-            account.setRoles(roleService.sortRoles(account.getRoles()));
-
-            StringBuffer stringBuffer = new StringBuffer("");
-            account.getRoles().forEach(role -> stringBuffer.append(role.getName()).append(", "));
-            stringBuffer.deleteCharAt(stringBuffer.length() - 1).deleteCharAt(stringBuffer.length() - 1);
-            account.setRolesString(stringBuffer.toString());
-        });
-    }
 
 
 }

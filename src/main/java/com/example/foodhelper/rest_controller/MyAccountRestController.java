@@ -5,10 +5,12 @@ import com.example.foodhelper.model.dto.IntoleranceDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/accounts")
+@PreAuthorize("hasAuthority('USER')")
 public class MyAccountRestController {
 
     private final UserService userService;

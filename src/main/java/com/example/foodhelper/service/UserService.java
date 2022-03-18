@@ -1,10 +1,7 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.authentication_info.AuthenticationFacade;
-import com.example.foodhelper.exception.DifferentPasswordsException;
-import com.example.foodhelper.exception.EmailAlreadyExists;
-import com.example.foodhelper.exception.ItemDuplicateException;
-import com.example.foodhelper.exception.UserNotLoggedException;
+import com.example.foodhelper.exception.*;
 import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.mapper.Mapper;
 import com.example.foodhelper.model.Intolerance;
@@ -112,6 +109,16 @@ public class UserService {
         intolerances.remove(intolerance);
         userRepository.save(user);
         return intolerance;
+    }
+
+    public UserShowDTO verifyLogging() {
+        User user;
+        try {
+            user = authenticationFacade.getPrincipal().getUser();
+        } catch (UserNotLoggedException e) {
+            throw new WrongCredentialsException("Wrong Credentials");
+        }
+        return mapper.mapUserToUserShowDto(user);
     }
 
     private boolean validatePasswordMatching(ResetPasswordDTO passwordDTO) {

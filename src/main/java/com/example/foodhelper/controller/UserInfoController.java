@@ -1,5 +1,6 @@
 package com.example.foodhelper.controller;
 
+import com.example.foodhelper.exception.ItemDuplicateException;
 import com.example.foodhelper.model.dto.IntoleranceDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,15 +27,21 @@ public class UserInfoController {
         return "user-profile";
     }
 
-    @PostMapping("/add-intolerance")
-    public String addIntolerance(@RequestBody IntoleranceDTO intolerance) {
+    @PostMapping("add-intolerance")
+    public String addIntolerance(IntoleranceDTO intolerance) {
+        System.out.println("im here");
         userService.addIntolerance(intolerance);
         return "redirect:/my-account";
     }
 
-    @GetMapping("/remove-intolerance/{id}")
+    @GetMapping("remove-intolerance/{id}")
     public String removeIntolerance(@PathVariable Long id) {
         userService.removeIntoleranceById(id);
+        return "redirect:/my-account";
+    }
+
+    @ExceptionHandler(ItemDuplicateException.class)
+    public String handleItemDuplicateExceptionLocally() {
         return "redirect:/my-account";
     }
 }

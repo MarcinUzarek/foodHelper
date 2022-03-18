@@ -1,7 +1,6 @@
 package com.example.foodhelper.controller;
 
-import com.example.foodhelper.exception.EmailAlreadyExists;
-import com.example.foodhelper.model.User;
+import com.example.foodhelper.exception.EmailAlreadyExistsException;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -48,8 +47,8 @@ public class AuthenticationController {
         return "hello";
     }
 
-    @ExceptionHandler(EmailAlreadyExists.class)
-    public String handleEmailDuplicateLocally(EmailAlreadyExists e, Model model) {
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public String handleEmailDuplicateLocally(EmailAlreadyExistsException e, Model model) {
         model.addAttribute("registration", new UserRegisterDTO());
         model.addAttribute("emailDuplicate", e.getMessage());
         return "/register";

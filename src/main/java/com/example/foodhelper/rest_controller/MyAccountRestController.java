@@ -27,9 +27,9 @@ public class MyAccountRestController {
     public ResponseEntity<UserShowDTO> getMyAccount() {
         var user = userService.getLoggedUserAsDto();
 
-        user.add(linkTo(methodOn(RecipeRestController.class)
+        user.add(linkTo(methodOn(MenuRestController.class)
                 .getRecipes(new PreferencesDTO())).withRel("get recipes"));
-        user.add(linkTo(methodOn(PlanRestController.class)
+        user.add(linkTo(methodOn(MenuRestController.class)
                 .getMealPlan(new PlanPreferencesDTO())).withRel("generate meal-plan"));
 
         return ResponseEntity.ok(user);

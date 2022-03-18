@@ -28,9 +28,9 @@ public class AuthenticationRestController {
     public ResponseEntity<UserShowDTO> logIn() {
 
         var user = userService.verifyLogging();
-        user.add(linkTo(methodOn(RecipeRestController.class)
+        user.add(linkTo(methodOn(MenuRestController.class)
                 .getRecipes(new PreferencesDTO())).withRel("get recipes"));
-        user.add(linkTo(methodOn(PlanRestController.class)
+        user.add(linkTo(methodOn(MenuRestController.class)
                 .getMealPlan(new PlanPreferencesDTO())).withRel("generate meal-plan"));
 
         return ResponseEntity.ok(user);

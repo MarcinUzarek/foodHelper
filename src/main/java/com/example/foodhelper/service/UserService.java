@@ -59,7 +59,7 @@ public class UserService {
     @Transactional
     public UserRegisterDTO createUser(UserRegisterDTO userDto) {
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-            throw new EmailAlreadyExists("User with this email already exists");
+            throw new EmailAlreadyExistsException("User with this email already exists");
         }
         var user = mapper.mapRegisterDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));

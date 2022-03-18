@@ -57,7 +57,7 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(UserRegisterDTO userDto) {
+    public UserRegisterDTO createUser(UserRegisterDTO userDto) {
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
             throw new EmailAlreadyExists("User with this email already exists");
         }
@@ -67,6 +67,7 @@ public class UserService {
         userRepository.save(user);
         tokenService.setTokenForUser(user);
         mailFacade.sendActivationEmail(user);
+        return userDto;
     }
 
     public void activateUserWithToken(String tokenValue) {

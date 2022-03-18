@@ -5,7 +5,6 @@ import com.example.foodhelper.model.dto.PreferencesDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.service.UserService;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,20 +25,24 @@ public class AuthenticationRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserShowDTO>logIn() {
+    public ResponseEntity<UserShowDTO> logIn() {
 
         var user = userService.verifyLogging();
         user.add(linkTo(methodOn(RecipeRestController.class)
-                .getRecipes(new PreferencesDTO())).withRel("recipes"));
+                .getRecipes(new PreferencesDTO())).withRel("get recipes"));
         user.add(linkTo(methodOn(PlanRestController.class)
-                .getMealPlan(new PlanPreferencesDTO())).withRel("meal-plan"));
+                .getMealPlan(new PlanPreferencesDTO())).withRel("generate meal-plan"));
 
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/register")
     public ResponseEntity<UserRegisterDTO> register(@RequestBody UserRegisterDTO register) {
-        userService.createUser(register);
+        var user = userService.createUser(register);
+
+        user.add(linkTo(methodOn(this.getClass())
+                .logIn()).withRel("login here"));
+
         return ResponseEntity.ok(register);
     }
 }

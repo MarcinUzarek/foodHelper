@@ -1,5 +1,6 @@
 package com.example.foodhelper.service;
 
+import com.example.foodhelper.exception.custom.IntoleranceNotFoundException;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.repository.IntoleranceRepository;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class IntoleranceService {
 
     public Intolerance findById(Long id) {
         return intoleranceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No Intolerance with such id"));
+                .orElseThrow(() -> new IntoleranceNotFoundException(id));
     }
 
     Set<Intolerance> intoleranceHashSetToTreeSet(Set<Intolerance> intolerance) {

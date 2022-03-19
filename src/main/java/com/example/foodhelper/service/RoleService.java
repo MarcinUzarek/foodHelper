@@ -1,12 +1,10 @@
 package com.example.foodhelper.service;
 
+import com.example.foodhelper.exception.custom.RoleNotExistsException;
 import com.example.foodhelper.model.Role;
 import com.example.foodhelper.model.RoleTypes;
 import com.example.foodhelper.repository.RoleRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
-import java.util.TreeSet;
 
 @Service
 public class RoleService {
@@ -31,6 +29,6 @@ public class RoleService {
 
     private Role addRole(String role) {
         return roleRepository.findByName(role)
-                .orElseThrow(() -> new IllegalArgumentException("No Such Role"));
+                .orElseThrow(() -> new RoleNotExistsException(role));
     }
 }

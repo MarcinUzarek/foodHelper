@@ -1,6 +1,6 @@
 package com.example.foodhelper.controller;
 
-import com.example.foodhelper.exception.DifferentPasswordsException;
+import com.example.foodhelper.exception.custom.DifferentPasswordsException;
 import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.service.UserService;

@@ -1,6 +1,6 @@
 package com.example.foodhelper.controller;
 
-import com.example.foodhelper.exception.ItemDuplicateException;
+import com.example.foodhelper.exception.custom.ItemDuplicateException;
 import com.example.foodhelper.model.dto.IntoleranceDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/")
 @PreAuthorize("hasAuthority('USER')")
-public class UserInfoController {
+public class MyAccountController {
 
     private final UserService userService;
 
-    public UserInfoController(UserService userService) {
+    public MyAccountController(UserService userService) {
         this.userService = userService;
     }
 

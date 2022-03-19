@@ -1,6 +1,6 @@
 package com.example.foodhelper.service;
 
-import com.example.foodhelper.exception.UserNotFoundException;
+import com.example.foodhelper.exception.custom.UserNotFoundException;
 import com.example.foodhelper.mapper.Mapper;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.ManagementDTO;
@@ -84,7 +84,7 @@ public class ManagementService {
 
     private User getUser(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("No User with this id"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     private void deleteAssociations(User user) {

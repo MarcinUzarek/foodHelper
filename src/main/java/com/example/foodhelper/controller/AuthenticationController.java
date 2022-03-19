@@ -1,6 +1,6 @@
 package com.example.foodhelper.controller;
 
-import com.example.foodhelper.exception.EmailAlreadyExistsException;
+import com.example.foodhelper.exception.custom.EmailAlreadyExistsException;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.service.UserService;
 import org.springframework.stereotype.Controller;

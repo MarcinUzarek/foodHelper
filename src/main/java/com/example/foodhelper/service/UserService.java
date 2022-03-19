@@ -1,7 +1,7 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.authentication_info.AuthenticationFacade;
-import com.example.foodhelper.exception.*;
+import com.example.foodhelper.exception.custom.*;
 import com.example.foodhelper.mail.MailFacade;
 import com.example.foodhelper.mapper.Mapper;
 import com.example.foodhelper.model.Intolerance;
@@ -44,11 +44,11 @@ public class UserService {
     public User getLoggedUser() {
         var principal = authenticationFacade.getPrincipal();
         if (principal == null) {
-            throw new UserNotLoggedException("Test");
+            throw new UserNotLoggedException();
         }
         var id = principal.getUser().getId();
         return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No user with such Id"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public UserShowDTO getLoggedUserAsDto() {
@@ -59,7 +59,7 @@ public class UserService {
     @Transactional
     public UserRegisterDTO createUser(UserRegisterDTO userDto) {
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
-            throw new EmailAlreadyExistsException("User with this email already exists");
+            throw new EmailAlreadyExistsException();
         }
         var user = mapper.mapRegisterDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -78,7 +78,7 @@ public class UserService {
 
     public void changePassword(ResetPasswordDTO passwordDto) {
         if (!validatePasswordMatching(passwordDto)) {
-            throw new DifferentPasswordsException("Passwords are not the same");
+            throw new DifferentPasswordsException();
         }
         var token = tokenService.findToken(passwordDto.getToken());
         var user = token.getUser();
@@ -98,7 +98,7 @@ public class UserService {
             user.addIntolerance(intolerance);
             userRepository.save(user);
         } else {
-            throw new ItemDuplicateException("You already have this item on your list");
+            throw new ItemDuplicateException(intolerance.getProduct());
         }
         return intolerance;
     }
@@ -117,7 +117,7 @@ public class UserService {
         try {
             user = authenticationFacade.getPrincipal().getUser();
         } catch (UserNotLoggedException e) {
-            throw new WrongCredentialsException("Wrong Credentials");
+            throw new WrongCredentialsException();
         }
         return mapper.mapUserToUserShowDto(user);
     }

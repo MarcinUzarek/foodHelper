@@ -1,7 +1,7 @@
 package com.example.foodhelper.authentication_info;
 
 
-import com.example.foodhelper.exception.UserNotLoggedException;
+import com.example.foodhelper.exception.custom.UserNotLoggedException;
 import com.example.foodhelper.user_details.UserDetailsImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
     public Authentication getAuthentication() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal().equals("anonymousUser")) {
-            throw new UserNotLoggedException("You have to log into the system");
+            throw new UserNotLoggedException();
         }
         return authentication;
     }

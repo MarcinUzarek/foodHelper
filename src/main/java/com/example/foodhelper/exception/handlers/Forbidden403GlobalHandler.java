@@ -1,5 +1,7 @@
 package com.example.foodhelper.exception.handlers;
 
+import com.example.foodhelper.exception.custom.UserNotLoggedException;
+import com.example.foodhelper.exception.custom.WrongCredentialsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.ZonedDateTime;
+
 
 @ControllerAdvice
 @Slf4j
@@ -24,5 +27,13 @@ public class Forbidden403GlobalHandler {
 
         log.warn("Someone was trying to log without permission: " + e);
         return new ResponseEntity<>(exc, FORBIDDEN);
+    }
+
+    @ExceptionHandler({UserNotLoggedException.class,
+            WrongCredentialsException.class})
+    @ResponseBody
+    public ResponseEntity<ExceptionDetails> handleAuthenticationProblems(Exception e) {
+        return new ResponseEntity<>(new ExceptionDetails(ZonedDateTime.now(),
+                FORBIDDEN, e.getMessage()), FORBIDDEN);
     }
 }

@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -23,7 +22,7 @@ class IntoleranceRepositoryTest {
     @Autowired
     private IntoleranceRepository intoleranceRepository;
 
-    static void populateIntolerances(IntoleranceRepository intoleranceRepository) {
+    private void populateIntolerances() {
         Intolerance milk = new Intolerance("milk");
         Intolerance eggs = new Intolerance("eggs");
         Intolerance dairy = new Intolerance("dairy");
@@ -35,7 +34,7 @@ class IntoleranceRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        populateIntolerances(intoleranceRepository);
+        populateIntolerances();
     }
 
     @AfterEach
@@ -44,7 +43,7 @@ class IntoleranceRepositoryTest {
     }
 
     @Test
-    void should_be_able_to_find_product_when_in_database() {
+    void should_find_product_when_in_database() {
         //given
         String product = "eggs";
 

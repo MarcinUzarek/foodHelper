@@ -21,7 +21,7 @@ class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    static void populateUserTable(UserRepository userRepository) {
+    private void populateUserTable() {
         User user1 = new User("First", "first@email.com", "first password");
         User user2 = new User("Second", "second@email.com", "second password");
         User user3 = new User("Third", "third@email.com", "third password");
@@ -33,7 +33,7 @@ class UserRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        populateUserTable(userRepository);
+        populateUserTable();
     }
 
     @AfterEach

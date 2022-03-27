@@ -52,7 +52,15 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public void addIntolerance(Intolerance intolerance) {
         intolerances.add(intolerance);
     }
+
+
 }

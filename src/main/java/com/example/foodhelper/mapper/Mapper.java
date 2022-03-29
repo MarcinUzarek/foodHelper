@@ -43,9 +43,9 @@ public class Mapper {
         return managementDtos;
     }
 
-    private void setRolesToSortedStringForm(List<ManagementDTO> accountsAdministrationDTO) {
+    private void setRolesToSortedStringForm(List<ManagementDTO> accountsAdministrationDTOs) {
 
-        accountsAdministrationDTO.forEach(account -> {
+        accountsAdministrationDTOs.forEach(account -> {
             StringBuffer stringBuffer = new StringBuffer("");
 
             account.setRoles(sortRoles(account.getRoles()));

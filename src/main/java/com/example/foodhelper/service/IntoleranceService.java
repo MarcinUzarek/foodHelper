@@ -25,7 +25,8 @@ public class IntoleranceService {
     public Intolerance saveIntolerance(String product) {
         product = mapProductToProductLetterSensitive(product);
         Intolerance intolerance = new Intolerance(product);
-        return intoleranceRepository.save(intolerance);
+        intoleranceRepository.save(intolerance);
+        return intolerance;
     }
 
     public Intolerance findById(Long id) {

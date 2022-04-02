@@ -22,10 +22,10 @@ class IntoleranceServiceTest {
 
 
     @InjectMocks
-    IntoleranceService intoleranceService;
+    private IntoleranceService intoleranceService;
 
     @Mock
-    IntoleranceRepository intoleranceRepository;
+    private IntoleranceRepository intoleranceRepository;
 
     private Set<Intolerance> prepareIntolerances() {
         return Set.of(

@@ -1,7 +1,6 @@
 package com.example.foodhelper.repository;
 
-import com.example.foodhelper.model.Token;
-import com.example.foodhelper.model.User;
+import com.example.foodhelper.TestDataSample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,29 +12,21 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class TokenRepositoryTest {
+class TokenRepositoryTest implements TestDataSample {
 
     @Autowired
     private TokenRepository tokenRepository;
     @Autowired
     private UserRepository userRepository;
 
-    private void populateData() {
-        User user = new User("username", "testemail@gmail.com", "password");
-        userRepository.save(user);
-        Token token = new Token();
-        token.setValue("Q@wertyuiop");
-        token.setUser(user);
-        tokenRepository.save(token);
-    }
 
     @BeforeEach
     void setUp() {
-        populateData();
+        var token = createSampleToken(userRepository);
+        tokenRepository.save(token);
     }
 
     @AfterEach

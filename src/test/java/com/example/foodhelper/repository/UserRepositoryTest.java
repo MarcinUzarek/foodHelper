@@ -1,6 +1,6 @@
 package com.example.foodhelper.repository;
 
-import com.example.foodhelper.model.User;
+import com.example.foodhelper.TestDataSample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,33 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class UserRepositoryTest {
+class UserRepositoryTest implements TestDataSample {
 
     @Autowired
     private UserRepository userRepository;
 
-    private void populateUserTable() {
-        User user1 = new User("First", "first@email.com", "first password");
-        User user2 = new User("Second", "second@email.com", "second password");
-        User user3 = new User("Third", "third@email.com", "third password");
-        User user4 = new User("Fourth", "fourth@email.com", "fourth password");
-        User user5 = new User("Fifth", "fith@email.com", "fifth password");
-        List<User> users = Arrays.asList(user1, user2, user3, user4, user5);
-        userRepository.saveAll(users);
-    }
-
     @BeforeEach
     void setUp() {
-        populateUserTable();
-    }
+        var users = getSampleDataForUsersTable();
+        userRepository.saveAll(users);    }
 
     @AfterEach
     void tearDown() {

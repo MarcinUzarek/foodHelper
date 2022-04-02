@@ -1,6 +1,6 @@
 package com.example.foodhelper.repository;
 
-import com.example.foodhelper.model.Intolerance;
+import com.example.foodhelper.TestDataSample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,24 +15,16 @@ import static org.hamcrest.Matchers.is;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class IntoleranceRepositoryTest {
+class IntoleranceRepositoryTest implements TestDataSample {
 
     @Autowired
     private IntoleranceRepository intoleranceRepository;
 
-    private void populateIntolerances() {
-        Intolerance milk = new Intolerance("milk");
-        Intolerance eggs = new Intolerance("eggs");
-        Intolerance dairy = new Intolerance("dairy");
-        Intolerance nuts = new Intolerance("nuts");
-
-        List<Intolerance> intolerances = Arrays.asList(milk, eggs, dairy, nuts);
-        intoleranceRepository.saveAll(intolerances);
-    }
 
     @BeforeEach
     void setUp() {
-        populateIntolerances();
+        var intolerances = getSampleDataForIntolerancesTable();
+        intoleranceRepository.saveAll(intolerances);
     }
 
     @AfterEach

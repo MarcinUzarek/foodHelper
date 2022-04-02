@@ -1,8 +1,6 @@
 package com.example.foodhelper.repository;
 
-import com.example.foodhelper.model.Role;
-import com.example.foodhelper.model.RoleTypes;
-import org.aspectj.lang.annotation.After;
+import com.example.foodhelper.TestDataSample;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,33 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static com.example.foodhelper.model.RoleTypes.MODERATOR;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class RoleRepositoryTest {
+class RoleRepositoryTest implements TestDataSample {
 
     @Autowired
     private RoleRepository roleRepository;
 
-    private void populateRoles() {
-        Role admin = new Role("ADMIN");
-        Role user = new Role("USER");
-        Role moderator = new Role("MODERATOR");
-        List<Role> roles = Arrays.asList(admin,user,moderator);
-        roleRepository.saveAll(roles);
-    }
-
     @BeforeEach
     void setUp() {
-        populateRoles();
+        var roles = getSampleDataForRolesTable();
+        roleRepository.saveAll(roles);
     }
 
     @AfterEach

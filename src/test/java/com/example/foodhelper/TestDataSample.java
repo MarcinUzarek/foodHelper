@@ -8,6 +8,7 @@ import com.example.foodhelper.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public interface TestDataSample {
 
@@ -20,19 +21,19 @@ public interface TestDataSample {
         return Arrays.asList(user1, user2, user3, user4, user5);
     }
 
-    default List<Intolerance> getSampleDataForIntolerancesTable() {
-        Intolerance milk = new Intolerance("milk");
-        Intolerance eggs = new Intolerance("eggs");
-        Intolerance dairy = new Intolerance("dairy");
-        Intolerance nuts = new Intolerance("nuts");
-        return Arrays.asList(milk, eggs, dairy, nuts);
+    default Set<Intolerance> getSampleDataForIntolerancesTable() {
+        Intolerance milk = new Intolerance("Milk");
+        Intolerance eggs = new Intolerance("Eggs");
+        Intolerance dairy = new Intolerance("Dairy");
+        Intolerance nuts = new Intolerance("Nuts");
+        return Set.of(milk, eggs, dairy, nuts);
     }
 
-    default List<Role> getSampleDataForRolesTable() {
+    default Set<Role> getSampleDataForRolesTable() {
         Role admin = new Role("ADMIN");
         Role user = new Role("USER");
         Role moderator = new Role("MODERATOR");
-        return Arrays.asList(admin, user, moderator);
+        return Set.of(admin, user, moderator);
     }
 
     default Token createSampleToken(UserRepository userRepository) {

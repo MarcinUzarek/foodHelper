@@ -60,10 +60,5 @@ class ManagementServiceTest {
     void deleteAccount() {
     }
 
-    private List<User> populateUsers() {
-        List<User> users = Arrays.asList(
-//                new User("first"),
-        );
-        return null;
-    }
+
 }

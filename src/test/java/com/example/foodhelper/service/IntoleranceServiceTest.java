@@ -1,5 +1,6 @@
 package com.example.foodhelper.service;
 
+import com.example.foodhelper.TestDataSample;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.repository.IntoleranceRepository;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
 @ExtendWith(MockitoExtension.class)
-class IntoleranceServiceTest {
+class IntoleranceServiceTest implements TestDataSample {
 
 
     @InjectMocks
@@ -26,14 +27,6 @@ class IntoleranceServiceTest {
 
     @Mock
     private IntoleranceRepository intoleranceRepository;
-
-    private Set<Intolerance> prepareIntolerances() {
-        return Set.of(
-                new Intolerance("Nuts"),
-                new Intolerance("Bread"),
-                new Intolerance("Milk")
-        );
-    }
 
     @Test
     void should_be_able_to_save_product_and_change_letter_casing() {
@@ -51,7 +44,7 @@ class IntoleranceServiceTest {
     @Test
     void should_sort_by_productName_given_set_by_converting_it_to_TreeSet() {
         //given
-        var intolerances = prepareIntolerances();
+        var intolerances = getSampleDataForIntolerancesTable();
 
         //when
         var sorted = intoleranceService.intoleranceHashSetToTreeSet(intolerances);
@@ -60,8 +53,8 @@ class IntoleranceServiceTest {
 
         //then
         assertThat(sorted, instanceOf(TreeSet.class));
-        assertThat(listOfSorted.get(0).getProduct(), is("Bread"));
-        assertThat(listOfSorted.get(2).getProduct(), is("Nuts"));
+        assertThat(listOfSorted.get(0).getProduct(), is("Dairy"));
+        assertThat(listOfSorted.get(2).getProduct(), is("Milk"));
 
     }
 }

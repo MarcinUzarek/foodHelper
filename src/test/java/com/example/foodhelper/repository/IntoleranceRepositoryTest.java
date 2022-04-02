@@ -35,13 +35,13 @@ class IntoleranceRepositoryTest implements TestDataSample {
     @Test
     void should_find_product_when_in_database() {
         //given
-        String product = "eggs";
+        String product = "Eggs";
 
         //when
         var result = intoleranceRepository.findByProduct(product);
 
         //then
-        assertThat(result.get().getProduct(), is("eggs"));
+        assertThat(result.get().getProduct(), is("Eggs"));
     }
 
     @Test

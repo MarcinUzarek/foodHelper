@@ -22,12 +22,13 @@ public class TokenService {
                         new IllegalArgumentException("no Token with this value were found"));
     }
 
-    public void setTokenForUser(User user) {
+    public Token setTokenForUser(User user) {
         String tokenValue = generateToken();
         Token token = new Token();
         token.setValue(tokenValue);
         token.setUser(user);
         tokenRepository.save(token);
+        return token;
     }
 
     public Token findTokenByEmail(String email) {

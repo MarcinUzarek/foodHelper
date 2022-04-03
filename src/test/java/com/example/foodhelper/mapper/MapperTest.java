@@ -1,6 +1,6 @@
 package com.example.foodhelper.mapper;
 
-import com.example.foodhelper.model.Role;
+import com.example.foodhelper.TestDataSample;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
@@ -8,7 +8,7 @@ import com.example.foodhelper.model.dto.UserShowDTO;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MapperTest {
+class MapperTest implements TestDataSample {
 
 
     private final Mapper mapper = new Mapper(new ModelMapper());
@@ -25,28 +25,23 @@ class MapperTest {
     @Test
     void should_map_listOfUsers_to_listOfManagementDtos_when_users_created_correctly() {
         //given
-        List<User> users = Arrays.asList(
-                new User("First", "first@gmail.com", "firstpassword"),
-                new User("Second", "second@gmail.com", "secondpassword")
-        );
-        users.get(0).setRoles(Set.of(new Role("ADMIN"), new Role("RandomRole")));
-        users.get(1).setRoles(Set.of(new Role("LoremIpsum"), new Role("dolor")));
-        String expectedRoleStringForFirst = "ADMIN, RandomRole";
+        String expectedRoleStringForFirst = "ADMIN, MODERATOR, USER";
 
         //when
-        var managementDTOS = mapper.mapListUsersToListManagementDto(users);
+        var managementDTOS =
+                mapper.mapListUsersToListManagementDto(getSampleDataForUsers());
 
         //then
         assertThat(managementDTOS.get(0), instanceOf(ManagementDTO.class));
+        assertThat(managementDTOS.size(), is(5));
         assertThat(managementDTOS.get(0).getRolesString(), is(expectedRoleStringForFirst));
     }
 
     @Test
     void should_throw_StringIndexOutOfBoundsException_when_user_has_no_roles() {
         //given
-        List<User> users = List.of(
-                new User("BadUser", "bad@gmail.com", "badpassword")
-        );
+        var users = getSampleDataForUsers();
+        users.get(0).setRoles(Collections.emptySet());
 
         //when
         //then
@@ -55,55 +50,58 @@ class MapperTest {
     }
 
     @Test
-    void mapRegisterDtoToUser() {
+    void should_map_RegisterDTO_to_User() {
         //given
         UserRegisterDTO registerDTO = new UserRegisterDTO(
-                "UserDto", "email@gmail.com", "password");
+                "UserDto", "email@email.com", "password");
 
         //when
         var user = mapper.mapRegisterDtoToUser(registerDTO);
 
         //then
-        assertThat(user.getEmail(), is("email@gmail.com"));
+        assertThat(user.getEmail(), is("email@email.com"));
     }
 
     @Test
-    void mapUserToRegisterDto() {
+    void should_map_User_to_RegisterDTO() {
         //given
-        User user = new User("User", "email@gmail.com", "password");
+        var user = getSampleDataForUsers().get(0);
+        String expectedEmail = "first@email.com";
 
         //when
         var userRegisterDTO = mapper.mapUserToRegisterDto(user);
 
         //then
         assertThat(userRegisterDTO, instanceOf(UserRegisterDTO.class));
-        assertThat(userRegisterDTO.getEmail(), is("email@gmail.com"));
+        assertThat(userRegisterDTO.getEmail(), is(expectedEmail));
     }
 
     @Test
-    void mapUserToUserShowDto() {
+    void should_map_User_to_UserShowDto() {
         //given
-        User user = new User("User", "email@gmail.com", "password");
+        var user = getSampleDataForUsers().get(0);
+        String expectedEmail = "first@email.com";
 
         //when
         var userShowDTO = mapper.mapUserToUserShowDto(user);
 
         //then
         assertThat(userShowDTO, instanceOf(UserShowDTO.class));
-        assertThat(userShowDTO.getEmail(), is("email@gmail.com"));
+        assertThat(userShowDTO.getEmail(), is(expectedEmail));
     }
 
     @Test
-    void mapUserToManagementDTO() {
+    void should_map_User_to_UserManagementDTO() {
         //given
-        User user = new User("User", "email@gmail.com", "password");
+        var user = getSampleDataForUsers().get(0);
+        String expectedName = "First";
 
         //when
         var managementDTO = mapper.mapUserToManagementDTO(user);
 
         //then
         assertThat(managementDTO, instanceOf(ManagementDTO.class));
-        assertThat(managementDTO.getName(), is("User"));
+        assertThat(managementDTO.getName(), is(expectedName));
     }
 
 }

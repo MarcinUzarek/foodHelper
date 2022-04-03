@@ -20,7 +20,7 @@ class UserRepositoryTest implements TestDataSample {
 
     @BeforeEach
     void setUp() {
-        var users = getSampleDataForUsersTable();
+        var users = getSampleDataForUsers();
         userRepository.saveAll(users);    }
 
     @AfterEach

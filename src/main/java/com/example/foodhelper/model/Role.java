@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -35,5 +36,13 @@ public class Role implements Comparable<Role>{
     @Override
     public int compareTo(Role o) {
         return this.name.compareTo(o.name);
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

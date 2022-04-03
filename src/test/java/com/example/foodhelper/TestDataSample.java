@@ -12,12 +12,17 @@ import java.util.Set;
 
 public interface TestDataSample {
 
-    default List<User> getSampleDataForUsersTable() {
+    default List<User> getSampleDataForUsers() {
         User user1 = new User("First", "first@email.com", "first password");
         User user2 = new User("Second", "second@email.com", "second password");
         User user3 = new User("Third", "third@email.com", "third password");
         User user4 = new User("Fourth", "fourth@email.com", "fourth password");
         User user5 = new User("Fifth", "fith@email.com", "fifth password");
+        user1.setRoles(getSampleDataForAllRoles());
+        user2.setRoles(Set.of(new Role("USER"), new Role("MODERATOR")));
+        user3.setRoles(Set.of(new Role("USER")));
+        user4.setRoles(Set.of(new Role("USER")));
+        user5.setRoles(Set.of(new Role("USER")));
         return Arrays.asList(user1, user2, user3, user4, user5);
     }
 
@@ -29,7 +34,7 @@ public interface TestDataSample {
         return Set.of(milk, eggs, dairy, nuts);
     }
 
-    default Set<Role> getSampleDataForRolesTable() {
+    default Set<Role> getSampleDataForAllRoles() {
         Role admin = new Role("ADMIN");
         Role user = new Role("USER");
         Role moderator = new Role("MODERATOR");

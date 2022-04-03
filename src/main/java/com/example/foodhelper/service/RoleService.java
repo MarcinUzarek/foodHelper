@@ -15,15 +15,15 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public Role addUserRole() {
+    public Role getUserRole() {
         return addRole(String.valueOf(RoleTypes.USER));
     }
 
-    public Role addAdminRole() {
+    public Role getAdminRole() {
         return addRole(String.valueOf(RoleTypes.ADMIN));
     }
 
-    public Role addModeratorRole() {
+    public Role getModeratorRole() {
         return addRole(String.valueOf(RoleTypes.MODERATOR));
     }
 

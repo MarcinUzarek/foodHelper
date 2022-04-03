@@ -58,8 +58,9 @@ public class ManagementService {
     public ManagementDTO promoteAccount(Long id) {
         var user = getUser(id);
         switch (user.getRoles().size()) {
-            case 1 -> user.getRoles().add(roleService.addModeratorRole());
-            case 2 -> user.getRoles().add(roleService.addAdminRole());
+
+            case 1 -> user.getRoles().add(roleService.getModeratorRole());
+            case 2 -> user.getRoles().add(roleService.getAdminRole());
         }
         userRepository.save(user);
         return mapper.mapUserToManagementDTO(user);
@@ -68,8 +69,8 @@ public class ManagementService {
     public ManagementDTO demoteAccount(Long id) {
         var user = getUser(id);
         switch (user.getRoles().size()) {
-            case 3 -> user.getRoles().remove(roleService.addAdminRole());
-            case 2 -> user.getRoles().remove(roleService.addModeratorRole());
+            case 3 -> user.getRoles().remove(roleService.getAdminRole());
+            case 2 -> user.getRoles().remove(roleService.getModeratorRole());
         }
         userRepository.save(user);
         return mapper.mapUserToManagementDTO(user);

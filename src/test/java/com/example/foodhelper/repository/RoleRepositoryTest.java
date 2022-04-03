@@ -23,7 +23,7 @@ class RoleRepositoryTest implements TestDataSample {
 
     @BeforeEach
     void setUp() {
-        var roles = getSampleDataForRolesTable();
+        var roles = getSampleDataForAllRoles();
         roleRepository.saveAll(roles);
     }
 

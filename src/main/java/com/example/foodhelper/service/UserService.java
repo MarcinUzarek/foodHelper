@@ -63,7 +63,7 @@ public class UserService {
         }
         var user = mapper.mapRegisterDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(roleService.addUserRole());
+        user.getRoles().add(roleService.getUserRole());
         userRepository.save(user);
         tokenService.setTokenForUser(user);
         mailFacade.sendActivationEmail(user);

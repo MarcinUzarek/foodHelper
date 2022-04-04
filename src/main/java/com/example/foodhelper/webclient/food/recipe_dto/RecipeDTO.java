@@ -10,4 +10,8 @@ public class RecipeDTO {
 
     private String spoonacularSourceUrl;
     private String image;
+
+    public RecipeDTO(String image) {
+        this.image = image;
+    }
 }

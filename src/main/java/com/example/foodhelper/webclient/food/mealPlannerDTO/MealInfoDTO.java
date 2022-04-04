@@ -1,11 +1,16 @@
 package com.example.foodhelper.webclient.food.mealPlannerDTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+
+@Data
+@NoArgsConstructor
 public class MealInfoDTO {
+
+    public MealInfoDTO(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 
     private int id;
     private String title;

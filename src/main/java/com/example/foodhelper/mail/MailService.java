@@ -13,7 +13,6 @@ public class MailService {
 
     private final JavaMailSender javaMailSender;
 
-    @Autowired
     public MailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }

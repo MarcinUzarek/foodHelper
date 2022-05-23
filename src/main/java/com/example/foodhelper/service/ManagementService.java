@@ -8,6 +8,7 @@ import com.example.foodhelper.repository.TokenRepository;
 import com.example.foodhelper.repository.UserRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -76,6 +77,7 @@ public class ManagementService {
         return mapper.mapUserToManagementDTO(user);
     }
 
+    @Transactional
     public ManagementDTO deleteAccount(Long id) {
         var user = getUser(id);
         deleteAssociations(user);

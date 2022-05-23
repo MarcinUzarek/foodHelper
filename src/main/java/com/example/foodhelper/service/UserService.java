@@ -11,10 +11,12 @@ import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Optional;
 
 
@@ -76,6 +78,7 @@ public class UserService {
         ActivateUser(user);
     }
 
+    @Transactional
     public void changePassword(ResetPasswordDTO passwordDto) {
         if (!validatePasswordMatching(passwordDto)) {
             throw new DifferentPasswordsException();

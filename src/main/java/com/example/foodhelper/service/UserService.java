@@ -89,7 +89,7 @@ public class UserService {
 
     public Intolerance addIntolerance(IntoleranceDTO intoleranceDto) {
         if (intoleranceDto.getProduct().equals("null")) {
-            throw new IllegalArgumentException("add own exception here");
+            throw new ItemDuplicateException("Try choosing product from the list");
         }
         Intolerance intolerance = getIntolerance(intoleranceDto.getProduct());
         var user = getLoggedUser();

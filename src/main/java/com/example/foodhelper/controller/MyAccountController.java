@@ -29,7 +29,6 @@ public class MyAccountController {
 
     @PostMapping("add-intolerance")
     public String addIntolerance(IntoleranceDTO intolerance) {
-        System.out.println("im here");
         userService.addIntolerance(intolerance);
         return "redirect:/my-account";
     }

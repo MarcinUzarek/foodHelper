@@ -266,7 +266,7 @@ class UserServiceTest implements TestDataSample {
     }
 
     @Test
-    void should_throw_WrongCredentialsException_when_logging_successful() {
+    void should_throw_WrongCredentialsException_when_given_wrong_credentials() {
         //given
         given(authenticationFacade.getPrincipal())
                 .willThrow(UserNotLoggedException.class);

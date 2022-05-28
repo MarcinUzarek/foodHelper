@@ -61,7 +61,7 @@ class AuthenticationRestControllerTest {
                 .statusCode(OK.value())
                 .and()
                 .body("email", equalTo("test@gmail.com"))
-                .and().log().all();
+                .body("_links.login_here.href", containsString("api/login"));
     }
 
     @Test

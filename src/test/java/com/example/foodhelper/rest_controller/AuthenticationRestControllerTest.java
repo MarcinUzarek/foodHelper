@@ -38,7 +38,7 @@ class AuthenticationRestControllerTest {
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }
 

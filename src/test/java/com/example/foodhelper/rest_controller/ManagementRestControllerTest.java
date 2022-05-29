@@ -7,6 +7,8 @@ import com.example.foodhelper.user_details.UserDetailsServiceImpl;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,15 +22,16 @@ import java.util.List;
 import java.util.Set;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
 
 @WebMvcTest(ManagementRestController.class)
 class ManagementRestControllerTest {
 
+    private final String baseUrl = "/api/management/users";
+    private final String baseUrlWithId = "/api/management/users/1";
     @Autowired
     WebApplicationContext webApplicationContext;
-
     @MockBean
     ManagementService managementService;
     @MockBean
@@ -40,16 +43,37 @@ class ManagementRestControllerTest {
                 .webAppContextSetup(webApplicationContext);
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {baseUrl, baseUrlWithId})
     @WithMockUser(authorities = {"USER", "MODERATOR"})
-    void should_throw_when_accessing_without_admin_role() {
+    void should_throw_when_accessing_any_method_without_admin_role(String url) {
 
-        given()
-                .when()
-                .get("/api/management/users")
+        when()
+                .get(url)
                 .then()
-                .statusCode(403)
-                .body("status", equalTo("FORBIDDEN"));
+                .statusCode(403);
+
+        when()
+                .put(baseUrlWithId)
+                .then()
+                .statusCode(403);
+
+        when()
+                .delete(baseUrlWithId)
+                .then()
+                .statusCode(403);
+
+        when()
+                .post(baseUrlWithId + "/roles")
+                .then()
+                .statusCode(403);
+
+        when()
+                .delete(baseUrlWithId + "/roles")
+                .then()
+                .statusCode(403);
+
+
     }
 
     @Test
@@ -62,62 +86,13 @@ class ManagementRestControllerTest {
 
         given()
                 .when()
-                .get("/api/management/users")
+                .get(baseUrl)
                 .then()
                 .statusCode(200).log().all()
                 .and()
                 .body("_embedded.managementDTOList[1]._links.self.href",
                         containsString("/api/management/users/{id}"));
     }
-
-//   {
-//    "_embedded": {
-//        "managementDTOList": [
-//            {
-//                "id": null,
-//                "name": "first",
-//                "email": "first@gmail.com",
-//                "creationTime": null,
-//                "roles": [
-//                    {
-//                        "id": null,
-//                        "name": "USER"
-//                    },
-//                    {
-//                        "id": null,
-//                        "name": "ADMIN"
-//                    }
-//                ],
-//                "enabled": false,
-//                "_links": {
-//                    "self": {
-//                        "href": "http://localhost/api/management/users/{id}",
-//                        "templated": true
-//                    }
-//                }
-//            },
-//            {
-//                "id": null,
-//                "name": "second",
-//                "email": "second@gmail.com",
-//                "creationTime": null,
-//                "roles": [
-//                    {
-//                        "id": null,
-//                        "name": "USER"
-//                    }
-//                ],
-//                "enabled": false,
-//                "_links": {
-//                    "self": {
-//                        "href": "http://localhost/api/management/users/{id}",
-//                        "templated": true
-//                    }
-//                }
-//            }
-//        ]
-//    }
-//}
 
 
     private List<ManagementDTO> getAccounts() {

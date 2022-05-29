@@ -23,14 +23,14 @@ import java.util.Set;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 @WebMvcTest(ManagementRestController.class)
 class ManagementRestControllerTest {
 
     private final String baseUrl = "/api/management/users";
-    private final String baseUrlWithId = "/api/management/users/1";
+    private final String urlWithId = "/api/management/users/1";
+    private final String urlWithIdAndRoles = "/api/management/users/2/roles";
 
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -46,7 +46,7 @@ class ManagementRestControllerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {baseUrl, baseUrlWithId})
+    @ValueSource(strings = {baseUrl, urlWithId})
     @WithMockUser(authorities = {"USER", "MODERATOR"})
     void should_throw_when_accessing_any_method_without_admin_role(String url) {
 
@@ -56,22 +56,22 @@ class ManagementRestControllerTest {
                 .statusCode(403);
 
         when()
-                .put(baseUrlWithId)
+                .put(urlWithId)
                 .then()
                 .statusCode(403);
 
         when()
-                .delete(baseUrlWithId)
+                .delete(urlWithId)
                 .then()
                 .statusCode(403);
 
         when()
-                .post(baseUrlWithId + "/roles")
+                .post(urlWithId + "/roles")
                 .then()
                 .statusCode(403);
 
         when()
-                .delete(baseUrlWithId + "/roles")
+                .delete(urlWithId + "/roles")
                 .then()
                 .statusCode(403);
 
@@ -106,7 +106,7 @@ class ManagementRestControllerTest {
 
         given()
                 .when()
-                .get(baseUrlWithId)
+                .get(urlWithId)
                 .then()
                 .statusCode(200)
                 .and()
@@ -125,7 +125,7 @@ class ManagementRestControllerTest {
 
         given()
                 .when()
-                .put(baseUrlWithId)
+                .put(urlWithId)
                 .then()
                 .statusCode(200)
                 .and()
@@ -143,11 +143,33 @@ class ManagementRestControllerTest {
 
         given()
                 .when()
-                .delete(baseUrlWithId)
+                .delete(urlWithId)
                 .then()
                 .statusCode(200)
                 .and()
-                .body("name", is("first")).and().log().all();
+                .body("name", is("first"));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
+    void should_promote_user_with_given_id_when_accessing_with_admin_role() {
+
+        var user = getAccounts().get(1);
+        var userRoles = Set.of(new Role("USER"), new Role("MODERATOR"));
+        user.setRoles(userRoles);
+
+        BDDMockito.given(managementService
+                        .promoteAccount(2L))
+                .willReturn(user);
+
+        given()
+                .when()
+                .post(urlWithIdAndRoles)
+                .then()
+                .statusCode(200)
+                .and()
+                .body("name", is("second")).log().all()
+                .body("roles", hasSize(2));
     }
 
 

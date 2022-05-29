@@ -24,12 +24,14 @@ import java.util.Set;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 @WebMvcTest(ManagementRestController.class)
 class ManagementRestControllerTest {
 
     private final String baseUrl = "/api/management/users";
     private final String baseUrlWithId = "/api/management/users/1";
+
     @Autowired
     WebApplicationContext webApplicationContext;
     @MockBean
@@ -88,10 +90,29 @@ class ManagementRestControllerTest {
                 .when()
                 .get(baseUrl)
                 .then()
-                .statusCode(200).log().all()
+                .statusCode(200)
                 .and()
                 .body("_embedded.managementDTOList[1]._links.self.href",
                         containsString("/api/management/users/{id}"));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
+    void should_return_user_by_id_when_accessing_with_admin_role() {
+
+        BDDMockito.given(managementService
+                        .getAccountById(1L))
+                .willReturn(getAccounts().get(0));
+
+        given()
+                .when()
+                .get(baseUrlWithId)
+                .then()
+                .statusCode(200)
+                .and().log().all()
+                .body("name", is("first"))
+                .body("_links.all-accounts.href",
+                        containsString("/api/management/users"));
     }
 
 

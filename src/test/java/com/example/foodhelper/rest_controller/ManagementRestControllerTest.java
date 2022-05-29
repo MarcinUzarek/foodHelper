@@ -109,10 +109,28 @@ class ManagementRestControllerTest {
                 .get(baseUrlWithId)
                 .then()
                 .statusCode(200)
-                .and().log().all()
+                .and()
                 .body("name", is("first"))
                 .body("_links.all-accounts.href",
                         containsString("/api/management/users"));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
+    void should_activate_user_with_given_id() {
+
+        BDDMockito.given(managementService
+                        .activateAccount(true, 1L))
+                .willReturn(getAccounts().get(0));
+
+        given()
+                .when()
+                .put(baseUrlWithId)
+                .then()
+                .statusCode(200)
+                .and()
+                .body("name", is("first"))
+                .body("enabled", is(true));
     }
 
 
@@ -123,6 +141,7 @@ class ManagementRestControllerTest {
         first.setName("first");
         first.setEmail("first@gmail.com");
         first.setRoles(Set.of(new Role("USER"), new Role("ADMIN")));
+        first.setEnabled(true);
 
         var second = new ManagementDTO();
         second.setName("second");

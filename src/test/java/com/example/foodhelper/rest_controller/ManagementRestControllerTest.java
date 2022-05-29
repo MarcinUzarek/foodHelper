@@ -117,7 +117,7 @@ class ManagementRestControllerTest {
 
     @Test
     @WithMockUser(authorities = {"ADMIN"})
-    void should_activate_user_with_given_id() {
+    void should_activate_user_with_given_id_when_accessing_with_admin_role() {
 
         BDDMockito.given(managementService
                         .activateAccount(true, 1L))
@@ -131,6 +131,23 @@ class ManagementRestControllerTest {
                 .and()
                 .body("name", is("first"))
                 .body("enabled", is(true));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
+    void should_delete_user_with_given_id_when_accessing_with_admin_role() {
+
+        BDDMockito.given(managementService
+                        .deleteAccount(1L))
+                .willReturn(getAccounts().get(0));
+
+        given()
+                .when()
+                .delete(baseUrlWithId)
+                .then()
+                .statusCode(200)
+                .and()
+                .body("name", is("first")).and().log().all();
     }
 
 

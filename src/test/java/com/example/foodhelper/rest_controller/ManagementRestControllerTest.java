@@ -168,8 +168,26 @@ class ManagementRestControllerTest {
                 .then()
                 .statusCode(200)
                 .and()
-                .body("name", is("second")).log().all()
+                .body("name", is("second"))
                 .body("roles", hasSize(2));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
+    void should_demote_user_with_given_id_when_accessing_with_admin_role() {
+
+        BDDMockito.given(managementService
+                        .demoteAccount(2L))
+                .willReturn(getAccounts().get(1));
+
+        given()
+                .when()
+                .delete(urlWithIdAndRoles)
+                .then()
+                .statusCode(200)
+                .and()
+                .body("name", is("second"))
+                .body("roles", hasSize(1));
     }
 
 

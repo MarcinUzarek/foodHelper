@@ -4,15 +4,12 @@ import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.service.ManagementService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/management/users")
@@ -44,12 +41,12 @@ public class ManagementRestController {
         account.add(linkTo(methodOn(this.getClass())
                 .getUsers(Pageable.unpaged())).withRel("all-accounts"));
 
-        return  ResponseEntity.ok(account);
+        return ResponseEntity.ok(account);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ManagementDTO> activateUser(@PathVariable Long id,
-                                          @RequestParam(defaultValue = "true") boolean activate) {
+                                                      @RequestParam(defaultValue = "true") boolean activate) {
         var user = managementService.activateAccount(activate, id);
         return ResponseEntity.ok(user);
     }

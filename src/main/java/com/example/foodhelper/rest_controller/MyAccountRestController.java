@@ -37,14 +37,13 @@ public class MyAccountRestController {
 
     @PostMapping("/intolerances")
     public ResponseEntity<UserShowDTO> addIntolerance(@RequestBody IntoleranceDTO intoleranceDto) {
-        var addedIntolerance =
                 userService.addIntolerance(intoleranceDto);
         return ResponseEntity.ok(userService.getLoggedUserAsDto());
     }
 
     @DeleteMapping("/intolerances/{id}")
     public ResponseEntity<UserShowDTO> deleteIntolerance(@PathVariable Long id) {
-        var intolerance = userService.removeIntoleranceById(id);
+        userService.removeIntoleranceById(id);
         return ResponseEntity.ok(userService.getLoggedUserAsDto());
     }
 }

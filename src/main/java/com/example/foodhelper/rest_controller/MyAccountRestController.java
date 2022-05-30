@@ -42,7 +42,7 @@ public class MyAccountRestController {
     }
 
     @DeleteMapping("/intolerances/{id}")
-    public ResponseEntity<UserShowDTO> deleteIntolerance(@PathVariable Long id) {
+    public ResponseEntity<UserShowDTO> removeIntolerance(@PathVariable Long id) {
         userService.removeIntoleranceById(id);
         return ResponseEntity.ok(userService.getLoggedUserAsDto());
     }

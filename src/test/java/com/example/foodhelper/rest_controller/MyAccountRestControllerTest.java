@@ -1,6 +1,7 @@
 package com.example.foodhelper.rest_controller;
 
 
+import com.example.foodhelper.exception.custom.IntoleranceNotFoundException;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.dto.IntoleranceDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
@@ -23,7 +24,10 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
 
 @WebMvcTest(MyAccountRestController.class)
 class MyAccountRestControllerTest {
@@ -48,7 +52,7 @@ class MyAccountRestControllerTest {
 
         when()
                 .get(baseUrl)
-                .then()
+        .then()
                 .statusCode(FORBIDDEN.value());
     }
 
@@ -62,7 +66,7 @@ class MyAccountRestControllerTest {
 
         when()
                 .get(baseUrl)
-                .then()
+        .then()
                 .statusCode(OK.value())
                 .body("name", is("Marcin"))
                 .body("_links.get_recipes.href",
@@ -77,7 +81,7 @@ class MyAccountRestControllerTest {
 
         when()
                 .post(baseUrl + "/intolerances")
-                .then()
+        .then()
                 .statusCode(BAD_REQUEST.value())
                 .body("status", is("BAD_REQUEST"));
     }
@@ -89,16 +93,16 @@ class MyAccountRestControllerTest {
                 .auth().none()
                 .body(new IntoleranceDTO())
                 .contentType(ContentType.JSON)
-                .when()
+        .when()
                 .post(baseUrl + "/intolerances")
-                .then()
+        .then()
                 .statusCode(FORBIDDEN.value())
                 .body("status", is("FORBIDDEN"));
     }
 
     @Test
     @WithMockUser(authorities = {"USER"})
-    void should_add_intolerance() {
+    void should_add_intolerance_to_user() {
         var intolerance = new Intolerance();
         intolerance.setProduct("Milk");
 
@@ -111,12 +115,59 @@ class MyAccountRestControllerTest {
         given()
                 .body(intolerance)
                 .contentType(ContentType.JSON)
-                .when()
+        .when()
                 .post(baseUrl + "/intolerances")
-                .then()
+        .then()
                 .statusCode(OK.value())
                 .body("name", is("Marcin"))
                 .body("intolerances[0].product", is("Milk"));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"USER"})
+    void should_throw_when_id_not_found_while_deleting_intolerances() {
+        var intolerance = new Intolerance();
+        intolerance.setProduct("Milk");
+        intolerance.setId(1L);
+
+        var user = getUserShowDTO();
+        user.setIntolerances(Set.of(intolerance));
+
+        BDDMockito.given(userService.removeIntoleranceById(99L))
+                .willThrow(new IntoleranceNotFoundException(99L));
+
+        when()
+                .delete(baseUrl + "/intolerances/99")
+        .then()
+                .statusCode(NOT_FOUND.value()).log().all()
+                .body("status", is("NOT_FOUND"))
+                .body("message", is("No Intolerance with such id: 99"));
+    }
+
+    @Test
+    void should_throw_when_deleting_intolerance_without_user_role() {
+
+        given()
+                .auth().none()
+        .when()
+                .delete(baseUrl + "/intolerances/99")
+        .then()
+                .statusCode(FORBIDDEN.value())
+                .body("status", is("FORBIDDEN"));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"USER"})
+    void should_delete_intolerance_from_user() {
+
+        BDDMockito.given(userService.getLoggedUserAsDto())
+                .willReturn(getUserShowDTO());
+
+        when()
+                .delete(baseUrl + "/intolerances/1")
+        .then()
+                .statusCode(OK.value())
+                .body("name", is("Marcin"));
     }
 
     private UserShowDTO getUserShowDTO() {

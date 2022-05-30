@@ -26,6 +26,9 @@ import java.util.List;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.OK;
 
 @WebMvcTest(MenuRestController.class)
 class MenuRestControllerTest {
@@ -52,7 +55,7 @@ class MenuRestControllerTest {
         .when()
                 .get(basicUrl + "/recipes")
         .then()
-                .statusCode(403)
+                .statusCode(FORBIDDEN.value())
                 .body("status", equalTo("FORBIDDEN"));
     }
 
@@ -71,7 +74,7 @@ class MenuRestControllerTest {
         .when()
                 .get(basicUrl + "/recipes")
         .then()
-                .statusCode(200)
+                .statusCode(OK.value())
                 .body("results[0].title", is("spaghetti bolognese"))
                 .body("results[1].title", is("pizza margherita"))
                 .body("results.size()", is(2));
@@ -86,7 +89,7 @@ class MenuRestControllerTest {
         .when()
                 .get(basicUrl + "/plans")
         .then()
-                .statusCode(403)
+                .statusCode(FORBIDDEN.value())
                 .body("status", equalTo("FORBIDDEN"));
     }
 
@@ -97,7 +100,7 @@ class MenuRestControllerTest {
         .when()
                 .get(basicUrl + "/plans")
         .then()
-                .statusCode(400).log().all()
+                .statusCode(BAD_REQUEST.value())
                 .body("status", equalTo("BAD_REQUEST"));
     }
 
@@ -117,7 +120,7 @@ class MenuRestControllerTest {
        .when()
                 .get(basicUrl + "/plans")
        .then()
-                .statusCode(200)
+                .statusCode(OK.value())
                 .body("meals[0].title", is("Scrambled Eggs"))
                 .body("meals[2].title", is("Taco Rice Bowls"))
                 .body("nutrients.calories", is(2500.0F));

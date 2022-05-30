@@ -21,8 +21,12 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Set;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
-import static org.hamcrest.Matchers.*;
-import static org.springframework.http.HttpStatus.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.http.HttpStatus.ALREADY_REPORTED;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.OK;
 
 
 @WebMvcTest(AuthenticationRestController.class)
@@ -33,7 +37,6 @@ class AuthenticationRestControllerTest {
 
     @MockBean
     private UserService userService;
-
     @MockBean
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
@@ -45,40 +48,39 @@ class AuthenticationRestControllerTest {
 
     @Test
     void should_create_user_when_not_registered_yet() {
-        //given
         UserRegisterDTO user = createUserRegisterDto();
 
         BDDMockito.given(userService.createUser(user))
                 .willReturn(user);
 
-        //when then
         given()
                 .auth().none()
-                .body(user).contentType(ContentType.JSON)
-                .when()
+                .body(user)
+                .contentType(ContentType.JSON)
+        .when()
                 .post("/api/register")
-                .then()
+        .then()
                 .statusCode(OK.value())
                 .and()
                 .body("email", equalTo("test@gmail.com"))
-                .body("_links.login_here.href", containsString("api/login"));
+                .body("_links.login_here.href",
+                        containsString("api/login"));
     }
 
     @Test
     void should_throw_if_user_with_given_email_already_exists() {
-        //given
         UserRegisterDTO user = createUserRegisterDto();
 
         BDDMockito.given(userService.createUser(user))
                 .willThrow(new EmailAlreadyExistsException());
 
-        //when then
         given()
                 .auth().none()
-                .body(user).contentType(ContentType.JSON)
-                .when()
+                .body(user)
+                .contentType(ContentType.JSON)
+        .when()
                 .post("/api/register")
-                .then()
+        .then()
                 .statusCode(ALREADY_REPORTED.value())
                 .and()
                 .body("status", is("ALREADY_REPORTED"));
@@ -86,7 +88,6 @@ class AuthenticationRestControllerTest {
 
     @Test
     void should_login_the_user() {
-        //given
         UserShowDTO userShowDTO = new UserShowDTO();
         userShowDTO.setName("name");
         userShowDTO.setEmail("test@gmail.com");
@@ -95,13 +96,12 @@ class AuthenticationRestControllerTest {
         BDDMockito.given(userService.verifyLogging())
                 .willReturn(userShowDTO);
 
-        //when then
         given()
-                .webAppContextSetup(webApplicationContext)
-                .auth().principal(new User("authorized_user", "test@gmail.com", "pass"))
-                .when()
+                .auth().principal(new User
+                        ("authorized_user", "test@gmail.com", "pass"))
+        .when()
                 .post("/api/login")
-                .then()
+        .then()
                 .statusCode(OK.value())
                 .and()
                 .body("intolerances.product[0]", is("milk"))
@@ -111,17 +111,14 @@ class AuthenticationRestControllerTest {
 
     @Test
     void should_throw_when_trying_to_login_without_auth() {
-        //given
         BDDMockito.given(userService.verifyLogging())
                 .willThrow(WrongCredentialsException.class);
 
-        //when then
         given()
-                .webAppContextSetup(webApplicationContext)
                 .auth().none()
-                .when()
+        .when()
                 .post("/api/login")
-                .then()
+        .then()
                 .statusCode(FORBIDDEN.value())
                 .and()
                 .body("status", is("FORBIDDEN"));
@@ -129,17 +126,15 @@ class AuthenticationRestControllerTest {
 
     @Test
     void should_throw_when_trying_to_login_with_wrong_credentials() {
-        //given
         BDDMockito.given(userService.verifyLogging())
                 .willThrow(WrongCredentialsException.class);
 
-        //when then
         given()
-                .webAppContextSetup(webApplicationContext)
-                .auth().principal(new User("unauthorized_user", "test@gmail.com", "pass"))
-                .when()
+                .auth().principal(new User(
+                        "unauthorized_user", "test@gmail.com", "pass"))
+        .when()
                 .post("/api/login")
-                .then()
+        .then()
                 .statusCode(FORBIDDEN.value())
                 .and()
                 .body("status", is("FORBIDDEN"));

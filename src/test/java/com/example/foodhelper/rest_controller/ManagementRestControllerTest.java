@@ -21,9 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.OK;
 
 @WebMvcTest(ManagementRestController.class)
 class ManagementRestControllerTest {
@@ -52,28 +55,28 @@ class ManagementRestControllerTest {
 
         when()
                 .get(url)
-                .then()
-                .statusCode(403);
+       .then()
+                .statusCode(FORBIDDEN.value());
 
         when()
                 .put(urlWithId)
-                .then()
-                .statusCode(403);
+        .then()
+                .statusCode(FORBIDDEN.value());
 
         when()
                 .delete(urlWithId)
-                .then()
-                .statusCode(403);
+        .then()
+                .statusCode(FORBIDDEN.value());
 
         when()
                 .post(urlWithId + "/roles")
-                .then()
-                .statusCode(403);
+        .then()
+                .statusCode(FORBIDDEN.value());
 
         when()
                 .delete(urlWithId + "/roles")
-                .then()
-                .statusCode(403);
+        .then()
+                .statusCode(FORBIDDEN.value());
 
 
     }
@@ -86,11 +89,10 @@ class ManagementRestControllerTest {
                         .getAllAccountsPaged(Pageable.ofSize(20).withPage(0)))
                 .willReturn(getAccounts());
 
-        given()
-                .when()
+        when()
                 .get(baseUrl)
-                .then()
-                .statusCode(200)
+        .then()
+                .statusCode(OK.value())
                 .and()
                 .body("_embedded.managementDTOList[1]._links.self.href",
                         containsString("/api/management/users/{id}"));
@@ -104,11 +106,10 @@ class ManagementRestControllerTest {
                         .getAccountById(1L))
                 .willReturn(getAccounts().get(0));
 
-        given()
-                .when()
+        when()
                 .get(urlWithId)
-                .then()
-                .statusCode(200)
+        .then()
+                .statusCode(OK.value())
                 .and()
                 .body("name", is("first"))
                 .body("_links.all-accounts.href",
@@ -123,11 +124,10 @@ class ManagementRestControllerTest {
                         .activateAccount(true, 1L))
                 .willReturn(getAccounts().get(0));
 
-        given()
-                .when()
+        when()
                 .put(urlWithId)
-                .then()
-                .statusCode(200)
+        .then()
+                .statusCode(OK.value())
                 .and()
                 .body("name", is("first"))
                 .body("enabled", is(true));
@@ -141,11 +141,10 @@ class ManagementRestControllerTest {
                         .deleteAccount(1L))
                 .willReturn(getAccounts().get(0));
 
-        given()
-                .when()
+       when()
                 .delete(urlWithId)
-                .then()
-                .statusCode(200)
+       .then()
+                .statusCode(OK.value())
                 .and()
                 .body("name", is("first"));
     }
@@ -162,11 +161,10 @@ class ManagementRestControllerTest {
                         .promoteAccount(2L))
                 .willReturn(user);
 
-        given()
-                .when()
+       when()
                 .post(urlWithIdAndRoles)
-                .then()
-                .statusCode(200)
+       .then()
+                .statusCode(OK.value())
                 .and()
                 .body("name", is("second"))
                 .body("roles", hasSize(2));
@@ -180,11 +178,10 @@ class ManagementRestControllerTest {
                         .demoteAccount(2L))
                 .willReturn(getAccounts().get(1));
 
-        given()
-                .when()
+        when()
                 .delete(urlWithIdAndRoles)
-                .then()
-                .statusCode(200)
+        .then()
+                .statusCode(OK.value())
                 .and()
                 .body("name", is("second"))
                 .body("roles", hasSize(1));

@@ -29,9 +29,9 @@ public class AuthenticationRestController {
 
         var user = userService.verifyLogging();
         user.add(linkTo(methodOn(MenuRestController.class)
-                .getRecipes(new PreferencesDTO())).withRel("get recipes"));
+                .getRecipes(new PreferencesDTO())).withRel("get_recipes"));
         user.add(linkTo(methodOn(MenuRestController.class)
-                .getMealPlan(new PlanPreferencesDTO())).withRel("generate meal-plan"));
+                .getMealPlan(new PlanPreferencesDTO())).withRel("generate_meal-plan"));
 
         return ResponseEntity.ok(user);
     }
@@ -41,8 +41,8 @@ public class AuthenticationRestController {
         var user = userService.createUser(register);
 
         user.add(linkTo(methodOn(this.getClass())
-                .logIn()).withRel("login here"));
+                .logIn()).withRel("login_here"));
 
-        return ResponseEntity.ok(register);
+        return ResponseEntity.ok(user);
     }
 }

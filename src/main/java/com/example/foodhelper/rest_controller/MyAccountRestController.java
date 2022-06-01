@@ -28,23 +28,22 @@ public class MyAccountRestController {
         var user = userService.getLoggedUserAsDto();
 
         user.add(linkTo(methodOn(MenuRestController.class)
-                .getRecipes(new PreferencesDTO())).withRel("get recipes"));
+                .getRecipes(new PreferencesDTO())).withRel("get_recipes"));
         user.add(linkTo(methodOn(MenuRestController.class)
-                .getMealPlan(new PlanPreferencesDTO())).withRel("generate meal-plan"));
+                .getMealPlan(new PlanPreferencesDTO())).withRel("generate_meal-plan"));
 
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/intolerances")
     public ResponseEntity<UserShowDTO> addIntolerance(@RequestBody IntoleranceDTO intoleranceDto) {
-        var addedIntolerance =
                 userService.addIntolerance(intoleranceDto);
         return ResponseEntity.ok(userService.getLoggedUserAsDto());
     }
 
     @DeleteMapping("/intolerances/{id}")
-    public ResponseEntity<UserShowDTO> deleteIntolerance(@PathVariable Long id) {
-        var intolerance = userService.removeIntoleranceById(id);
+    public ResponseEntity<UserShowDTO> removeIntolerance(@PathVariable Long id) {
+        userService.removeIntoleranceById(id);
         return ResponseEntity.ok(userService.getLoggedUserAsDto());
     }
 }

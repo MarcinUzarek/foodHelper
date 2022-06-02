@@ -1,0 +1,36 @@
+spring:
+    profiles:
+        active: dev
+    liquibase:
+        change-log: classpath:liquibase-changelog.xml
+    mail:
+        host: smtp.gmail.com
+        username: marcin.foodapp@gmail.com
+        password: passwordformyapp
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    port: 587
+                    starttls:
+                        enable: true
+                transport:
+                    protocol: smtp
+erver:
+    error:
+        whitelabel:
+            enabled: false
+
+---
+
+spring:
+    profiles:
+        dev
+    datasource:
+        password: A.123456
+        url: jdbc:mysql://localhost:3306/food_helper
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        show-sql: true

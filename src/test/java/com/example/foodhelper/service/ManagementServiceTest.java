@@ -1,12 +1,9 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.TestDataSample;
-import com.example.foodhelper.mapper.Mapper;
-import com.example.foodhelper.model.Intolerance;
+import com.example.foodhelper.utils.Mapper;
 import com.example.foodhelper.model.Role;
-import com.example.foodhelper.model.User;
 import com.example.foodhelper.repository.UserRepository;
-import liquibase.pro.packaged.R;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

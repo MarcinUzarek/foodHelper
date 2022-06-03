@@ -1,16 +1,14 @@
-package com.example.foodhelper.mapper;
+package com.example.foodhelper.utils.mapper;
 
 import com.example.foodhelper.TestDataSample;
-import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
+import com.example.foodhelper.utils.Mapper;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;

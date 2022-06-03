@@ -7,7 +7,7 @@ import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.service.UserService;
-import com.example.foodhelper.user_details.UserDetailsServiceImpl;
+import com.example.foodhelper.model.user_details.UserDetailsServiceImpl;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;

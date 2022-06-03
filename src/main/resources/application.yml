@@ -1,0 +1,63 @@
+spring:
+    profiles:
+        active: dev
+    liquibase:
+        change-log: classpath:liquibase-changelog.xml
+    mail:
+        host: smtp.gmail.com
+        username: marcin.foodapp@gmail.com
+        password: passwordformyapp
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    port: 587
+                    starttls:
+                        enable: true
+                transport:
+                    protocol: smtp
+
+resilience4j.circuitbreaker:
+    configs:
+        default:
+            slidingWindowSize: 10
+            permittedNumberOfCallsInHalfOpenState: 10
+            waitDurationInOpenState: 10s
+            failureRateThreshold: 60
+            minimumNumberOfCalls: 3
+            eventConsumerBufferSize: 3
+            automaticTransitionFromOpenToHalfOpenEnabled: true
+            registerHealthIndicator: true
+            ignoreExceptions:
+                - org.springframework.security.access.AccessDeniedException
+
+management:
+    health:
+        circuitbreakers:
+            enabled: true
+        endpoints:
+            web:
+                exposure:
+                    include: health
+        endpoint:
+            health:
+                show-details: when-authorized
+
+server:
+    error:
+        whitelabel:
+            enabled: false
+
+---
+
+spring:
+    profiles:
+        dev
+    datasource:
+        password: A.123456
+        url: jdbc:mysql://localhost:3306/food_helper
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        show-sql: true

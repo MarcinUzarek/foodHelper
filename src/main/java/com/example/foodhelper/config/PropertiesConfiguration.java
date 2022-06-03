@@ -1,4 +1,4 @@
-package com.example.foodhelper;
+package com.example.foodhelper.config;
 
 import lombok.Getter;
 import lombok.Setter;

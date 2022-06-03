@@ -1,8 +1,7 @@
-package com.example.foodhelper.user_details;
+package com.example.foodhelper.model.user_details;
 
 import com.example.foodhelper.model.User;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

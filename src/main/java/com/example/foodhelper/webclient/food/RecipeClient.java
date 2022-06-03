@@ -13,11 +13,15 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class RecipeClient {
 
-    private final RestTemplate restTemplate = new RestTemplate();
     private static final String API_RECIPE_URL = "https://api.spoonacular.com/recipes/";
     private static final String API_URL = "https://api.spoonacular.com/";
     private static final String API_COMPLEX_URL = "complexSearch";
     private static final String API_KEY = "b704f2d913414eda8c6e67cf34f7001a";
+    private final RestTemplate restTemplate;
+
+    public RecipeClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public ComplexSearchDTO recipeComplexSearch(PreferencesDTO preferencesDTO) {
         return restTemplate.getForObject(API_RECIPE_URL + API_COMPLEX_URL + "?apiKey=" + API_KEY +
@@ -37,7 +41,7 @@ public class RecipeClient {
     public MealPlanDTO getMealPlan(PlanPreferencesDTO planPreferences) {
 
         return restTemplate.getForObject(API_URL + "mealplanner/generate?apiKey=" + API_KEY +
-                "&timeFrame=day&targetCalories={targetKcal}&diet={diet}",
+                        "&timeFrame=day&targetCalories={targetKcal}&diet={diet}",
                 MealPlanDTO.class,
                 planPreferences.getTargetCalories(),
                 planPreferences.getDiet());

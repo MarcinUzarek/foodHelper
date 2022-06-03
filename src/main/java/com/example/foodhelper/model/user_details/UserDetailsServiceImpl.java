@@ -1,4 +1,4 @@
-package com.example.foodhelper.user_details;
+package com.example.foodhelper.model.user_details;
 
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.repository.UserRepository;

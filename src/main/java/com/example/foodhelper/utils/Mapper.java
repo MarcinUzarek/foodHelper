@@ -1,4 +1,4 @@
-package com.example.foodhelper.mapper;
+package com.example.foodhelper.utils;
 
 import com.example.foodhelper.model.Role;
 import com.example.foodhelper.model.User;

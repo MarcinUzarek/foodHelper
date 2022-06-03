@@ -30,8 +30,8 @@ public class MenuController {
     }
 
     @PostMapping("meal-list")
-    String fillPreferences(@Valid @ModelAttribute("preferencesDTO") PreferencesDTO preferencesDto,
-                           BindingResult bindingResult, Model model) {
+    String findRecipe(@Valid @ModelAttribute("preferencesDTO") PreferencesDTO preferencesDto,
+                      BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "index";

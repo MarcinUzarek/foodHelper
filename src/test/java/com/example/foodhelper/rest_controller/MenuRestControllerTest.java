@@ -126,6 +126,8 @@ class MenuRestControllerTest {
                 .body("nutrients.calories", is(2500.0F));
     }
 
+    @Test
+
     private ComplexSearchDTO getRecipes() {
         var complexSearchDTO = new ComplexSearchDTO();
         List<ComplexSearchResultDTO>  results = new ArrayList<>();

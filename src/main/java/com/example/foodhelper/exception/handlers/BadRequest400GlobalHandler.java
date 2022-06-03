@@ -18,7 +18,7 @@ public class BadRequest400GlobalHandler {
 
     private final HttpStatus BAD_REQUEST = HttpStatus.BAD_REQUEST;
 
-    @ExceptionHandler(HttpClientErrorException.class)
+    @ExceptionHandler(HttpClientErrorException.BadRequest.class)
     @ResponseBody
     public ResponseEntity<ExceptionDetails> handleHttpClientException(HttpClientErrorException e) {
         log.info("Http Client error: " + e.toString());

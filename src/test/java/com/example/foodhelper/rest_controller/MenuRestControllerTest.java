@@ -9,6 +9,7 @@ import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchRes
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealInfoDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealNutrientsDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
+import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,17 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @WebMvcTest(MenuRestController.class)
 class MenuRestControllerTest {
@@ -127,6 +128,47 @@ class MenuRestControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"USER"})
+    void should_throw_when_trying_to_get_recipe_which_does_not_exist() {
+        BDDMockito.given(recipeService.recipeById(1))
+                .willThrow(HttpClientErrorException.NotFound.class);
+
+        when()
+                .get(basicUrl + "/recipes/1")
+                .then()
+                .statusCode(NOT_FOUND.value())
+                .body("status", is("NOT_FOUND"))
+                .body("message", is("Recipe with this ID does not exist"));
+    }
+
+    @Test
+    @WithMockUser(authorities = {"USER"})
+    void should_return_recipe_with_given_id() {
+        var recipe = new RecipeDTO();
+        recipe.setImage("photo");
+        recipe.setSpoonacularSourceUrl("recipeLink");
+
+        BDDMockito.given(recipeService.recipeById(1))
+                .willReturn(recipe);
+
+        when()
+                .get(basicUrl + "/recipes/1")
+                .then()
+                .statusCode(OK.value())
+                .body("image", is("photo"))
+                .body("spoonacularSourceUrl", is("recipeLink"));
+    }
+
+    @Test
+    void should_throw_when_getting_recipe_without_user_role() {
+        given()
+                .auth().none()
+                .when()
+                .get(basicUrl + "/recipes/1")
+                .then()
+                .statusCode(FORBIDDEN.value())
+                .body("status", is("FORBIDDEN"));
+    }
 
     private ComplexSearchDTO getRecipes() {
         var complexSearchDTO = new ComplexSearchDTO();

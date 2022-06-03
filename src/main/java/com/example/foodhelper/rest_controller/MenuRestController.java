@@ -38,17 +38,18 @@ public class MenuRestController {
         return ResponseEntity.ok(complexSearchDTO);
     }
 
+    @GetMapping("/recipes/{id}")
+    @CircuitBreaker(name = apiErrorCircuitBreaker, fallbackMethod = "emergencyRecipe")
+    public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable int id) {
+        var recipe = recipeService.recipeById(id);
+        return ResponseEntity.ok(recipe);
+    }
+
     @GetMapping("/plans")
     @CircuitBreaker(name = apiErrorCircuitBreaker, fallbackMethod = "emergencyMealPlan")
     public ResponseEntity<MealPlanDTO> getMealPlan(@RequestBody PlanPreferencesDTO plan) {
         var mealPlan = recipeService.getMealPlan(plan);
         return ResponseEntity.ok(mealPlan);
-    }
-
-    @GetMapping("/recipes/{id}")
-    public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable int id) {
-        var recipe = recipeService.recipeById(id);
-        return ResponseEntity.ok(recipe);
     }
 
     public ResponseEntity<ComplexSearchDTO> emergencyRecipes(Exception e) {
@@ -65,6 +66,14 @@ public class MenuRestController {
         complexSearch.setResults(results);
         log.warn("Fallback method has been invoked, " + e);
         return ResponseEntity.ok(complexSearch);
+    }
+
+    public ResponseEntity<RecipeDTO> emergencyRecipe(Exception e) {
+        handleAccessDeniedException(e);
+
+        var recipe = new RecipeDTO();
+        recipe.setSpoonacularSourceUrl("https://spoonacular.com/");
+        return ResponseEntity.ok(recipe);
     }
 
     public ResponseEntity<MealPlanDTO> emergencyMealPlan(Exception e) {

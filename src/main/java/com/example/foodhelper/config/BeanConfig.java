@@ -25,7 +25,7 @@ public class BeanConfig {
                 = new SimpleClientHttpRequestFactory();
 
         clientHttpRequestFactory.setConnectTimeout(200);
-        clientHttpRequestFactory.setReadTimeout(1300);
+        clientHttpRequestFactory.setReadTimeout(2000);
 
         return clientHttpRequestFactory;
     }

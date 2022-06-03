@@ -8,15 +8,13 @@ import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchRes
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealInfoDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealNutrientsDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
+import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -47,6 +45,12 @@ public class MenuRestController {
         return ResponseEntity.ok(mealPlan);
     }
 
+    @GetMapping("/recipes/{id}")
+    public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable int id) {
+        var recipe = recipeService.recipeById(id);
+        return ResponseEntity.ok(recipe);
+    }
+
     public ResponseEntity<ComplexSearchDTO> emergencyRecipes(Exception e) {
         handleAccessDeniedException(e);
 
@@ -55,7 +59,6 @@ public class MenuRestController {
 
         var first = new ComplexSearchResultDTO();
         first.setTitle("testTitle");
-        first.setId(1);
         first.setImage("image");
         results.add(first);
 

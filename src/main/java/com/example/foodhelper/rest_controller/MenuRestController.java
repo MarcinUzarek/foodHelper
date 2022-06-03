@@ -5,6 +5,8 @@ import com.example.foodhelper.model.dto.PreferencesDTO;
 import com.example.foodhelper.service.RecipeService;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchResultDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealInfoDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealNutrientsDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
@@ -39,13 +41,13 @@ public class MenuRestController {
     }
 
     @GetMapping("/plans")
+    @CircuitBreaker(name = apiErrorCircuitBreaker, fallbackMethod = "emergencyMealPlan")
     public ResponseEntity<MealPlanDTO> getMealPlan(@RequestBody PlanPreferencesDTO plan) {
         var mealPlan = recipeService.getMealPlan(plan);
         return ResponseEntity.ok(mealPlan);
     }
 
     public ResponseEntity<ComplexSearchDTO> emergencyRecipes(Exception e) {
-
         handleAccessDeniedException(e);
 
         var complexSearch = new ComplexSearchDTO();
@@ -58,12 +60,37 @@ public class MenuRestController {
         results.add(first);
 
         complexSearch.setResults(results);
-        log.warn("Fallback method has been invoked");
+        log.warn("Fallback method has been invoked, " + e);
         return ResponseEntity.ok(complexSearch);
     }
 
-    public ResponseEntity<MealPlanDTO> emergencyMealPlan(Error e) {
-        return null;
+    public ResponseEntity<MealPlanDTO> emergencyMealPlan(Exception e) {
+        handleAccessDeniedException(e);
+
+        MealPlanDTO mealPlan = new MealPlanDTO();
+
+        var meals = new ArrayList<MealInfoDTO>();
+        var first = new MealInfoDTO();
+        var second = new MealInfoDTO();
+        var third = new MealInfoDTO();
+        first.setTitle("first meal");
+        second.setTitle("second meal");
+        third.setTitle("third meal");
+
+        meals.add(first);
+        meals.add(second);
+        meals.add(third);
+
+        var nutrients = new MealNutrientsDTO();
+        nutrients.setCalories(2000);
+        nutrients.setCarbohydrates(100);
+        nutrients.setFat(50);
+        nutrients.setProtein(100);
+
+        mealPlan.setMeals(meals);
+        mealPlan.setNutrients(nutrients);
+        log.warn("Fallback method has been invoked, " + e);
+        return ResponseEntity.ok(mealPlan);
     }
 
     private void handleAccessDeniedException(Exception e) {

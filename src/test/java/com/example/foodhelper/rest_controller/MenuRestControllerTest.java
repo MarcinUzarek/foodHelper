@@ -3,7 +3,7 @@ package com.example.foodhelper.rest_controller;
 import com.example.foodhelper.model.dto.PlanPreferencesDTO;
 import com.example.foodhelper.model.dto.PreferencesDTO;
 import com.example.foodhelper.service.RecipeService;
-import com.example.foodhelper.user_details.UserDetailsServiceImpl;
+import com.example.foodhelper.model.user_details.UserDetailsServiceImpl;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchResultDTO;
 import com.example.foodhelper.webclient.food.mealPlannerDTO.MealInfoDTO;

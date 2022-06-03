@@ -14,7 +14,7 @@ import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.repository.UserRepository;
-import com.example.foodhelper.user_details.UserDetailsImpl;
+import com.example.foodhelper.model.user_details.UserDetailsImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

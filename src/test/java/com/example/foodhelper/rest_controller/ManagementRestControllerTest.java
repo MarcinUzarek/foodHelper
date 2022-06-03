@@ -3,7 +3,7 @@ package com.example.foodhelper.rest_controller;
 import com.example.foodhelper.model.Role;
 import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.service.ManagementService;
-import com.example.foodhelper.user_details.UserDetailsServiceImpl;
+import com.example.foodhelper.model.user_details.UserDetailsServiceImpl;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

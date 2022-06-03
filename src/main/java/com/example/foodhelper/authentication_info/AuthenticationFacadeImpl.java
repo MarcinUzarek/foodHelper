@@ -2,7 +2,7 @@ package com.example.foodhelper.authentication_info;
 
 
 import com.example.foodhelper.exception.custom.UserNotLoggedException;
-import com.example.foodhelper.user_details.UserDetailsImpl;
+import com.example.foodhelper.model.user_details.UserDetailsImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

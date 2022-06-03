@@ -1,4 +1,4 @@
-package com.example.foodhelper.user_details;
+package com.example.foodhelper.model.user_details;
 
 import com.example.foodhelper.TestDataSample;
 import com.example.foodhelper.repository.UserRepository;
@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)

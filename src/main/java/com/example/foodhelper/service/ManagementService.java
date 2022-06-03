@@ -1,7 +1,7 @@
 package com.example.foodhelper.service;
 
 import com.example.foodhelper.exception.custom.UserNotFoundException;
-import com.example.foodhelper.mapper.Mapper;
+import com.example.foodhelper.utils.Mapper;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.ManagementDTO;
 import com.example.foodhelper.repository.TokenRepository;

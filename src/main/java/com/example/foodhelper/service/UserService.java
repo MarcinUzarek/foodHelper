@@ -1,9 +1,9 @@
 package com.example.foodhelper.service;
 
-import com.example.foodhelper.authentication_info.AuthenticationFacade;
+import com.example.foodhelper.utils.authentication_info.AuthenticationFacade;
 import com.example.foodhelper.exception.custom.*;
 import com.example.foodhelper.mail.MailFacade;
-import com.example.foodhelper.mapper.Mapper;
+import com.example.foodhelper.utils.Mapper;
 import com.example.foodhelper.model.Intolerance;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.model.dto.IntoleranceDTO;
@@ -11,12 +11,10 @@ import com.example.foodhelper.model.dto.ResetPasswordDTO;
 import com.example.foodhelper.model.dto.UserRegisterDTO;
 import com.example.foodhelper.model.dto.UserShowDTO;
 import com.example.foodhelper.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Optional;
 
 

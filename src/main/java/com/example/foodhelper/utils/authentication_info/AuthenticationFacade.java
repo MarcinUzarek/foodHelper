@@ -1,4 +1,4 @@
-package com.example.foodhelper.authentication_info;
+package com.example.foodhelper.utils.authentication_info;
 
 import com.example.foodhelper.model.user_details.UserDetailsImpl;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,4 @@
-package com.example.foodhelper.authentication_info;
+package com.example.foodhelper.utils.authentication_info;
 
 
 import com.example.foodhelper.exception.custom.UserNotLoggedException;

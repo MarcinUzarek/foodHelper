@@ -16,7 +16,34 @@ spring:
                         enable: true
                 transport:
                     protocol: smtp
-erver:
+
+resilience4j.circuitbreaker:
+    configs:
+        default:
+            slidingWindowSize: 10
+            permittedNumberOfCallsInHalfOpenState: 10
+            waitDurationInOpenState: 10s
+            failureRateThreshold: 60
+            minimumNumberOfCalls: 3
+            eventConsumerBufferSize: 3
+            automaticTransitionFromOpenToHalfOpenEnabled: true
+            registerHealthIndicator: true
+            ignoreExceptions:
+                - org.springframework.security.access.AccessDeniedException
+
+management:
+    health:
+        circuitbreakers:
+            enabled: true
+        endpoints:
+            web:
+                exposure:
+                    include: health
+        endpoint:
+            health:
+                show-details: when-authorized
+
+server:
     error:
         whitelabel:
             enabled: false

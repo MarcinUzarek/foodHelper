@@ -1,6 +1,7 @@
 package com.example.foodhelper.webclient;
 
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
+import com.example.foodhelper.webclient.food.mealPlannerDTO.MealPlanDTO;
 import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterEach;
@@ -14,11 +15,19 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.SocketTimeoutException;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ApiIntegrationTest {
 
@@ -124,7 +133,22 @@ public class ApiIntegrationTest {
         //when then
         assertThrows(HttpClientErrorException.NotFound.class,
                 () -> restTemplate.getForObject(wireMockServer.baseUrl() + "/recipes/1234567890",
-                                RecipeDTO.class));
+                        RecipeDTO.class));
+    }
+
+    @Test
+    void getting_meal_plan_should_timeout() {
+        //given
+        stubFor(get("/plans").willReturn(aResponse()
+                .withFixedDelay(3000)));
+
+        //when then
+        try {
+            restTemplate.getForObject(wireMockServer.baseUrl() + "/plans",
+                    MealPlanDTO.class);
+        } catch (Exception e) {
+            assertInstanceOf(SocketTimeoutException.class, e.getCause());
+        }
     }
 
 

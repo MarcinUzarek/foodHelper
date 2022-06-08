@@ -1,6 +1,7 @@
 package com.example.foodhelper.webclient;
 
 import com.example.foodhelper.webclient.food.complex_search_dto.ComplexSearchDTO;
+import com.example.foodhelper.webclient.food.recipe_dto.RecipeDTO;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +18,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ApiIntegrationTest {
 
@@ -78,6 +78,40 @@ public class ApiIntegrationTest {
                 () -> restTemplate.getForEntity(wireMockServer.baseUrl() + "/recipes",
                         ComplexSearchDTO.class));
     }
+
+    @Test
+    void should_throw_SocketTimeOut_when_getting_recipe_by_id_not_responding() {
+        //given
+        stubFor(get("/recipes/5").willReturn(aResponse()
+                .withFixedDelay(2010)));
+
+        //when then
+        try {
+            restTemplate.getForObject(wireMockServer.baseUrl() + "/recipes/5",
+                    ComplexSearchDTO.class);
+        } catch (Exception e) {
+            assertInstanceOf(SocketTimeoutException.class, e.getCause());
+        }
+    }
+
+    @Test
+    void correct_request_should_return_recipe_with_given_id() {
+
+        stubFor(get("/recipes/5")
+                .willReturn(okJson("""
+                        {
+                        "spoonacularSourceUrl" : "link",
+                        "image" : "image"
+                        }
+                        """)));
+
+        var result = restTemplate.getForEntity(wireMockServer.baseUrl() + "/recipes/5",
+                RecipeDTO.class);
+        assertThat(result.getStatusCode(), is(HttpStatus.OK));
+        assertThat(result.getBody().getImage(), is("image"));
+        assertThat(result.getBody().getSpoonacularSourceUrl(), is("link"));
+    }
+
 
 
     private SimpleClientHttpRequestFactory getClientHttpRequestFactory() {

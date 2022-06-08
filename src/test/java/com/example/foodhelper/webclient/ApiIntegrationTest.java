@@ -96,7 +96,7 @@ public class ApiIntegrationTest {
 
     @Test
     void correct_request_should_return_recipe_with_given_id() {
-
+        //given
         stubFor(get("/recipes/5")
                 .willReturn(okJson("""
                         {
@@ -104,14 +104,28 @@ public class ApiIntegrationTest {
                         "image" : "image"
                         }
                         """)));
-
+        //when
         var result = restTemplate.getForEntity(wireMockServer.baseUrl() + "/recipes/5",
                 RecipeDTO.class);
+
+        //then
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().getImage(), is("image"));
         assertThat(result.getBody().getSpoonacularSourceUrl(), is("link"));
     }
 
+    @Test
+    void should_return_404_not_found_when_id_not_existing() {
+        //given
+        stubFor(get("/recipes/1234567890")
+                .willReturn(aResponse()
+                        .withStatus(404)));
+
+        //when then
+        assertThrows(HttpClientErrorException.NotFound.class,
+                () -> restTemplate.getForObject(wireMockServer.baseUrl() + "/recipes/1234567890",
+                                RecipeDTO.class));
+    }
 
 
     private SimpleClientHttpRequestFactory getClientHttpRequestFactory() {

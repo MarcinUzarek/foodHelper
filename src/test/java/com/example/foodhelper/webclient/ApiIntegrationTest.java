@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.SocketUtils;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.SocketTimeoutException;
@@ -149,6 +150,16 @@ public class ApiIntegrationTest {
         } catch (Exception e) {
             assertInstanceOf(SocketTimeoutException.class, e.getCause());
         }
+    }
+
+    @Test
+    void should_throw_when_no_request_body_for_meal_plan() {
+        stubFor(get("/plans").willReturn(aResponse()
+                .withStatus(500)));
+
+        assertThrows(HttpServerErrorException.InternalServerError.class,
+                () -> restTemplate.getForEntity(wireMockServer.baseUrl() + "/plans",
+                        ComplexSearchDTO.class));
     }
 
 

@@ -1,0 +1,23 @@
+version: "3"
+services:
+  app:
+    build: ./
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+      - "SLEEP_LENGTH=15"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+  database:
+    container_name: "database"
+    image: mysql
+    environment:
+      MYSQL_PASSWORD: A.123456
+      MYSQL_ROOT_PASSWORD: A.123456
+      MYSQL_DATABASE: food_helper
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    restart: always

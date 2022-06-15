@@ -11,6 +11,8 @@ services:
       - "3306:3306"
     restart: always
   springboot-backend:
+    environment:
+      - "SPRING_PROFILES_ACTIVE=test"
     restart: on-failure
     ports:
       - "8080:8080"

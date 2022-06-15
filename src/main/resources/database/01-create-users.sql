@@ -1,6 +1,8 @@
 --liquibase formatted sql
 --changeset marcinUzarek:1
 
+CREATE DATABASE IF NOT EXISTS `food_helper`;
+
 CREATE TABLE users (
   id bigint NOT NULL AUTO_INCREMENT,
   creation_time date DEFAULT NULL,

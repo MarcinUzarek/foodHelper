@@ -1,4 +1,4 @@
-FROM openjdk:17-oracle
+FROM openjdk:17.0-jdk
 ADD target/foodHelper-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080
-CMD java -jar foodHelper-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "foodHelper-0.0.1-SNAPSHOT.jar"]

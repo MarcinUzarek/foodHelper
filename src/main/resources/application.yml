@@ -22,9 +22,6 @@ spring:
                         enable: true
                 transport:
                     protocol: smtp
-java:
-    runtime:
-        version: 17
 
 resilience4j.circuitbreaker:
     configs:

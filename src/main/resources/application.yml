@@ -8,11 +8,12 @@ spring:
             hibernate:
                 ddl-auto: validate
     liquibase:
-        change-log: classpath:liquibase-changelog.xml
+        enabled: false
+#        change-log: classpath:liquibase-changelog.xml
     mail:
         host: smtp.gmail.com
         username: marcin.foodapp@gmail.com
-        password: otnfgbkroausavxu
+        password: xcmqrgxoemrzbwpy
         properties:
             mail:
                 smtp:

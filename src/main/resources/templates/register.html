@@ -28,7 +28,7 @@
         </div>
         <div class="login-form">
             <form th:action="@{/register}" th:object="${registration}" method="post">
-                <input class="login-input" type="text" name="name" placeholder="name" th:errorclass="border-error-shadow">
+                <input class="login-input" type="text" name="name" placeholder="name" th:errorclass="border-error">
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="invalid-input"></div>
                 <input class="login-input" type="text" name="email" placeholder="e-mail" th:errorclass="border-error">
                 <p th:text="${emailDuplicate}" th:class="invalid-input"></p>

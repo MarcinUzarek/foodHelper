@@ -19,7 +19,7 @@ public class Forbidden403GlobalHandler {
 
     private final HttpStatus FORBIDDEN = HttpStatus.FORBIDDEN;
 
-    @ExceptionHandler(AccessDeniedException.class)
+//    @ExceptionHandler(AccessDeniedException.class)
     @ResponseBody
     public ResponseEntity<ExceptionDetails> handleAccessDenied(AccessDeniedException e) {
         var exc = new ExceptionDetails(ZonedDateTime.now(),

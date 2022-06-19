@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/")
@@ -55,5 +56,10 @@ public class ForgotPasswordController {
     @ExceptionHandler(DifferentPasswordsException.class)
     public String handleDifferentPasswordExceptionLocally() {
         return "redirect:/new-pass";
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoEmailFoundLocally() {
+        return "redirect:/forgot-password";
     }
 }

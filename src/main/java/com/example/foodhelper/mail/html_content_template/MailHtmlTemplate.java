@@ -6,10 +6,10 @@ public class MailHtmlTemplate {
 
         return
                 "<h2>Welcome</h2>" +
-                        "<h3>HI</h3>" +
+                        "<h3>Thanks for signing up! Have fun using app.</h3>" +
                         "<form action='" + link + "' method='post'>" +
                         "<input type='hidden' name='value' value='" + token + "'>" +
-                        "<button type='submit'>Go</button>" +
+                        "<button type='submit'>Activate account</button>" +
                         "</form>";
 
     }
@@ -17,7 +17,7 @@ public class MailHtmlTemplate {
     public String getHtmlPassReset(String link, String token) {
 
         return
-                "<h2>Working great</h2>" +
+                "<h2>Change your password</h2>" +
                         "<h3>HI</h3>" +
                         "<form action='" + link + "' method='get'>" +
                         "<input type='hidden' name='token' value='" + token + "'>" +

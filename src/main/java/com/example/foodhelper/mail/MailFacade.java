@@ -37,7 +37,7 @@ public class MailFacade {
     public void sendLinkToResetPass(String email) {
         Token token = tokenService.findTokenByEmail(email);
         try {
-            mailService.sendMail(email, "Change Password", "false",
+            mailService.sendMail(email, "Change Password", "",
                     template.getHtmlPassReset(FORGOT_PASS_URL, token.getValue()));
         } catch (MessagingException e) {
             e.printStackTrace();

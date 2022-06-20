@@ -56,6 +56,9 @@ server:
         whitelabel:
             enabled: false
 
+api-key:
+    spoonacularValue: ${SPOONACULAR_KEY}
+
 ---
 
 spring:

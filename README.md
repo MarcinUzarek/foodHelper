@@ -1,5 +1,4 @@
 # foodHelper
-<script src="https://kit.fontawesome.com/693c25552b.js" crossorigin="anonymous"></script>
 
 This app was built to make it easier to find unusual recipes
 and generate diets, everything based on our preferences.
@@ -11,6 +10,7 @@ If for some reason you don't want to use your email, you can just simply use
 these credentials to log in to a test account and make use of my work:
 
 email: foodhelp3r@gmail.com
+
 password: password
 
 You can find the website under this link: https://food-help3r.herokuapp.com/

@@ -1,13 +1,13 @@
 # foodHelper
 
-This app was built to make it easier to find recipes
-or generate diets, everything based on our preferences.
+This app was built to make it easier to find unusual recipes
+and generate diets, everything based on our preferences.
 
 To you this app you have to sing up and verify your 
 account with email.
 
 If for some reason you don't want to use your email, you can just simply use
-these credentials to log in and make use of my work:
+these credentials to log in to a test account and make use of my work:
 
 email: foodhelp3r@gmail.com
 password: password

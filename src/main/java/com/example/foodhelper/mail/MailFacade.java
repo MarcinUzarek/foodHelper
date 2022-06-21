@@ -4,6 +4,7 @@ import com.example.foodhelper.mail.html_content_template.MailHtmlTemplate;
 import com.example.foodhelper.model.Token;
 import com.example.foodhelper.model.User;
 import com.example.foodhelper.service.TokenService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -11,19 +12,21 @@ import javax.mail.MessagingException;
 @Service
 public class MailFacade {
 
-    private final static String VERIFICATION_URL = "http://localhost:8080/token";
-    private final static String FORGOT_PASS_URL = "http://localhost:8080/new-pass";
+    private final String host;
     private final MailService mailService;
     private final TokenService tokenService;
     private final MailHtmlTemplate template = new MailHtmlTemplate();
 
 
-    public MailFacade(MailService mailService, TokenService tokenService) {
+    public MailFacade(@Value("${food-helper.host}") String host, MailService mailService, TokenService tokenService) {
+        this.host = host;
         this.mailService = mailService;
         this.tokenService = tokenService;
     }
 
     public void sendActivationEmail(User user) {
+        var VERIFICATION_URL = host + "/token";
+
         var tokenValue = tokenService
                 .findTokenByEmail(user.getEmail()).getValue();
         try {
@@ -35,6 +38,8 @@ public class MailFacade {
     }
 
     public void sendLinkToResetPass(String email) {
+        var FORGOT_PASS_URL = host + "/new-pass";
+
         Token token = tokenService.findTokenByEmail(email);
         try {
             mailService.sendMail(email, "Change Password", "",

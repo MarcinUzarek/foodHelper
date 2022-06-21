@@ -56,8 +56,9 @@ server:
         whitelabel:
             enabled: false
 
-api-key:
-    spoonacularValue: ${SPOONACULAR_KEY}
+food-helper:
+    spoonacularKeyValue: ${SPOONACULAR_KEY}
+    host: http://localhost:8080
 
 ---
 
@@ -67,3 +68,6 @@ spring:
             on-profile: prod
     datasource:
         url: jdbc:mysql://database:3306/food_helper?useTimezone=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+
+food-helper:
+    host: https://food-help3r.herokuapp.com

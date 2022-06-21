@@ -22,7 +22,7 @@ public class RecipeClient {
 
     private final String API_KEY_VALUE;
 
-    public RecipeClient(RestTemplate restTemplate, @Value("${api-key.spoonacularValue}") String API_KEY_VALUE) {
+    public RecipeClient(RestTemplate restTemplate, @Value("${food-helper.spoonacularKeyValue}") String API_KEY_VALUE) {
         this.restTemplate = restTemplate;
         this.API_KEY_VALUE = API_KEY_VALUE;
     }

@@ -32,7 +32,7 @@ public class ForgotPasswordController {
     @PostMapping("forgot-password")
     public String sendResetLink(@RequestParam String email) {
         mailFacade.sendLinkToResetPass(email);
-        return "forgot-pass";
+        return "reset-link-sent";
     }
 
     @GetMapping("new-pass")

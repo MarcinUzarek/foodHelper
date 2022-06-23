@@ -38,7 +38,7 @@ public class AuthenticationController {
             return "register";
         }
         userService.createUser(userDto);
-        return "register";
+        return "check-email";
     }
 
     @PostMapping("token")

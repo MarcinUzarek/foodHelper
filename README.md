@@ -7,13 +7,13 @@ To you this app you have to sing up and verify your
 account with email.
 
 If for some reason you don't want to use your email, you can just simply use
-these credentials to log in to a test account and make use of my work:
+these credentials to log in to a test account and try out the application:
 
 email: foodhelp3r@gmail.com
 
 password: password
 
-You can find the website under this link: https://food-help3r.herokuapp.com/
+You can find the website here: https://food-help3r.herokuapp.com/
 
 # Technologies used across the project:
 Backend:
